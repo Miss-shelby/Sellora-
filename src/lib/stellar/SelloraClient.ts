@@ -5,7 +5,6 @@
 import type { WalletTransactionSigner } from "./tx";
 import * as contractMethods from "./contractMethods";
 import { Server } from "@stellar/stellar-sdk/rpc";
-import { hashKey } from "../observability/sharedStore";
 import { getSourcePromptId } from "../prompts/remixAttribution";
 
 export interface SelloraConfig {
@@ -543,6 +542,10 @@ export class SelloraClient {
     limit: number = 10,
   ) {
     try {
+      if (!config.SelloraContractId || config.SelloraContractId.startsWith("CAAA")) {
+        return [];
+      }
+
       const server = new Server(config.rpcUrl, {
         allowHttp: config.allowHttp,
       });
