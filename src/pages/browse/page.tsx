@@ -136,32 +136,35 @@ export default function BrowsePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#0e0e13] text-[#fffaea] selection:bg-[#e96b34] selection:text-[#fffaea]">
       <Navigation />
 
       {/* Marketplace Header */}
-      <header className="relative overflow-hidden px-4 pb-12 pt-16 sm:px-6">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-emerald-500/10 blur-[120px] pointer-events-none" />
-
+      <header className="relative border-b border-[#27272a] px-4 pb-12 pt-16 sm:px-6">
         <div className="mx-auto max-w-7xl relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
             {/* Left Content */}
-            <div className="max-w-3xl flex flex-col items-center lg:items-start text-center lg:text-left mx-auto lg:mx-0">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-6xl mb-6 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent leading-[1.1]">
-                Discover Premium <br />
-                Prompt Licenses
+            <div className="max-w-3xl flex flex-col items-start text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#27272a] bg-[#09090b] mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#62f6b5]" />
+                <span className="font-mono text-[11px] uppercase tracking-console text-[#71717a]">
+                  PROMPT CATALOG // ENCRYPTED LICENSES
+                </span>
+              </div>
+
+              <h1 className="font-sans font-light text-4xl sm:text-6xl text-[#fffaea] tracking-tight-hero leading-[1.08] mb-4">
+                Verified Agent Workflows <br />
+                &amp; System Prompts
               </h1>
 
-              <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mb-8">
-                Secure, wallet-verified marketplace for high-performance AI
-                prompts. Own the license, settle in XLM, and unlock content
-                instantly.
+              <p className="text-[15px] font-normal text-[#71717a] leading-relaxed max-w-xl mb-6">
+                Browse cryptographically encapsulated AI prompts and multi-agent instructions. Direct wallet-verified execution licenses on Stellar.
               </p>
 
-              <div className="flex gap-4 justify-center lg:justify-start w-full">
-                <Button className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold h-12 px-8 rounded-xl">
-                  Start Exploring
-                </Button>
+              <div className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-console text-[#71717a]">
+                <span>SETTLEMENT: XLM</span>
+                <span>CIPHER: AES-GCM-256</span>
+                <span className="text-[#62f6b5]">FINALITY: ~1.2s</span>
               </div>
             </div>
 
@@ -173,7 +176,7 @@ export default function BrowsePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+      <main className="mx-auto max-w-7xl px-4 pt-10 pb-24 sm:px-6">
         {/* Recently Viewed */}
         <RecentlyViewedSection
           items={recentlyViewed}
@@ -182,19 +185,19 @@ export default function BrowsePage() {
         />
 
         {/* Curated Section */}
-        <div className="mb-16">
-          <FeaturedPrompts limit={4} title="Editor's Choice" />
+        <div className="mb-14">
+          <FeaturedPrompts limit={4} title="Featured Workflows" />
         </div>
 
         {/* Marketplace Grid System */}
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-72 shrink-0">
-            <div className="sticky top-24 p-6 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-xl">
-              <div className="flex items-center gap-2 mb-8">
-                <Filter className="h-4 w-4 text-emerald-400" />
-                <h2 className="text-sm font-semibold tracking-wide uppercase">
-                  Filters
+            <div className="sticky top-24 p-6 rounded-[5.6px] border border-[#27272a] bg-[#09090b]">
+              <div className="flex items-center gap-2 mb-6 pb-3 border-b border-[#27272a]">
+                <Filter className="h-4 w-4 text-[#e96b34]" />
+                <h2 className="font-mono text-[11px] uppercase tracking-console text-[#fffaea]">
+                  FILTER MATRIX
                 </h2>
               </div>
               <MarketplaceFilters
@@ -215,34 +218,34 @@ export default function BrowsePage() {
             </div>
           </aside>
 
-          <div className="flex-1 space-y-8">
+          <div className="flex-1 space-y-6">
             {/* Search bar */}
             <div className="flex items-stretch gap-3">
               <div className="relative flex-1 group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#71717a] group-focus-within:text-[#fffaea] transition-colors" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by title, creator, category, description, or tags..."
-                  className="h-14 pl-12 pr-4 rounded-2xl border-white/5 bg-white/[0.03] text-base placeholder:text-slate-500 focus-visible:ring-emerald-500/20 transition-all"
+                  placeholder="Search prompts by title, creator, category, or tags..."
+                  className="h-12 pl-11 pr-4 rounded-[5.6px] border-[#27272a] bg-[#09090b] text-[#fffaea] text-sm placeholder:text-[#71717a] focus-visible:ring-1 focus-visible:ring-[#e96b34] transition-all"
                 />
               </div>
               <div className="relative">
                 <Button
                   variant="outline"
                   onClick={() => setIsSavedSearchesOpen(true)}
-                  className="h-14 px-4 rounded-2xl border-white/10 bg-white/5 flex items-center gap-2 hover:border-emerald-500/40 text-slate-200"
+                  className="h-12 px-4 rounded-[5.6px] border-[#27272a] bg-[#09090b] flex items-center gap-2 hover:border-[#3f3f46] text-[#fffaea] font-mono text-[11px] uppercase tracking-console"
                   aria-label="Open saved searches and alerts"
                 >
-                  <Bookmark className="h-4 w-4 text-emerald-400" />
-                  <span className="hidden sm:inline text-sm font-semibold">Saved Searches</span>
+                  <Bookmark className="h-4 w-4 text-[#e96b34]" />
+                  <span className="hidden sm:inline">Saved</span>
                   {savedSearches.length > 0 && (
-                    <span className="bg-white/10 px-2 py-0.5 rounded-full text-xs font-mono">
+                    <span className="bg-[#18181b] px-1.5 py-0.5 rounded-[5.6px] text-[10px] font-mono">
                       {savedSearches.length}
                     </span>
                   )}
                   {unreadAlertCount > 0 && (
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-slate-950">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#e96b34] text-[9px] font-bold text-[#fffaea]">
                       {unreadAlertCount}
                     </span>
                   )}
@@ -252,14 +255,14 @@ export default function BrowsePage() {
               <div className="relative lg:hidden">
                 <Button
                   variant="outline"
-                  className="h-14 w-14 rounded-2xl border-white/10 bg-white/5"
+                  className="h-12 w-12 rounded-[5.6px] border-[#27272a] bg-[#09090b] text-[#fffaea]"
                   onClick={() => setIsFilterOpen(true)}
                   aria-label="Open filters"
                 >
-                  <Filter className="h-5 w-5" />
+                  <Filter className="h-4 w-4" />
                 </Button>
                 {activeFilterCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-slate-950 pointer-events-none">
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#e96b34] text-[9px] font-bold text-[#fffaea] pointer-events-none">
                     {activeFilterCount}
                   </span>
                 )}

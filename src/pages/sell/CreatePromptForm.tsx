@@ -414,15 +414,18 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
         )}
 
         {!isConfigured && (
-          <div className="rounded-2xl border border-amber-400/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 mb-4">
-            Connect your wallet and configure `PUBLIC_PROMPT_HASH_CONTRACT_ID`
-            plus `PUBLIC_UNLOCK_PUBLIC_KEY` before listing prompts.
+          <div className="rounded-[5.6px] border border-[#e96b34]/30 bg-[#e96b34]/10 px-4 py-3 font-mono text-xs text-[#fffaea] mb-4">
+            {!address
+              ? "Connect your wallet before listing prompts on Sellora."
+              : !browserStellarConfig.SelloraContractId || !unlockPublicKey
+                ? "Configure `PUBLIC_SELLORA_CONTRACT_ID` plus `PUBLIC_UNLOCK_PUBLIC_KEY` before listing prompts."
+                : "Connect your wallet and configure `PUBLIC_SELLORA_CONTRACT_ID` plus `PUBLIC_UNLOCK_PUBLIC_KEY` before listing prompts."}
           </div>
         )}
 
         {sessionGuard && (
-          <div className="mb-4 rounded-2xl border border-amber-400/40 bg-amber-500/10 p-4 text-sm text-amber-100">
-            <div className="flex items-center gap-2 font-medium text-amber-200">
+          <div className="mb-4 rounded-[5.6px] border border-[#e96b34]/40 bg-[#e96b34]/10 p-4 font-mono text-xs text-[#fffaea]">
+            <div className="flex items-center gap-2 font-medium text-[#e96b34]">
               <AlertCircle className="h-4 w-4" />
               {sessionGuard.kind === "network-changed"
                 ? "Draft saved on a different network"
@@ -430,7 +433,7 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
                   ? "Wallet disconnected with unsaved changes"
                   : "Draft saved under another wallet"}
             </div>
-            <p className="mt-1 text-xs text-amber-200/80">
+            <p className="mt-1 text-xs text-[#fffaea]/80">
               {sessionGuard.kind === "network-changed" && sessionGuard.draftNetwork
                 ? `This draft was saved on ${sessionGuard.draftNetwork}. Publishing it on ${network} could lock assets on the wrong network.`
                 : sessionGuard.kind === "wallet-disconnected"
@@ -444,7 +447,7 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
                 <Button
                   type="button"
                   size="sm"
-                  className="bg-amber-300 text-slate-950 hover:bg-amber-200"
+                  className="rounded-full bg-[#e96b34] text-black hover:bg-[#ff7a45] font-mono text-xs uppercase tracking-wider"
                   onClick={() => resolveSessionGuard("adopt")}
                 >
                   <Copy className="h-3.5 w-3.5" />
@@ -457,7 +460,7 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
                 type="button"
                 size="sm"
                 variant="outline"
-                className="border-white/20 text-amber-100 hover:bg-white/5"
+                className="rounded-full border-[#27272a] text-[#fffaea]/80 hover:bg-[#18181b] hover:text-[#fffaea] font-mono text-xs uppercase tracking-wider"
                 onClick={() => resolveSessionGuard("discard")}
               >
                 <Trash2 className="h-3.5 w-3.5" />

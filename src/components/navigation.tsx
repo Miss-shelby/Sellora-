@@ -19,59 +19,55 @@ import { useTranslation } from 'react-i18next';
 
 const linkClasses = ({ isActive }: { isActive: boolean }) =>
   [
-    "flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors",
+    "font-mono text-[12px] uppercase tracking-console transition-colors px-2 py-1",
     isActive
-      ? "bg-white/10 text-white"
-      : "text-slate-300 hover:bg-white/5 hover:text-white",
+      ? "text-[#fffaea] font-medium"
+      : "text-[#71717a] hover:text-[#fffaea]",
   ].join(" ");
 
 export function Navigation() {
   const { t } = useTranslation();
 
   const navItems = [
-    { to: "/browse", label: t('nav.browse'), icon: Search },
-    { to: "/sell", label: t('nav.sell'), icon: ShoppingBag },
-    { to: "/chat", label: t('nav.chat'), icon: MessageCircle },
-    { to: "/profile", label: t('nav.profile'), icon: User },
-    { to: "/status", label: t('nav.status'), icon: Activity },
+    { to: "/browse", label: "CATALOG" },
+    { to: "/sell", label: "PUBLISH" },
+    { to: "/chat", label: "AGENT TESTER" },
+    { to: "/profile", label: "VAULT" },
+    { to: "/status", label: "TELEMETRY" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[#27272a] bg-[#0e0e13]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-3">
-            <img
-              src="/images/logo.png"
-              alt="Sellora"
-              width={36}
-              height={36}
-              className="rounded-full border border-white/10 bg-white/5 p-1"
-            />
-            <div>
-              <div className="text-sm uppercase tracking-[0.28em] text-amber-300">
-                Sellora
-              </div>
-              <div className="text-xs text-slate-400">
-                Stellar testnet marketplace
-              </div>
-            </div>
+        <div className="flex items-center gap-10">
+          <Link to="/" className="flex items-center gap-2 group">
+            <span className="font-sans text-[18px] font-bold tracking-tight text-[#fffaea]">
+              SELLORA
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#62f6b5]" />
           </Link>
-          <nav className="hidden items-center gap-2 md:flex">
+
+          <nav className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => (
               <NavLink key={item.to} to={item.to} className={linkClasses}>
-                <item.icon className="h-4 w-4" />
                 {item.label}
               </NavLink>
             ))}
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <ThemeToggle />
           <BuyerNotificationCenter />
           <SellerNotificationCenter />
+
+          <Link
+            to="/sell"
+            className="hidden sm:inline-flex items-center gap-1 bg-[#e96b34] text-[#fffaea] rounded-full px-4 py-1.5 font-mono text-[11px] font-medium tracking-console uppercase hover:bg-[#d45823] transition-colors"
+          >
+            Publish Prompt →
+          </Link>
+
           <span data-tour="connect-wallet">
             <DisplayWallet />
           </span>
@@ -82,21 +78,22 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="border border-white/10 text-white hover:bg-white/10"
+              className="border border-[#27272a] text-[#fffaea] rounded-[5.6px] hover:bg-[#18181b]"
             >
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent className="border-white/10 bg-slate-950 text-white">
-            <div className="mt-8 space-y-3">
+          <SheetContent className="border-[#27272a] bg-[#0e0e13] text-[#fffaea]">
+            <div className="mt-8 space-y-4">
+              <div className="font-mono text-[11px] uppercase tracking-console text-[#71717a]">
+                CONSOLE NAVIGATION
+              </div>
               {navItems.map((item) => (
-                <NavLink key={item.to} to={item.to} className={linkClasses}>
-                  <item.icon className="h-4 w-4" />
+                <NavLink key={item.to} to={item.to} className="block py-2 font-mono text-[13px] tracking-console uppercase text-[#fffaea] hover:text-[#e96b34]">
                   {item.label}
                 </NavLink>
               ))}
-              <div className="flex items-center gap-2 border-t border-white/10 pt-4">
-                <ThemeToggle />
+              <div className="flex items-center gap-2 border-t border-[#27272a] pt-4">
                 <BuyerNotificationCenter />
                 <SellerNotificationCenter />
                 <DisplayWallet />

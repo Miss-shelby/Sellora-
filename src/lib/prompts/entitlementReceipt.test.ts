@@ -62,7 +62,7 @@ describe("fetchPurchaseReceipt — issue #490", () => {
       "fetch",
       vi.fn().mockResolvedValue(
         new Response(
-          JSON.stringify({ error: "PUBLIC_PROMPT_HASH_CONTRACT_ID is not configured." }),
+          JSON.stringify({ error: "PUBLIC_SELLORA_CONTRACT_ID is not configured." }),
           { status: 500 },
         ),
       ),

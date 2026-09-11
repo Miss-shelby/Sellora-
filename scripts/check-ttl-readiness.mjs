@@ -76,6 +76,7 @@ const network =
 const contractId =
   getArgValue("--contract-id") ||
   process.env.CONTRACT_ID ||
+  envVars.PUBLIC_SELLORA_CONTRACT_ID ||
   envVars.PUBLIC_PROMPT_HASH_CONTRACT_ID ||
   "";
 

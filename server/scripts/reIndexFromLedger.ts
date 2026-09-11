@@ -195,7 +195,9 @@ async function processEvent(
 async function main() {
   const mongoUri = requireEnv("MONGODB_URI");
   const rpcUrl = requireEnv("PUBLIC_STELLAR_RPC_URL");
-  const contractId = requireEnv("PUBLIC_PROMPT_HASH_CONTRACT_ID");
+  const contractId =
+    process.env.PUBLIC_SELLORA_CONTRACT_ID ||
+    requireEnv("PUBLIC_PROMPT_HASH_CONTRACT_ID");
 
   console.log(`\n${"=".repeat(60)}`);
   console.log("Sellora Re-Index from Ledger Recovery Script");

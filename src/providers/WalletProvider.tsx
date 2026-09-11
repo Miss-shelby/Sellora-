@@ -10,7 +10,6 @@ import { wallet } from "../util/wallet";
 import storage from "../util/storage";
 import { stellarWalletNetwork } from "../lib/env";
 import { ALBEDO_ID } from "@creit.tech/stellar-wallets-kit/modules/albedo";
-import { useAsyncTransaction } from "../components/useAsyncTransaction";
 import { classifyWalletError } from "../lib/wallet/walletErrors";
 import { useQueryClient } from "@tanstack/react-query";
 import { clearWalletCache } from "../hooks/useWalletAccountChange";
@@ -73,27 +72,20 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
   const previousAddressRef = useRef<string | undefined>(state.address);
 
-  const { execute: executeDisconnect } = useAsyncTransaction(
-    async () => {
-      await wallet.disconnect();
-    },
-    {
-      pendingMessage: "Disconnecting wallet...",
-      successMessage: "Wallet disconnected",
-      onSuccess: () => {
-        storage.removeItem("walletId");
-        storage.removeItem("walletAddress");
-        storage.removeItem("walletNetwork");
-        storage.removeItem("networkPassphrase");
-        setState(initialState);
-        setSessionEpoch((epoch) => epoch + 1);
-      }
-    }
-  );
-
   const disconnect = useCallback(async () => {
-    await executeDisconnect().catch(console.error);
-  }, [executeDisconnect]);
+    try {
+      await wallet.disconnect();
+    } catch (err) {
+      console.error("Disconnect error:", err);
+    } finally {
+      storage.removeItem("walletId");
+      storage.removeItem("walletAddress");
+      storage.removeItem("walletNetwork");
+      storage.removeItem("networkPassphrase");
+      setState(initialState);
+      setSessionEpoch((epoch) => epoch + 1);
+    }
+  }, []);
 
   // Clear wallet-scoped cache when account changes
   useEffect(() => {
@@ -118,8 +110,15 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const { execute: executeConnect } = useAsyncTransaction(
-    async (walletId: string) => {
+  const connect = useCallback(async (walletId: string) => {
+    if (state.status === "connecting" || state.status === "reconnecting" || isConnectingRef.current) {
+      return;
+    }
+    
+    isConnectingRef.current = true;
+    setState(prev => ({ ...prev, status: "connecting", error: undefined }));
+
+    try {
       wallet.setWallet(walletId);
       
       const [a, n] = await Promise.all([
@@ -128,60 +127,39 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
       ]);
 
       if (!a.address) throw new Error("No address returned from wallet");
-      return { address: a.address, network: n.network, networkPassphrase: n.networkPassphrase, walletId };
-    },
-    {
-      pendingMessage: (walletId) => `Connecting to ${walletId}...`,
-      successMessage: "Wallet connected successfully",
-      onOptimistic: () => {
-        setState(prev => ({ ...prev, status: "connecting", error: undefined }));
-      },
-      onSuccess: (data) => {
-        storage.setItem("walletId", data.walletId);
-        storage.setItem("walletAddress", data.address);
-        if (data.network) storage.setItem("walletNetwork", data.network);
-        else storage.removeItem("walletNetwork");
-        
-        if (data.networkPassphrase) storage.setItem("networkPassphrase", data.networkPassphrase);
-        else storage.removeItem("networkPassphrase");
 
-        setState({
-          address: data.address,
-          network: data.network,
-          networkPassphrase: data.networkPassphrase,
-          status: "connected",
-          error: undefined,
-          networkCompatibility: computeNetworkCompatibility(data.network, "connected"),
-        });
-        setSessionEpoch((epoch) => epoch + 1);
-      },
-      onError: (e) => {
-        console.error("Connection error:", e);
-        const classified = classifyWalletError(e);
-        const message = classified.recoveryAction
-          ? `${classified.message} ${classified.recoveryAction}`
-          : classified.message;
-        setState(prev => ({
-          ...prev,
-          status: "error",
-          error: message
-        }));
-      }
-    }
-  );
+      storage.setItem("walletId", walletId);
+      storage.setItem("walletAddress", a.address);
+      if (n.network) storage.setItem("walletNetwork", n.network);
+      else storage.removeItem("walletNetwork");
+      
+      if (n.networkPassphrase) storage.setItem("networkPassphrase", n.networkPassphrase);
+      else storage.removeItem("networkPassphrase");
 
-  const connect = useCallback(async (walletId: string) => {
-    if (state.status === "connecting" || state.status === "reconnecting" || isConnectingRef.current) {
-      return;
-    }
-    
-    isConnectingRef.current = true;
-    try {
-      await executeConnect(walletId).catch(() => {});
+      setState({
+        address: a.address,
+        network: n.network,
+        networkPassphrase: n.networkPassphrase,
+        status: "connected",
+        error: undefined,
+        networkCompatibility: computeNetworkCompatibility(n.network, "connected"),
+      });
+      setSessionEpoch((epoch) => epoch + 1);
+    } catch (e) {
+      console.error("Connection error:", e);
+      const classified = classifyWalletError(e);
+      const message = classified.recoveryAction
+        ? `${classified.message} ${classified.recoveryAction}`
+        : classified.message;
+      setState(prev => ({
+        ...prev,
+        status: "error",
+        error: message
+      }));
     } finally {
       isConnectingRef.current = false;
     }
-  }, [executeConnect, state.status]);
+  }, [getSafeNetworkInfo, state.status]);
 
   const checkExtensionAccount = useCallback(async () => {
     if (state.status !== "connected" && state.status !== "reconnecting") return;

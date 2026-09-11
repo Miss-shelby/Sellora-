@@ -37,7 +37,7 @@ import { UserAvatar } from "@/components/UserAvatar";
 import { ReportDialog } from "@/components/prompts/ReportDialog";
 import { PromptDetailSkeleton } from "@/components/skeletons";
 import { getMarketplaceReturnUrl } from "@/lib/search/urlState";
-import { computeListingSnapshotHash } from "@/lib/auth/challenge";
+import { computeListingSnapshotHash } from "@/lib/auth/listingSnapshot";
 
 const FALLBACK_IMAGE = "/images/codeguru.png";
 

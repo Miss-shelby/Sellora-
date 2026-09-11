@@ -33,7 +33,10 @@ const RPC_URL =
   process.env.TESTNET_RPC_URL ?? "https://soroban-testnet.stellar.org";
 const NETWORK_PASSPHRASE =
   process.env.TESTNET_NETWORK_PASSPHRASE ?? "Test SDF Network ; September 2015";
-const CONTRACT_ID = process.env.TESTNET_PROMPT_HASH_CONTRACT_ID ?? "";
+const CONTRACT_ID =
+  process.env.TESTNET_SELLORA_CONTRACT_ID ??
+  process.env.TESTNET_PROMPT_HASH_CONTRACT_ID ??
+  "";
 const SIMULATION_ACCOUNT = process.env.TESTNET_SIMULATION_ACCOUNT ?? "";
 const NATIVE_ASSET_CONTRACT_ID =
   process.env.TESTNET_NATIVE_ASSET_CONTRACT_ID ?? "";

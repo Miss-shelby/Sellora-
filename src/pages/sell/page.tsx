@@ -25,14 +25,14 @@ export default function SellPage() {
 
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
         {/* Hero */}
-        <section className="mb-8 rounded-[2rem] border border-white/10 bg-slate-950/60 px-5 py-7 shadow-[0_32px_120px_-64px_rgba(16,185,129,0.4)] sm:mb-10 sm:px-8 sm:py-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-400">
-            Creator Studio
+        <section className="mb-8 rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-6 py-8 sm:mb-10 sm:px-8 sm:py-10">
+          <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#62f6b5]">
+            CREATOR STUDIO
           </p>
-          <h1 className="mt-3 text-2xl font-semibold leading-snug sm:text-4xl">
+          <h1 className="mt-3 font-sans text-3xl font-light tracking-[-0.64px] text-[#fffaea] sm:text-4xl">
             Sell encrypted prompt licenses
           </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400 sm:leading-7">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#71717a] sm:leading-7">
             Your full prompt is encrypted in the browser before anything touches the
             blockchain. Buyers only see plaintext after an on-chain access check and
             wallet-authenticated unlock — you keep creative control.
@@ -47,9 +47,9 @@ export default function SellPage() {
             ].map(({ step, label }) => (
               <div
                 key={step}
-                className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-1.5 text-xs text-emerald-200"
+                className="flex items-center gap-2 rounded-full border border-[#27272a] bg-[#18181b] px-3.5 py-1 text-xs font-mono text-[#f4f4f5]"
               >
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-400/20 text-[10px] font-bold text-emerald-300">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#62f6b5]/20 text-[10px] font-bold text-[#62f6b5]">
                   {step}
                 </span>
                 {label}
@@ -59,42 +59,39 @@ export default function SellPage() {
         </section>
 
         {/* View switcher */}
-        <div className="mb-8 flex gap-2 rounded-2xl border border-white/10 bg-slate-950/60 p-1.5">
+        <div className="mb-8 flex gap-2 rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-1.5">
           <button
             onClick={() => setView("create")}
             aria-pressed={view === "create"}
-            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all sm:px-4 ${
-              view === "create"
-                ? "bg-emerald-500/20 text-emerald-300 shadow-inner"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
+            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-[5.6px] px-3 py-2 text-xs font-mono uppercase tracking-[0.08em] transition-all sm:px-4 ${view === "create"
+                ? "bg-[#fffaea] text-[#0e0e13] font-medium"
+                : "text-[#71717a] hover:text-[#fffaea]"
+              }`}
           >
-            <PlusCircle className="h-4 w-4" />
-            Create listing
+            <PlusCircle className="h-3.5 w-3.5" />
+            CREATE LISTING
           </button>
           <button
             onClick={() => setView("manage")}
             aria-pressed={view === "manage"}
-            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all sm:px-4 ${
-              view === "manage"
-                ? "bg-emerald-500/20 text-emerald-300 shadow-inner"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
+            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-[5.6px] px-3 py-2 text-xs font-mono uppercase tracking-[0.08em] transition-all sm:px-4 ${view === "manage"
+                ? "bg-[#fffaea] text-[#0e0e13] font-medium"
+                : "text-[#71717a] hover:text-[#fffaea]"
+              }`}
           >
-            <LayoutList className="h-4 w-4" />
-            My prompts
+            <LayoutList className="h-3.5 w-3.5" />
+            MY PROMPTS
           </button>
           <button
             onClick={() => setView("analytics")}
             aria-pressed={view === "analytics"}
-            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all sm:px-4 ${
-              view === "analytics"
-                ? "bg-emerald-500/20 text-emerald-300 shadow-inner"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
+            className={`min-h-11 flex flex-1 items-center justify-center gap-2 rounded-[5.6px] px-3 py-2 text-xs font-mono uppercase tracking-[0.08em] transition-all sm:px-4 ${view === "analytics"
+                ? "bg-[#fffaea] text-[#0e0e13] font-medium"
+                : "text-[#71717a] hover:text-[#fffaea]"
+              }`}
           >
-            <BarChart3 className="h-4 w-4" />
-            Analytics
+            <BarChart3 className="h-3.5 w-3.5" />
+            ANALYTICS
           </button>
         </div>
 
@@ -106,14 +103,14 @@ export default function SellPage() {
         )}
         {view === "analytics" && (
           <section className="space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-5 sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
-                Creator analytics
+            <div className="rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-6 sm:p-7">
+              <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#62f6b5]">
+                CREATOR ANALYTICS
               </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
+              <h2 className="mt-2 font-sans text-2xl font-light tracking-[-0.64px] text-[#fffaea]">
                 Conversion &amp; support performance
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#71717a]">
                 See how buyers discover, purchase, and successfully unlock your
                 prompts — with buyer identities redacted to protect privacy.
               </p>
@@ -121,7 +118,7 @@ export default function SellPage() {
             {address ? (
               <SellerAnalyticsWidget walletAddress={address} />
             ) : (
-              <div className="rounded-xl border border-dashed border-white/15 bg-white/[0.02] p-8 text-center text-sm text-slate-400">
+              <div className="rounded-[5.6px] border border-dashed border-[#27272a] bg-[#09090b] p-8 text-center text-sm text-[#71717a]">
                 Connect your wallet to view privacy-safe seller analytics.
               </div>
             )}

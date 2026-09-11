@@ -16,7 +16,7 @@ const MOCK_PATTERNS = [
 ];
 
 const FILES_TO_CHECK = [
-  "src/lib/stellar/promptHashClient.ts",
+  "src/lib/stellar/SelloraClient.ts",
   "src/lib/stellar/contractMethods.ts",
 ];
 

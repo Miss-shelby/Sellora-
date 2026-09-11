@@ -19,7 +19,7 @@ describe("Server Deployment Manifest & Readiness Attestation", () => {
     process.env.NODE_ENV = "development";
     process.env.PUBLIC_STELLAR_NETWORK = "TESTNET";
     process.env.PUBLIC_STELLAR_RPC_URL = "https://soroban-testnet.stellar.org";
-    process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID = "CB6678...MOCK";
+    process.env.PUBLIC_SELLORA_CONTRACT_ID = "CB6678...MOCK";
 
     const manifest1 = getServerDeploymentManifest(true);
     const manifest2 = getServerDeploymentManifest(true);
@@ -42,7 +42,7 @@ describe("Server Deployment Manifest & Readiness Attestation", () => {
     process.env.NODE_ENV = "production";
     process.env.PUBLIC_STELLAR_NETWORK = "MAINNET";
     process.env.PUBLIC_STELLAR_RPC_URL = "https://mainnet.stellar.org";
-    process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID = "C" + "A".repeat(55);
+    process.env.PUBLIC_SELLORA_CONTRACT_ID = "C" + "A".repeat(55);
     process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID = "C" + "B".repeat(55);
     process.env.PUBLIC_STELLAR_SIMULATION_ACCOUNT = "G" + "A".repeat(55);
     process.env.UNLOCK_PUBLIC_KEY = "G" + "A".repeat(55);

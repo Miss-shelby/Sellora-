@@ -81,7 +81,7 @@ const formatNetworkName = (value?: string) => {
 const shortHash = (value: string) =>
   value ? `${value.slice(0, 8)}...${value.slice(-8)}` : "Pending";
 
- 
+
 type Handler<TArgs extends unknown[]> = (...args: TArgs) => void;
 
 function AlertBanner({
@@ -134,9 +134,8 @@ function EmptyState({
     <div className="grid min-h-80 place-items-center rounded-xl border border-dashed border-white/15 bg-white/[0.02] p-8 text-center">
       <div className="max-w-sm">
         <div
-          className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${
-            isCyan ? "bg-cyan-200/10 text-cyan-100" : "bg-amber-300/10 text-amber-200"
-          }`}
+          className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${isCyan ? "bg-cyan-200/10 text-cyan-100" : "bg-amber-300/10 text-amber-200"
+            }`}
         >
           <Icon className="h-8 w-8" />
         </div>
@@ -144,11 +143,10 @@ function EmptyState({
         <p className="mt-3 text-sm leading-7 text-slate-400">{body}</p>
         <Button
           asChild
-          className={`mt-6 h-10 px-6 ${
-            isCyan
+          className={`mt-6 h-10 px-6 ${isCyan
               ? "bg-cyan-200 text-slate-950 hover:bg-cyan-100"
               : "bg-amber-300 text-slate-950 hover:bg-amber-200"
-          }`}
+            }`}
         >
           <Link to={action.to}>
             <ActionIcon className="h-4 w-4" />
@@ -164,42 +162,38 @@ function DisconnectedProfile() {
   return (
     <section className="space-y-5 py-10">
       {/* Hero panel */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0d1117] p-8 shadow-[0_32px_96px_-48px_rgba(34,211,238,0.45)] md:p-12">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(34,211,238,0.12),transparent)]" />
+      <div className="relative overflow-hidden rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-8 md:p-12">
         <div className="relative">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-200/20 bg-cyan-200/10 text-cyan-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-[5.6px] border border-[#27272a] bg-[#18181b] text-[#62f6b5]">
               <Wallet className="h-6 w-6" />
             </div>
-            <Badge className="border-cyan-200/30 bg-cyan-200/10 text-cyan-100">
-              Wallet required
-            </Badge>
+            <span className="rounded-full border border-[#27272a] bg-[#18181b] px-3 py-1 font-mono text-xs uppercase tracking-[0.08em] text-[#62f6b5]">
+              WALLET REQUIRED
+            </span>
           </div>
-          <h1 className="mt-6 max-w-2xl text-4xl font-semibold leading-tight text-white md:text-5xl">
+          <h1 className="mt-6 max-w-2xl font-sans text-4xl font-light tracking-[-1.12px] text-[#fffaea] md:text-5xl">
             Your prompt library starts with a Stellar wallet.
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">
+          <p className="mt-4 max-w-xl text-base leading-7 text-[#71717a]">
             Connect to see licensed prompts you can reopen, creator inventory you
             control, and listing states tied to your wallet identity.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              className="h-11 bg-cyan-200 px-6 text-slate-950 hover:bg-cyan-100 active:scale-95"
+            <button
+              className="h-11 rounded-full bg-[#e96b34] px-6 font-mono text-xs uppercase tracking-[0.08em] font-medium text-[#fffaea] hover:bg-[#e96b34]/90 active:scale-95 transition-all flex items-center justify-center gap-2"
               onClick={() => void connectWallet()}
             >
               <PlugZap className="h-4 w-4" />
-              Connect wallet
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="h-11 border-white/15 bg-white/[0.03] px-6 text-white hover:bg-white/10"
+              CONNECT WALLET →
+            </button>
+            <Link
+              to="/browse"
+              className="h-11 rounded-full border border-[#27272a] bg-[#18181b] px-6 font-mono text-xs uppercase tracking-[0.08em] text-[#fffaea] hover:bg-[#27272a] transition-all flex items-center justify-center gap-2"
             >
-              <Link to="/browse">
-                <ShoppingBag className="h-4 w-4" />
-                Browse prompts
-              </Link>
-            </Button>
+              <ShoppingBag className="h-4 w-4" />
+              BROWSE PROMPTS
+            </Link>
           </div>
         </div>
       </div>
@@ -209,41 +203,30 @@ function DisconnectedProfile() {
         {[
           {
             icon: KeyRound,
-            accent: "cyan" as const,
             title: "Purchased licenses",
             body: "Unlocked access is grouped separately from creator listings — your library, not a marketplace view.",
           },
           {
             icon: Boxes,
-            accent: "amber" as const,
             title: "Creator inventory",
             body: "Pricing controls, sales counts, and active or paused states stay in their own dedicated section.",
           },
           {
             icon: ShieldCheck,
-            accent: "emerald" as const,
             title: "Wallet-authenticated access",
             body: "Full prompt content appears only after your wallet signs an unlock request via SEP-43.",
           },
         ].map((item) => (
           <div
             key={item.title}
-            className="flex gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-5"
+            className="flex gap-4 rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-5"
           >
-            <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                item.accent === "cyan"
-                  ? "bg-cyan-200/10 text-cyan-100"
-                  : item.accent === "amber"
-                    ? "bg-amber-300/10 text-amber-200"
-                    : "bg-emerald-300/10 text-emerald-100"
-              }`}
-            >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[5.6px] border border-[#27272a] bg-[#18181b] text-[#62f6b5]">
               <item.icon className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="font-semibold text-white">{item.title}</h2>
-              <p className="mt-1.5 text-sm leading-6 text-slate-400">{item.body}</p>
+              <h2 className="font-sans font-medium text-[#fffaea]">{item.title}</h2>
+              <p className="mt-1.5 text-xs leading-6 text-[#71717a]">{item.body}</p>
             </div>
           </div>
         ))}
@@ -279,47 +262,46 @@ function WalletIdentityPanel({
   };
 
   return (
-    <section className="py-8">
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d1117] shadow-[0_32px_96px_-48px_rgba(56,189,248,0.45)]">
+    <section className="py-6">
+      <div className="overflow-hidden rounded-[5.6px] border border-[#27272a] bg-[#09090b]">
         {/* Identity header */}
         <div className="relative p-6 md:p-8">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_100%_0%,rgba(56,189,248,0.1),transparent)]" />
           <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
             <div className="relative shrink-0">
-              <UserAvatar address={address} size={96} className="border border-cyan-200/20 bg-gradient-to-br from-cyan-200/15 to-sky-400/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]" />
-              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#0d1117] bg-emerald-400">
-                <CheckCircle2 className="h-3 w-3 text-slate-950" />
+              <UserAvatar address={address} size={88} className="rounded-[5.6px] border border-[#27272a] bg-[#18181b]" />
+              <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border border-[#09090b] bg-[#62f6b5]">
+                <CheckCircle2 className="h-3 w-3 text-[#0e0e13]" />
               </div>
             </div>
 
             {/* Address block */}
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm text-slate-400">Connected identity</p>
-                <Badge className="border-white/10 bg-white/[0.05] text-slate-200">
-                  <RadioTower className="mr-1 h-3 w-3" />
+                <p className="font-mono text-xs text-[#71717a] uppercase tracking-[0.08em]">CONNECTED IDENTITY</p>
+                <span className="rounded-full border border-[#27272a] bg-[#18181b] px-2.5 py-0.5 font-mono text-[11px] text-[#fffaea]">
+                  <RadioTower className="mr-1 inline h-3 w-3 text-[#62f6b5]" />
                   {formatNetworkName(network ?? stellarNetwork)}
-                </Badge>
+                </span>
               </div>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+              <h1 className="mt-2 font-mono text-2xl font-medium tracking-tight text-[#fffaea] md:text-3xl">
                 {shortenAddress(address)}
               </h1>
               <button
                 type="button"
                 onClick={handleCopy}
                 aria-label="Copy wallet address"
-                className="group mt-3 flex w-full max-w-lg cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-left transition-all hover:border-cyan-200/20 hover:bg-slate-950/80"
+                className="group mt-3 flex w-full max-w-lg cursor-pointer items-center gap-2 rounded-[5.6px] border border-[#27272a] bg-[#18181b] px-3 py-2 text-left transition-all hover:border-[#3f3f46]"
               >
                 {copied ? (
-                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#62f6b5]" />
                 ) : (
-                  <Copy className="h-3.5 w-3.5 shrink-0 text-cyan-200 group-hover:text-cyan-100" />
+                  <Copy className="h-3.5 w-3.5 shrink-0 text-[#71717a] group-hover:text-[#fffaea]" />
                 )}
-                <span className="min-w-0 truncate font-mono text-xs text-slate-300">
+                <span className="min-w-0 truncate font-mono text-xs text-[#a1a1aa]">
                   {address}
                 </span>
                 <span
-                  className="ml-auto shrink-0 text-xs text-slate-500"
+                  className="ml-auto shrink-0 font-mono text-xs text-[#71717a]"
                   aria-live="polite"
                 >
                   {copied ? "Copied!" : "Copy"}
@@ -330,7 +312,7 @@ function WalletIdentityPanel({
         </div>
 
         {/* Stats strip */}
-        <div className="grid grid-cols-2 divide-x divide-y divide-white/[0.06] border-t border-white/[0.06] sm:grid-cols-4 sm:divide-y-0">
+        <div className="grid grid-cols-2 divide-x divide-y divide-[#27272a] border-t border-[#27272a] sm:grid-cols-4 sm:divide-y-0">
           {[
             { icon: BadgeCheck, label: "Owned licenses", value: purchasedCount },
             { icon: PanelTopOpen, label: "Created prompts", value: createdCount },
@@ -341,14 +323,14 @@ function WalletIdentityPanel({
               value: isBalanceLoading ? "—" : `${balanceLabel} XLM`,
             },
           ].map(({ icon: Icon, label, value }) => (
-            <div key={label} className="flex flex-col gap-1.5 px-6 py-5">
+            <div key={label} className="flex flex-col gap-1.5 px-6 py-5 bg-[#09090b]">
               <div className="flex items-center gap-2">
-                <Icon className="h-3.5 w-3.5 text-cyan-200" />
-                <p className="text-xs uppercase tracking-[0.14em] text-slate-500">
+                <Icon className="h-3.5 w-3.5 text-[#62f6b5]" />
+                <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#71717a]">
                   {label}
                 </p>
               </div>
-              <p className="text-2xl font-semibold tabular-nums text-white">{value}</p>
+              <p className="font-mono text-xl font-medium tabular-nums text-[#fffaea]">{value}</p>
             </div>
           ))}
         </div>
@@ -385,11 +367,10 @@ function PurchasedPromptCard({
           />
           <div className="absolute bottom-3 left-3 md:hidden">
             <span
-              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${
-                isUnlocked
+              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${isUnlocked
                   ? "bg-emerald-400/25 text-emerald-200 ring-1 ring-emerald-400/20"
                   : "bg-amber-400/25 text-amber-200 ring-1 ring-amber-400/20"
-              }`}
+                }`}
             >
               {isUnlocked ? (
                 <Eye className="h-3 w-3" />
@@ -411,11 +392,10 @@ function PurchasedPromptCard({
               {prompt.category}
             </Badge>
             <Badge
-              className={`hidden md:inline-flex ${
-                isUnlocked
+              className={`hidden md:inline-flex ${isUnlocked
                   ? "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
                   : "border-amber-300/30 bg-amber-300/10 text-amber-100"
-              }`}
+                }`}
             >
               {isUnlocked ? (
                 <Eye className="mr-1 h-3.5 w-3.5" />
@@ -450,8 +430,8 @@ function PurchasedPromptCard({
                 state={unlockState}
                 onRetry={
                   unlockState === "rejected" ||
-                  unlockState === "expired" ||
-                  unlockState === "failed"
+                    unlockState === "expired" ||
+                    unlockState === "failed"
                     ? () => onUnlock(prompt.id)
                     : undefined
                 }
@@ -794,7 +774,7 @@ export default function ProfilePage() {
       createdPrompts.map((prompt) => [
         prompt.id.toString(),
         priceDrafts[prompt.id.toString()] ??
-          stroopsToXlmString(prompt.priceStroops),
+        stroopsToXlmString(prompt.priceStroops),
       ]),
     );
   }, [createdPrompts, priceDrafts]);
@@ -919,19 +899,19 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_60%_40%_at_0%_0%,rgba(34,211,238,0.1),transparent),radial-gradient(ellipse_50%_30%_at_100%_5%,rgba(251,191,36,0.07),transparent),linear-gradient(180deg,#080b0f_0%,#0d1117_50%,#080b0f_100%)] text-white">
+    <div className="min-h-screen bg-[#0e0e13] text-[#fffaea]">
       <Navigation />
       <main className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 sm:py-10">
         {/* Page header */}
-        <section className="flex flex-col justify-between gap-6 rounded-[2rem] border border-white/10 bg-slate-950/60 p-5 shadow-[0_32px_120px_-64px_rgba(16,185,129,0.45)] md:flex-row md:items-center md:p-8">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.35em] text-emerald-300">
-              {isPublicView ? "Creator profile" : "Wallet profile"}
+        <section className="flex flex-col justify-between gap-6 rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-6 md:flex-row md:items-center md:p-8">
+          <div className="space-y-3">
+            <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#62f6b5]">
+              {isPublicView ? "CREATOR PROFILE" : "WALLET IDENTITY"}
             </p>
-            <h1 className="text-3xl font-semibold sm:text-4xl">
-              {isPublicView ? "Prompt creator" : "My prompt licenses"}
+            <h1 className="font-sans text-3xl font-light tracking-[-0.64px] text-[#fffaea] sm:text-4xl">
+              {isPublicView ? "Prompt Creator" : "My Prompt Licenses"}
             </h1>
-            <p className="max-w-xl text-sm leading-7 text-slate-300">
+            <p className="max-w-xl text-sm leading-6 text-[#71717a]">
               {isPublicView
                 ? "View this creator's public prompt listings and send a tip to support their work."
                 : "Manage listings you created and reopen prompts you purchased. This page reads directly from the Stellar contract and uses the unlock API only when you request the decrypted plaintext."}
@@ -939,34 +919,34 @@ export default function ProfilePage() {
           </div>
 
           {address && !isPublicView && (
-            <div className="flex flex-col gap-4 rounded-3xl border border-white/5 bg-white/5 p-5 backdrop-blur-sm md:min-w-[300px] md:p-6">
+            <div className="flex flex-col gap-4 rounded-[5.6px] border border-[#27272a] bg-[#18181b] p-5 md:min-w-[300px]">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
-                  <Wallet size={20} />
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#62f6b5]/20 text-[#62f6b5]">
+                  <Wallet size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
-                    Active Wallet
+                  <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#71717a]">
+                    ACTIVE WALLET
                   </p>
-                  <p className="font-mono text-sm text-slate-200">
+                  <p className="font-mono text-xs text-[#f4f4f5]">
                     {address.slice(0, 6)}...{address.slice(-6)}
                   </p>
                 </div>
               </div>
-              <div className="h-px bg-white/10" />
+              <div className="h-px bg-[#27272a]" />
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
-                  Balance
+                <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#71717a]">
+                  BALANCE
                 </p>
                 <div className="mt-1 flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-white">
+                  <span className="font-mono text-xl font-medium text-[#fffaea]">
                     {isBalanceLoading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-4 w-4 animate-spin text-[#62f6b5]" />
                     ) : (
                       xlm
                     )}
                   </span>
-                  <span className="text-sm font-medium text-emerald-400">XLM</span>
+                  <span className="font-mono text-xs text-[#62f6b5]">XLM</span>
                 </div>
               </div>
             </div>
@@ -1007,49 +987,49 @@ export default function ProfilePage() {
               <section className="mt-10">
                 <Tabs defaultValue="purchased" className="space-y-0">
                   <div className="mb-6">
-                    <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">
-                      Prompt access
+                    <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#62f6b5]">
+                      PROMPT ACCESS
                     </p>
-                    <h2 className="mt-2 text-3xl font-semibold text-white">
+                    <h2 className="mt-2 font-sans text-2xl font-light tracking-[-0.64px] text-[#fffaea]">
                       Library &amp; Inventory
                     </h2>
-                    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-[#71717a]">
                       Licensed prompts are optimized for re-entry and unlock. Created
                       prompts stay focused on listing control.
                     </p>
                   </div>
 
-                  <TabsList className="mb-6 grid h-auto w-full grid-cols-5 rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:w-[64rem]">
+                  <TabsList className="mb-6 grid h-auto w-full grid-cols-5 rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-1.5 sm:w-[64rem]">
                     <TabsTrigger
                       value="purchased"
                       aria-label="Open my library tab"
-                      className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-slate-400 transition-all data-[state=active]:bg-cyan-200 data-[state=active]:text-slate-950 data-[state=active]:shadow-sm"
+                      className="flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.08em] text-[#71717a] transition-all data-[state=active]:bg-[#fffaea] data-[state=active]:text-[#0e0e13] data-[state=active]:font-medium"
                     >
-                      <LibraryBig className="h-4 w-4" />
+                      <LibraryBig className="h-3.5 w-3.5" />
                       My Library
-                      <span className="ml-1 rounded-full bg-slate-950/10 px-1.5 py-0.5 text-xs">
+                      <span className="ml-1 rounded-full bg-[#18181b] px-1.5 py-0.5 text-[10px] text-[#71717a] data-[state=active]:text-[#0e0e13]">
                         {purchasedPrompts.length}
                       </span>
                     </TabsTrigger>
                     <TabsTrigger
                       value="created"
                       aria-label="Open my inventory tab"
-                      className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-slate-400 transition-all data-[state=active]:bg-amber-300 data-[state=active]:text-slate-950 data-[state=active]:shadow-sm"
+                      className="flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.08em] text-[#71717a] transition-all data-[state=active]:bg-[#fffaea] data-[state=active]:text-[#0e0e13] data-[state=active]:font-medium"
                     >
-                      <Boxes className="h-4 w-4" />
+                      <Boxes className="h-3.5 w-3.5" />
                       My Inventory
-                      <span className="ml-1 rounded-full bg-slate-950/10 px-1.5 py-0.5 text-xs">
+                      <span className="ml-1 rounded-full bg-[#18181b] px-1.5 py-0.5 text-[10px] text-[#71717a] data-[state=active]:text-[#0e0e13]">
                         {createdPrompts.length}
                       </span>
                     </TabsTrigger>
                     <TabsTrigger
                       value="saved"
                       aria-label="Open saved listings tab"
-                      className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-slate-400 transition-all data-[state=active]:bg-emerald-300 data-[state=active]:text-slate-950 data-[state=active]:shadow-sm"
+                      className="flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.08em] text-[#71717a] transition-all data-[state=active]:bg-[#fffaea] data-[state=active]:text-[#0e0e13] data-[state=active]:font-medium"
                     >
-                      <Bookmark className="h-4 w-4" />
+                      <Bookmark className="h-3.5 w-3.5" />
                       Saved
-                      <span className="ml-1 rounded-full bg-slate-950/10 px-1.5 py-0.5 text-xs">
+                      <span className="ml-1 rounded-full bg-[#18181b] px-1.5 py-0.5 text-[10px] text-[#71717a] data-[state=active]:text-[#0e0e13]">
                         {savedPrompts.length}
                       </span>
                     </TabsTrigger>

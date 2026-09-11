@@ -45,11 +45,11 @@ function CreatorCard({ creator }: { creator: FeaturedCreator }) {
   return (
     <Link
       to={`/sellers/${encodeURIComponent(creator.address)}`}
-      className="group flex flex-col rounded-[20px] border border-white/8 bg-white/[0.02] p-5 transition-all duration-300 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-emerald-500/20"
+      className="group flex flex-col rounded-[5.6px] border border-[#27272a] bg-[#09090b] p-5 transition-all duration-200 hover:border-[#3f3f46]"
     >
       {/* Avatar + name row */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border border-white/10 bg-slate-800">
+        <div className="h-11 w-11 shrink-0 overflow-hidden rounded-[5.6px] border border-[#27272a] bg-[#18181b]">
           {creator.avatarUrl ? (
             <img
               src={creator.avatarUrl}
@@ -57,38 +57,38 @@ function CreatorCard({ creator }: { creator: FeaturedCreator }) {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-lg font-bold text-slate-300">
+            <div className="flex h-full w-full items-center justify-center font-mono text-sm font-bold text-[#fffaea]">
               {creator.displayName.slice(0, 1)}
             </div>
           )}
         </div>
         <div className="min-w-0">
-          <p className="font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
+          <p className="font-sans font-medium text-[#fffaea] group-hover:text-[#62f6b5] transition-colors truncate">
             {creator.displayName}
           </p>
-          <p className="text-xs text-slate-500 truncate">
+          <p className="font-mono text-xs text-[#71717a] truncate">
             {creator.address.slice(0, 8)}…{creator.address.slice(-4)}
           </p>
         </div>
-        <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-slate-600 group-hover:text-emerald-400 transition-colors" />
+        <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-[#71717a] group-hover:text-[#62f6b5] transition-colors" />
       </div>
 
       {/* Specialty badge */}
-      <span className="mb-3 inline-flex self-start rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-400">
+      <span className="mb-3 inline-flex self-start rounded-full border border-[#27272a] bg-[#18181b] px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-console text-[#62f6b5]">
         {creator.specialty}
       </span>
 
       {/* Tagline */}
-      <p className="text-sm leading-6 text-slate-400 flex-1 line-clamp-2">{creator.tagline}</p>
+      <p className="text-xs leading-relaxed text-[#71717a] flex-1 line-clamp-2">{creator.tagline}</p>
 
       {/* Stats row */}
-      <div className="mt-4 flex items-center gap-4 border-t border-white/5 pt-4 text-xs text-slate-500">
-        <span className="flex items-center gap-1">
-          <Star className="h-3 w-3 text-emerald-400" />
+      <div className="mt-4 flex items-center gap-4 border-t border-[#27272a] pt-3 font-mono text-[11px] text-[#71717a]">
+        <span className="flex items-center gap-1.5">
+          <Star className="h-3 w-3 text-[#e96b34]" />
           {creator.listingCount} listings
         </span>
-        <span className="flex items-center gap-1">
-          <Users className="h-3 w-3 text-cyan-400" />
+        <span className="flex items-center gap-1.5">
+          <Users className="h-3 w-3 text-[#62f6b5]" />
           {creator.totalSales} sales
         </span>
       </div>
@@ -100,10 +100,10 @@ export function FeaturedCreators() {
   if (FEATURED_CREATORS.length === 0) {
     return (
       <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.02] px-8 py-14 text-center">
-          <Users className="mx-auto mb-4 h-10 w-10 text-slate-600" />
-          <p className="text-base font-semibold text-white">No featured creators yet</p>
-          <p className="mt-1 text-sm text-slate-400">
+        <div className="rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-8 py-14 text-center">
+          <Users className="mx-auto mb-4 h-8 w-8 text-[#71717a]" />
+          <p className="font-sans text-base font-medium text-[#fffaea]">No featured creators yet</p>
+          <p className="mt-1 font-mono text-xs text-[#71717a]">
             Check back soon as the community grows.
           </p>
         </div>
@@ -115,17 +115,17 @@ export function FeaturedCreators() {
     <section className="mx-auto max-w-7xl px-6 py-10">
       <div className="mb-6 flex items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.28em] text-emerald-400 mb-1">
-            Community
+          <p className="font-mono text-xs uppercase tracking-console text-[#62f6b5] mb-1">
+            CREATOR NETWORK
           </p>
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">Featured Creators</h2>
-          <p className="mt-1 text-sm text-slate-400">
-            Discover active prompt authors trusted by the marketplace.
+          <h2 className="font-sans text-2xl font-light tracking-tight-hero text-[#fffaea] sm:text-3xl">Featured Authors</h2>
+          <p className="mt-1 text-xs text-[#71717a]">
+            Discover verified prompt architects and system instruction developers.
           </p>
         </div>
         <Link
           to="/browse"
-          className="shrink-0 text-xs font-semibold text-slate-400 hover:text-emerald-300 transition-colors"
+          className="shrink-0 font-mono text-xs uppercase tracking-console text-[#71717a] hover:text-[#fffaea] transition-colors"
         >
           Browse all →
         </Link>

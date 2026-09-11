@@ -80,13 +80,15 @@ export function OnboardingTour() {
   }, [updateRect]);
 
   const setPageInert = useCallback((inert: boolean) => {
-    const mainContent = document.body;
-    if (inert) {
-      mainContent.setAttribute("inert", "true");
-      mainContent.setAttribute("aria-hidden", "true");
-    } else {
-      mainContent.removeAttribute("inert");
-      mainContent.removeAttribute("aria-hidden");
+    document.body.removeAttribute("inert");
+    document.body.removeAttribute("aria-hidden");
+    const mainContent = document.querySelector("#root > main");
+    if (mainContent) {
+      if (inert) {
+        mainContent.setAttribute("aria-hidden", "true");
+      } else {
+        mainContent.removeAttribute("aria-hidden");
+      }
     }
   }, []);
 

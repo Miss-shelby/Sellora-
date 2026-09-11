@@ -50,10 +50,10 @@ const RULES = [
   {
     id: "MOCK_PROMPT_HASH_CLIENT",
     name: "Mock PromptHashClient Detection",
-    description: "Production code must not contain mock contract implementations or mock transaction hashes.",
-    remediation: "Remove mock fallbacks from promptHashClient.ts. Inject test mocks strictly via test suites in src/test/ or tests/.",
+    description: "Production client files must not import or return mock data fallbacks.",
+    remediation: "Remove mock fallbacks from SelloraClient.ts. Inject test mocks strictly via test suites in src/test/ or tests/.",
     check: (content, filePath) => {
-      if (filePath.endsWith("promptHashClient.ts")) {
+      if (filePath.endsWith("SelloraClient.ts")) {
         const violations = [];
         if (content.includes("WARNING: MOCK CONTRACT IMPLEMENTATION")) {
           violations.push("Contains warning header 'WARNING: MOCK CONTRACT IMPLEMENTATION'");

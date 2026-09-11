@@ -141,7 +141,9 @@ function isUserRejected(msg: string): boolean {
     msg.includes("rejected by user") ||
     msg.includes("cancelled by user") ||
     msg.includes("request denied") ||
-    msg.includes("action rejected")
+    msg.includes("action rejected") ||
+    msg.includes("no wallet has been connected") ||
+    msg.includes("no wallet connected")
   );
 }
 

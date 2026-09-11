@@ -72,64 +72,64 @@ function LatencyBar({ latencyMs }: { latencyMs: number | null }) {
 
 function ProbeRow({ probe }: { probe: ProbeResult }) {
   const status: ServiceStatus = probe.status === "healthy" ? "up" : probe.status === "degraded" ? "degraded" : "down";
-  
+
   return (
-    <div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
+    <div className="flex flex-wrap items-center gap-4 rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-5 py-4">
       <StatusIcon status={status} />
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-white capitalize">{probe.name.replace(/_/g, " ")}</p>
+        <p className="font-mono text-sm font-medium text-[#fffaea] capitalize">{probe.name.replace(/_/g, " ")}</p>
         {probe.error && (
-          <p className="mt-0.5 text-xs text-rose-300 truncate">{probe.error}</p>
+          <p className="mt-0.5 text-xs text-[#e96b34] truncate">{probe.error}</p>
         )}
         {probe.details && Object.keys(probe.details).length > 0 && (
           <details className="mt-2">
-            <summary className="cursor-pointer text-xs text-slate-400 hover:text-slate-300">
+            <summary className="cursor-pointer font-mono text-xs text-[#71717a] hover:text-[#fffaea]">
               View details
             </summary>
-            <pre className="mt-2 rounded bg-slate-950/50 p-2 text-xs text-slate-300 overflow-x-auto">
+            <pre className="mt-2 rounded-[5.6px] bg-[#18181b] p-3 font-mono text-xs text-[#a1a1aa] overflow-x-auto border border-[#27272a]">
               {JSON.stringify(probe.details, null, 2)}
             </pre>
           </details>
         )}
       </div>
       <LatencyBar latencyMs={probe.latencyMs} />
-      <Badge
-        className={
+      <span
+        className={`rounded-full px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.08em] ${
           status === "up"
-            ? "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
+            ? "border border-[#62f6b5]/30 bg-[#62f6b5]/10 text-[#62f6b5]"
             : status === "degraded"
-              ? "border-amber-300/30 bg-amber-300/10 text-amber-100"
-              : "border-rose-300/30 bg-rose-300/10 text-rose-100"
-        }
+              ? "border border-[#ffdd03]/30 bg-[#ffdd03]/10 text-[#ffdd03]"
+              : "border border-[#e96b34]/30 bg-[#e96b34]/10 text-[#e96b34]"
+        }`}
       >
         {probe.status}
-      </Badge>
+      </span>
     </div>
   );
 }
 
 function ServiceRow({ service }: { service: ServiceCheck }) {
   return (
-    <div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
+    <div className="flex flex-wrap items-center gap-4 rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-5 py-4">
       <StatusIcon status={service.status} />
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-white">{service.name}</p>
+        <p className="font-mono text-sm font-medium text-[#fffaea]">{service.name}</p>
         {service.error && (
-          <p className="mt-0.5 text-xs text-rose-300 truncate">{service.error}</p>
+          <p className="mt-0.5 text-xs text-[#e96b34] truncate">{service.error}</p>
         )}
       </div>
       <LatencyBar latencyMs={service.latencyMs} />
-      <Badge
-        className={
+      <span
+        className={`rounded-full px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.08em] ${
           service.status === "up"
-            ? "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
+            ? "border border-[#62f6b5]/30 bg-[#62f6b5]/10 text-[#62f6b5]"
             : service.status === "degraded"
-              ? "border-amber-300/30 bg-amber-300/10 text-amber-100"
-              : "border-rose-300/30 bg-rose-300/10 text-rose-100"
-        }
+              ? "border border-[#ffdd03]/30 bg-[#ffdd03]/10 text-[#ffdd03]"
+              : "border border-[#e96b34]/30 bg-[#e96b34]/10 text-[#e96b34]"
+        }`}
       >
         {service.status}
-      </Badge>
+      </span>
     </div>
   );
 }
@@ -139,7 +139,7 @@ function UptimeStat({ seconds }: { seconds: number }) {
   const m = Math.floor((seconds % 3600) / 60);
   const s = Math.floor(seconds % 60);
   return (
-    <span className="tabular-nums">
+    <span className="tabular-nums font-mono">
       {h > 0 ? `${h}h ` : ""}
       {m > 0 ? `${m}m ` : ""}
       {s}s
@@ -172,73 +172,68 @@ export default function StatusPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const color = data ? overallColor(data.status) : "slate";
-
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_60%_40%_at_0%_0%,rgba(34,211,238,0.08),transparent),linear-gradient(180deg,#080b0f_0%,#0d1117_50%,#080b0f_100%)] text-white">
+    <div className="min-h-screen bg-[#0e0e13] text-[#fffaea]">
       <Navigation />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-200/10 text-cyan-100">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[5.6px] border border-[#27272a] bg-[#09090b] text-[#62f6b5]">
             <Activity className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white">Service Status</h1>
-            <p className="text-xs text-slate-400">Live health of Stellar RPC, Horizon, and Unlock service.</p>
+            <h1 className="font-sans text-2xl font-light tracking-[-0.64px] text-[#fffaea]">System Status</h1>
+            <p className="font-mono text-xs text-[#71717a] uppercase tracking-[0.08em]">Stellar RPC · Horizon · Unlock Engine</p>
           </div>
         </div>
 
         {/* Overall banner */}
         {data && (
           <div
-            className={`mt-6 flex items-center gap-4 rounded-2xl border px-6 py-5 ${
-              color === "emerald"
-                ? "border-emerald-300/25 bg-emerald-300/10"
-                : color === "amber"
-                  ? "border-amber-300/25 bg-amber-300/10"
-                  : "border-rose-300/25 bg-rose-300/10"
-            }`}
+            className={`mt-6 flex items-center gap-4 rounded-[5.6px] border px-6 py-5 ${data.status === "up"
+                ? "border-[#62f6b5]/30 bg-[#09090b]"
+                : data.status === "degraded"
+                  ? "border-[#ffdd03]/30 bg-[#09090b]"
+                  : "border-[#e96b34]/30 bg-[#09090b]"
+              }`}
           >
             {data.status === "up" ? (
-              <CheckCircle2 className="h-8 w-8 shrink-0 text-emerald-400" />
+              <CheckCircle2 className="h-7 w-7 shrink-0 text-[#62f6b5]" />
             ) : data.status === "degraded" ? (
-              <AlertTriangle className="h-8 w-8 shrink-0 text-amber-400" />
+              <AlertTriangle className="h-7 w-7 shrink-0 text-[#ffdd03]" />
             ) : (
-              <ServerCrash className="h-8 w-8 shrink-0 text-rose-400" />
+              <ServerCrash className="h-7 w-7 shrink-0 text-[#e96b34]" />
             )}
             <div>
-              <p className={`text-lg font-semibold ${
-                color === "emerald" ? "text-emerald-100" : color === "amber" ? "text-amber-100" : "text-rose-100"
-              }`}>
+              <p className={`font-sans text-base font-medium ${data.status === "up" ? "text-[#fffaea]" : data.status === "degraded" ? "text-[#ffdd03]" : "text-[#e96b34]"
+                }`}>
                 {data.status === "up"
                   ? "All systems operational"
                   : data.status === "degraded"
                     ? "Some systems are degraded"
                     : "Outage detected"}
               </p>
-              <p className="text-sm text-slate-400">
+              <p className="font-mono text-xs text-[#71717a]">
                 Last checked: {lastChecked?.toLocaleTimeString() ?? "—"}
               </p>
             </div>
-            <Button
-              variant="outline"
-              className="ml-auto h-9 border-white/15 bg-white/[0.03] text-slate-300 hover:bg-white/10"
+            <button
+              className="ml-auto h-9 rounded-full border border-[#27272a] bg-[#18181b] px-4 font-mono text-xs uppercase tracking-[0.08em] text-[#fffaea] hover:bg-[#27272a] transition-colors flex items-center gap-2"
               onClick={() => void fetchStatus()}
               disabled={loading}
             >
-              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
               Refresh
-            </Button>
+            </button>
           </div>
         )}
 
         {/* Service list */}
-        <section className="mt-6 space-y-3">
-          <h2 className="text-xs uppercase tracking-[0.2em] text-slate-500">External Services</h2>
+        <section className="mt-8 space-y-3">
+          <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-[#71717a]">External Services</h2>
           {loading && !data ? (
-            <div className="flex items-center gap-3 py-10 text-slate-400">
-              <RefreshCw className="h-5 w-5 animate-spin" />
+            <div className="flex items-center gap-3 py-10 font-mono text-xs text-[#71717a]">
+              <RefreshCw className="h-4 w-4 animate-spin text-[#62f6b5]" />
               Checking service health…
             </div>
           ) : data ? (
@@ -246,20 +241,20 @@ export default function StatusPage() {
               <ServiceRow key={service.name} service={service} />
             ))
           ) : (
-            <p className="text-sm text-slate-400">Could not load status.</p>
+            <p className="font-mono text-xs text-[#71717a]">Could not load status.</p>
           )}
         </section>
 
         {/* Health Probes */}
         {data?.probes && data.probes.length > 0 && (
-          <section className="mt-8 space-y-3">
+          <section className="mt-10 space-y-3">
             <div className="flex items-center gap-2">
-              <h2 className="text-xs uppercase tracking-[0.2em] text-slate-500">Health Probes</h2>
-              <Badge className="border-cyan-300/30 bg-cyan-300/10 text-cyan-100 text-[10px]">
-                Synthetic Tests
-              </Badge>
+              <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-[#71717a]">Health Probes</h2>
+              <span className="rounded-full border border-[#27272a] bg-[#18181b] px-2 py-0.5 font-mono text-[10px] text-[#62f6b5]">
+                Synthetic
+              </span>
             </div>
-            <p className="text-xs text-slate-400 mb-3">
+            <p className="font-mono text-xs text-[#71717a] mb-3">
               Read-only checks exercising core marketplace workflows without mutating state
             </p>
             {data.probes.map((probe) => (
@@ -270,23 +265,23 @@ export default function StatusPage() {
 
         {/* Indexer Status */}
         {data?.indexer && (
-          <section className="mt-8">
-            <h2 className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3">Indexer</h2>
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
+          <section className="mt-10">
+            <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-[#71717a] mb-3">Indexer</h2>
+            <div className="rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-5 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-white">Event Indexer</p>
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="font-mono text-sm font-medium text-[#fffaea]">Event Indexer</p>
+                  <p className="mt-1 font-mono text-xs text-[#71717a]">
                     Last indexed ledger: {data.indexer.lastIndexedLedger.toLocaleString()}
                   </p>
                 </div>
-                <Badge className={
+                <span className={`rounded-full px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] ${
                   data.indexer.status === "active"
-                    ? "border-emerald-300/30 bg-emerald-300/10 text-emerald-100"
-                    : "border-slate-400/30 bg-slate-400/10 text-slate-300"
-                }>
+                    ? "border border-[#62f6b5]/30 bg-[#62f6b5]/10 text-[#62f6b5]"
+                    : "border border-[#27272a] bg-[#18181b] text-[#71717a]"
+                }`}>
                   {data.indexer.status}
-                </Badge>
+                </span>
               </div>
             </div>
           </section>
@@ -294,13 +289,13 @@ export default function StatusPage() {
 
         {/* Meta */}
         {data && (
-          <div className="mt-8 flex flex-wrap gap-6 rounded-xl border border-white/10 bg-white/[0.02] px-5 py-4 text-sm text-slate-400">
+          <div className="mt-8 flex flex-wrap gap-6 rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-5 py-4 font-mono text-xs text-[#71717a]">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-cyan-200" />
-              Uptime: <span className="text-white"><UptimeStat seconds={data.uptime} /></span>
+              <Clock className="h-3.5 w-3.5 text-[#62f6b5]" />
+              Uptime: <span className="text-[#fffaea]"><UptimeStat seconds={data.uptime} /></span>
             </div>
             <div className="flex items-center gap-2">
-              <Wifi className="h-4 w-4 text-cyan-200" />
+              <Wifi className="h-3.5 w-3.5 text-[#62f6b5]" />
               Auto-refreshes every 30 s
             </div>
           </div>

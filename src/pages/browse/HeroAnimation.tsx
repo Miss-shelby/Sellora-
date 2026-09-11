@@ -54,7 +54,7 @@ export const HeroAnimation = () => {
       <div className="relative z-10 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center backdrop-blur-3xl">
         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-emerald-500 to-blue-500 blur-xl opacity-50 absolute animate-pulse" />
         <span className="text-2xl sm:text-3xl font-black italic text-emerald-400 tracking-tighter z-10">
-          PH
+          S
         </span>
       </div>
     </div>

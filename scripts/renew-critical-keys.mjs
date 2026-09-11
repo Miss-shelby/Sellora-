@@ -72,6 +72,7 @@ const network =
 const contractId =
   getArgValue("--contract-id") ||
   process.env.CONTRACT_ID ||
+  envVars.PUBLIC_SELLORA_CONTRACT_ID ||
   envVars.PUBLIC_PROMPT_HASH_CONTRACT_ID ||
   "";
 
@@ -81,7 +82,7 @@ const adminAlias =
   "admin";
 
 console.log(`${BOLD}======================================================${RESET}`);
-console.log(`${BOLD} PromptHash Contract TTL Renewal Sweep Tool (#685)${RESET}`);
+console.log(`${BOLD} Sellora Contract TTL Renewal Sweep Tool (#685)${RESET}`);
 console.log(`${BOLD}======================================================${RESET}`);
 console.log(`🌐 Network:     ${CYAN}${network}${RESET}`);
 console.log(`📄 Contract ID: ${contractId ? CYAN + contractId + RESET : RED + "MISSING" + RESET}`);

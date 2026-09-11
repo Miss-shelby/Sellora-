@@ -82,26 +82,26 @@ function Accordion({ items, prefix }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-white/10">
+    <div className="divide-y divide-[#27272a]">
       {items.map((faq, index) => {
         const isOpen = openIndex === index;
         const btnId = `${prefix}-btn-${index}`;
         const panelId = `${prefix}-panel-${index}`;
         return (
-          <div key={index} className="py-5">
+          <div key={index} className="py-4">
             <button
               id={btnId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="flex w-full items-center justify-between text-left"
+              className="flex w-full items-center justify-between text-left group"
             >
-              <h3 className="text-base font-medium text-white">
+              <h3 className="font-sans text-[15px] font-medium text-[#fffaea] group-hover:text-[#62f6b5] transition-colors">
                 {faq.question}
               </h3>
               <ChevronDown
-                className={`size-5 shrink-0 text-amber-400 transition-transform ${
-                  isOpen ? "rotate-180" : ""
+                className={`h-4 w-4 shrink-0 text-[#71717a] group-hover:text-[#fffaea] transition-transform ${
+                  isOpen ? "rotate-180 text-[#62f6b5]" : ""
                 }`}
               />
             </button>
@@ -111,7 +111,7 @@ function Accordion({ items, prefix }: AccordionProps) {
               role="region"
               aria-labelledby={btnId}
               hidden={!isOpen}
-              className="mt-3 text-sm leading-relaxed text-slate-400"
+              className="mt-3 text-sm leading-relaxed text-[#71717a]"
             >
               <p>{faq.answer}</p>
             </div>
@@ -128,24 +128,24 @@ export default function FaqSection() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
       <div className="text-center mb-10">
-        <p className="text-sm uppercase tracking-[0.3em] text-amber-300 mb-3">
-          Help
+        <p className="font-mono text-xs uppercase tracking-console text-[#62f6b5] mb-2">
+          HELP // DOCUMENTATION
         </p>
-        <h2 className="text-3xl font-bold text-white sm:text-4xl">
+        <h2 className="font-sans text-3xl font-light tracking-tight-hero text-[#fffaea] sm:text-4xl">
           Frequently Asked Questions
         </h2>
       </div>
 
       {/* Tab switcher */}
-      <div className="mx-auto mb-8 flex max-w-xs rounded-full border border-white/10 bg-slate-900/60 p-1">
+      <div className="mx-auto mb-8 flex max-w-xs rounded-full border border-[#27272a] bg-[#09090b] p-1">
         {(["buyers", "creators"] as TabKey[]).map((key) => (
           <button
             key={key}
             onClick={() => setTab(key)}
-            className={`flex-1 rounded-full py-2 text-sm font-medium transition-colors ${
+            className={`flex-1 rounded-full py-2 font-mono text-xs uppercase tracking-console font-medium transition-all ${
               tab === key
-                ? "bg-amber-400 text-slate-950"
-                : "text-slate-400 hover:text-white"
+                ? "bg-[#fffaea] text-[#0e0e13]"
+                : "text-[#71717a] hover:text-[#fffaea]"
             }`}
           >
             {key === "buyers" ? "For Buyers" : "For Creators"}
@@ -153,7 +153,7 @@ export default function FaqSection() {
         ))}
       </div>
 
-      <div className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-slate-950/60 px-8 py-2">
+      <div className="mx-auto max-w-3xl rounded-[5.6px] border border-[#27272a] bg-[#09090b] px-8 py-4">
         {tab === "buyers" ? (
           <Accordion items={buyerFaqs} prefix="buyer" />
         ) : (

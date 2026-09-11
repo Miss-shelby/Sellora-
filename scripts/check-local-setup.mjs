@@ -298,6 +298,7 @@ function isPlaceholder(val) {
 
 function validateVarFormat(key, val) {
   switch (key) {
+    case "PUBLIC_SELLORA_CONTRACT_ID":
     case "PUBLIC_PROMPT_HASH_CONTRACT_ID":
       if (!STELLAR_CONTRACT_ID.test(val)) {
         return "Must be a 56-character Stellar contract ID starting with C";

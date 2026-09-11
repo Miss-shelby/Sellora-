@@ -1,4 +1,4 @@
-const AVATAR_STORAGE_KEY = "ph_user_avatars";
+const AVATAR_STORAGE_KEY = "sellora_user_avatars";
 
 export function getProfileAvatarUrl(address: string): string | null {
   if (typeof window === "undefined") return null;

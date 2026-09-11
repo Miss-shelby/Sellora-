@@ -44,6 +44,21 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({ childre
     setTransactions((prev) => prev.filter((tx) => tx.id !== id));
   }, []);
 
+  // Auto-dismiss completed or errored notifications after a timeout so they do not get stuck on screen
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    transactions.forEach((tx) => {
+      if (tx.status === "success") {
+        timers.push(setTimeout(() => removeTransaction(tx.id), 4000));
+      } else if (tx.status === "error") {
+        timers.push(setTimeout(() => removeTransaction(tx.id), 6000));
+      }
+    });
+    return () => {
+      timers.forEach((t) => clearTimeout(t));
+    };
+  }, [transactions, removeTransaction]);
+
   // Programmatic accessibility focus check
   useEffect(() => {
     if (transactions.some((tx) => tx.status === "error")) {

@@ -24,7 +24,7 @@ function parseArgs() {
     apiUrl: process.env.API_URL || '',
     network: process.env.NETWORK || 'testnet',
     rpcUrl: process.env.STELLAR_RPC_URL || process.env.RPC_URL || '',
-    contractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || process.env.CONTRACT_ID || '',
+    contractId: process.env.PUBLIC_SELLORA_CONTRACT_ID || process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || process.env.CONTRACT_ID || '',
     json: args.includes('--json'),
     help: args.includes('--help') || args.includes('-h'),
   };
@@ -56,7 +56,7 @@ function parseArgs() {
   if (!options.contractId && fs.existsSync('.env')) {
     try {
       const envContent = fs.readFileSync('.env', 'utf8');
-      const match = envContent.match(/PUBLIC_PROMPT_HASH_CONTRACT_ID\s*=\s*"?([^"\n\s]+)"?/)
+      const match = envContent.match(/(?:PUBLIC_SELLORA_CONTRACT_ID|PUBLIC_PROMPT_HASH_CONTRACT_ID)\s*=\s*"?([^"\n\s]+)"?/)
         || envContent.match(/CONTRACT_ID\s*=\s*"?([^"\n\s]+)"?/);
       if (match) {
         options.contractId = match[1];

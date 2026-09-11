@@ -86,7 +86,9 @@ async function notify(
  */
 export async function startIndexer(): Promise<void> {
   const rpcUrl = process.env.PUBLIC_STELLAR_RPC_URL;
-  const contractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID;
+  const contractId =
+    process.env.PUBLIC_SELLORA_CONTRACT_ID ||
+    process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID;
 
   if (!rpcUrl || !contractId) {
     logger.warn("Soroban indexer disabled - missing configuration", { action: "startIndexer" });

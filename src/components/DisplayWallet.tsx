@@ -13,46 +13,66 @@ const DisplayWallet = () => {
   const [dismissedError, setDismissedError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (status !== "error") setDismissedError(null);
+    if (status !== "error") {
+      setDismissedError(null);
+    }
   }, [status]);
+
+  // Auto-dismiss the wallet error popup after 5 seconds so it doesn't linger on screen
+  useEffect(() => {
+    if (status === "error" && error && dismissedError !== error) {
+      const timer = setTimeout(() => {
+        setDismissedError(error);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, error, dismissedError]);
 
   const handleConnect = async (id: string) => {
     setShowModal(false);
+    setDismissedError(null);
     await connect(id);
   };
 
   return (
     <div className="relative inline-flex items-center gap-2">
       {status === "error" && error && dismissedError !== error && (
-        <div className="absolute top-full mt-2 right-0 w-max max-w-xs bg-red-500 text-white text-xs pl-3 pr-2 py-2 rounded shadow-lg whitespace-normal z-50 flex items-start gap-1">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-          <span className="flex-1">{error}</span>
-          <button onClick={() => setDismissedError(error)} className="opacity-80 hover:opacity-100 transition-opacity ml-1 p-0.5" aria-label="Dismiss error">
-            <X className="w-3 h-3" />
+        <div className="absolute top-full mt-2 right-0 w-max max-w-xs bg-[#09090b] border border-[#e96b34]/40 text-[#fffaea] font-mono text-xs pl-3 pr-2 py-2.5 rounded-[5.6px] shadow-2xl whitespace-normal z-50 flex items-start gap-2 backdrop-blur-md">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#e96b34]" />
+          <span className="flex-1 leading-snug">{error}</span>
+          <button
+            onClick={() => setDismissedError(error)}
+            className="text-[#71717a] hover:text-[#fffaea] transition-colors ml-1 p-0.5"
+            aria-label="Dismiss error"
+          >
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
       )}
 
       {(status === "idle" || status === "error") && (
         <Button
-          onClick={() => setShowModal(true)}
-          className="border border-amber-300/30 bg-amber-500 text-slate-950 hover:bg-amber-400 min-w-[150px]"
+          onClick={() => {
+            setDismissedError(null);
+            setShowModal(true);
+          }}
+          className="rounded-full border border-[#27272a] bg-[#62f6b5] text-[#0e0e13] hover:bg-[#4fe29f] font-mono text-[11px] font-medium tracking-console uppercase px-5 py-1.5 h-auto shadow-none min-w-[140px]"
         >
-          <Wallet className="mr-2 h-4 w-4 shrink-0" />
+          <Wallet className="mr-2 h-3.5 w-3.5 shrink-0" />
           Connect wallet
         </Button>
       )}
 
       {(status === "connecting") && (
-        <Button disabled className="border border-amber-300/30 bg-amber-500/50 text-slate-950 cursor-not-allowed min-w-[150px]">
-          <Loader2 className="mr-2 h-4 w-4 animate-spin shrink-0" />
-          Opening Wallet...
+        <Button disabled className="rounded-full border border-[#27272a] bg-[#18181b] text-[#71717a] font-mono text-[11px] tracking-console uppercase px-5 py-1.5 h-auto cursor-not-allowed min-w-[140px]">
+          <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin shrink-0 text-[#62f6b5]" />
+          Connecting...
         </Button>
       )}
 
       {status === "reconnecting" && (
-        <div className="flex items-center space-x-2 px-3 py-2 text-sm text-slate-300 min-w-[150px] justify-center">
-          <Loader2 className="h-4 w-4 animate-spin shrink-0" />
+        <div className="flex items-center space-x-2 px-3 py-1.5 font-mono text-xs text-[#71717a] min-w-[140px] justify-center">
+          <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0 text-[#62f6b5]" />
           <span>Restoring Session...</span>
         </div>
       )}
@@ -80,27 +100,27 @@ const DisplayWallet = () => {
       )}
 
       {showModal && (status === "idle" || status === "error") && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-white/10 rounded-lg p-6 shadow-xl max-w-sm w-full mx-4">
-            <h3 className="text-lg font-bold mb-4 text-white">Select a Wallet</h3>
-            <div className="flex flex-col space-y-3">
-              <Button variant="outline" onClick={() => void handleConnect("freighter")} className="w-full justify-start border-white/10 text-white hover:bg-white/10 hover:text-white">
+        <div className="fixed inset-0 bg-[#0e0e13]/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-[#09090b] border border-[#27272a] rounded-[5.6px] p-6 shadow-2xl max-w-sm w-full">
+            <h3 className="font-sans text-lg font-medium mb-1 text-[#fffaea]">Select a Wallet</h3>
+            <p className="font-mono text-xs text-[#71717a] mb-5 uppercase tracking-console">Stellar Key Management</p>
+            <div className="flex flex-col space-y-2.5">
+              <Button variant="outline" onClick={() => void handleConnect("freighter")} className="w-full justify-start rounded-[5.6px] border-[#27272a] bg-[#18181b] text-[#fffaea] hover:bg-[#27272a] hover:text-white font-mono text-xs">
                 Freighter
               </Button>
-              <Button variant="outline" onClick={() => void handleConnect("albedo")} className="w-full justify-start border-white/10 text-white hover:bg-white/10 hover:text-white">
+              <Button variant="outline" onClick={() => void handleConnect("albedo")} className="w-full justify-start rounded-[5.6px] border-[#27272a] bg-[#18181b] text-[#fffaea] hover:bg-[#27272a] hover:text-white font-mono text-xs">
                 Albedo
               </Button>
-              <Button variant="outline" onClick={() => void handleConnect("xbull")} className="w-full justify-start border-white/10 text-white hover:bg-white/10 hover:text-white">
+              <Button variant="outline" onClick={() => void handleConnect("xbull")} className="w-full justify-start rounded-[5.6px] border-[#27272a] bg-[#18181b] text-[#fffaea] hover:bg-[#27272a] hover:text-white font-mono text-xs">
                 xBull
               </Button>
             </div>
-            <Button
-              variant="ghost"
+            <button
               onClick={() => setShowModal(false)}
-              className="mt-6 w-full text-slate-400 hover:text-white hover:bg-white/5"
+              className="mt-5 w-full rounded-full border border-[#27272a] py-2 font-mono text-xs uppercase tracking-console text-[#71717a] hover:text-[#fffaea] hover:bg-[#18181b] transition-colors"
             >
               Cancel
-            </Button>
+            </button>
           </div>
         </div>
       )}

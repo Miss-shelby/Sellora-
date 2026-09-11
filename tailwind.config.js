@@ -62,6 +62,23 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        void: "#0e0e13",
+        carbon: "#09090b",
+        slab: "#18181b",
+        iron: "#27272a",
+        steel: "#3f3f46",
+        "zinc-mute": "#71717a",
+        pearl: "#d8d7d4",
+        ice: "#d9e6ef",
+        cream: "#fffaea",
+        bone: "#f4f4f5",
+        mercury: "#a1a1aa",
+        ember: "#e96b34",
+        mint: "#62f6b5",
+        "spectrogram-blue": "#4dcafa",
+        "spectrogram-pink": "#de94e2",
+        "spectrogram-yellow": "#ffdd03",
+        "spectrogram-violet": "#9977ff",
         chart: {
           1: "hsl(var(--chart-1))",
           2: "hsl(var(--chart-2))",
@@ -71,9 +88,14 @@ export default {
         },
       },
       borderRadius: {
+        vapi: "5.6px",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        mono: ["'Geist Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
       },
       keyframes: {
         "accordion-down": {

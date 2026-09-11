@@ -6,6 +6,49 @@
  */
 
 import { sha256 } from "js-sha256";
+import { parseIpfsCid } from "./reference";
+
+/** Default public gateway used when no override is configured. */
+export const DEFAULT_IPFS_GATEWAY = "https://gateway.pinata.cloud/ipfs/";
+
+function readEnvGateway(): string | undefined {
+  if (typeof process !== "undefined" && process.env) {
+    return process.env.PINATA_GATEWAY || process.env.IPFS_GATEWAY || undefined;
+  }
+  return undefined;
+}
+
+/** Normalises a gateway base so it always ends with exactly one trailing slash. */
+function normaliseGatewayBase(base: string): string {
+  return base.endsWith("/") ? base : `${base}/`;
+}
+
+export function resolveGatewayBase(override?: string): string {
+  return normaliseGatewayBase(override || readEnvGateway() || DEFAULT_IPFS_GATEWAY);
+}
+
+/**
+ * Fetches the encrypted payload stored at an ipfs://<cid> reference via an HTTP gateway.
+ */
+export async function fetchCiphertextFromIpfs(
+  reference: string,
+  options?: { gatewayBase?: string; signal?: AbortSignal },
+): Promise<string> {
+  const cid = parseIpfsCid(reference);
+  if (!cid) {
+    throw new Error(`"${reference}" is not a valid IPFS reference.`);
+  }
+
+  const url = `${resolveGatewayBase(options?.gatewayBase)}${cid}`;
+  const response = await fetch(url, { signal: options?.signal });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch ciphertext from IPFS (${response.status} ${response.statusText}).`,
+    );
+  }
+  return (await response.text()).trim();
+}
+
 
 export interface GatewayConfig {
   url: string;

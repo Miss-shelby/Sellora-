@@ -38,9 +38,9 @@ export default defineConfig({
   plugins,
   resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(import.meta.dirname, "./src"),
         "libsodium-wrappers": path.resolve(
-          __dirname,
+          import.meta.dirname,
           "./node_modules/libsodium-wrappers/dist/modules/libsodium-wrappers.js"
         ),
       },

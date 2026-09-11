@@ -15,7 +15,8 @@ const envSchema = z.object({
     .string()
     .url()
     .or(z.string().startsWith("http://")),
-  PUBLIC_PROMPT_HASH_CONTRACT_ID: z.string(),
+  PUBLIC_SELLORA_CONTRACT_ID: z.string().optional(),
+  PUBLIC_PROMPT_HASH_CONTRACT_ID: z.string().optional(),
   PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID: z.string(),
   PUBLIC_STELLAR_SIMULATION_ACCOUNT: z.string(),
   PUBLIC_CHAT_API_BASE: z.string().url(),
@@ -27,6 +28,7 @@ const fallback = {
   PUBLIC_STELLAR_NETWORK_PASSPHRASE: Networks.TESTNET,
   PUBLIC_STELLAR_RPC_URL: "https://soroban-testnet.stellar.org",
   PUBLIC_STELLAR_HORIZON_URL: "https://horizon-testnet.stellar.org",
+  PUBLIC_SELLORA_CONTRACT_ID: "",
   PUBLIC_PROMPT_HASH_CONTRACT_ID: "",
   PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID:
     "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
@@ -38,6 +40,11 @@ const fallback = {
 const isProduction =
   (typeof process !== "undefined" && process?.env?.NODE_ENV === "production") ||
   import.meta.env.MODE === "production";
+
+const contractIdVal =
+  import.meta.env.PUBLIC_SELLORA_CONTRACT_ID ??
+  import.meta.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ??
+  (isProduction ? undefined : fallback.PUBLIC_SELLORA_CONTRACT_ID);
 
 const env = envSchema.parse({
   PUBLIC_STELLAR_NETWORK:
@@ -52,9 +59,8 @@ const env = envSchema.parse({
   PUBLIC_STELLAR_HORIZON_URL:
     import.meta.env.PUBLIC_STELLAR_HORIZON_URL ??
     (isProduction ? undefined : fallback.PUBLIC_STELLAR_HORIZON_URL),
-  PUBLIC_PROMPT_HASH_CONTRACT_ID:
-    import.meta.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ??
-    (isProduction ? undefined : fallback.PUBLIC_PROMPT_HASH_CONTRACT_ID),
+  PUBLIC_SELLORA_CONTRACT_ID: contractIdVal,
+  PUBLIC_PROMPT_HASH_CONTRACT_ID: contractIdVal,
   PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID:
     import.meta.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID ??
     (isProduction ? undefined : fallback.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID),
@@ -76,7 +82,9 @@ export const stellarNetwork =
 export const networkPassphrase = env.PUBLIC_STELLAR_NETWORK_PASSPHRASE;
 export const rpcUrl = env.PUBLIC_STELLAR_RPC_URL;
 export const horizonUrl = env.PUBLIC_STELLAR_HORIZON_URL;
-export const SelloraContractId = env.PUBLIC_PROMPT_HASH_CONTRACT_ID;
+export const SelloraContractId =
+  env.PUBLIC_SELLORA_CONTRACT_ID || env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "";
+export const promptHashContractId = SelloraContractId;
 export const nativeAssetContractId = env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID;
 export const simulationAccount = env.PUBLIC_STELLAR_SIMULATION_ACCOUNT;
 export const chatApiBase = env.PUBLIC_CHAT_API_BASE;

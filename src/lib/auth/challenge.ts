@@ -37,37 +37,11 @@ export interface ChallengeContext {
  * buyer's signature cannot be replayed against a drifted listing (price, owner,
  * asset, version, or expiry changes between challenge creation and submission).
  */
-export interface ListingSnapshot {
-  promptId: string;
-  owner: string;
-  priceStroops: string;
-  asset: string;
-  version: string;
-  expiresAt: string;
-}
+export {
+  type ListingSnapshot,
+  computeListingSnapshotHash,
+} from "./listingSnapshot";
 
-/**
- * Deterministic SHA-256 hash of a listing snapshot.
- *
- * The canonical string includes a fixed `listing` domain tag and every field in
- * a stable order. Address-like fields (owner, asset) are lower-cased; numeric
- * fields are normalized to their string form so the same listing always hashes
- * to the same value regardless of client/precision differences.
- */
-export function computeListingSnapshotHash(snapshot: ListingSnapshot): string {
-  const normalize = (value: unknown): string =>
-    value === undefined || value === null ? "" : String(value).trim();
-  const parts = [
-    normalize(snapshot.promptId),
-    normalize(snapshot.owner).toLowerCase(),
-    normalize(snapshot.priceStroops),
-    normalize(snapshot.asset).toLowerCase(),
-    normalize(snapshot.version),
-    normalize(snapshot.expiresAt),
-  ];
-  const canonical = `listing|${parts.join("|")}`;
-  return createHash("sha256").update(canonical).digest("hex");
-}
 
 function base64UrlEncode(value: string) {
   return Buffer.from(value, "utf8")

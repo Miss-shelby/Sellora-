@@ -41,36 +41,38 @@ export function FeaturedPrompts({ limit = 6, title = "Featured Templates" }) {
             {templates.map((prompt) => (
               <Card
                 key={prompt.id}
-                className="overflow-hidden border-white/10 bg-slate-950/60 text-white shadow-[0_24px_80px_-48px_rgba(245,158,11,0.6)]"
+                className="overflow-hidden border border-[#27272a] bg-[#09090b] text-[#fffaea] rounded-[5.6px] shadow-none flex flex-col justify-between"
               >
-                <div className="relative aspect-video overflow-hidden">
-                  <img
-                    src={prompt.imageUrl}
-                    alt={prompt.title}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  <Badge className="absolute right-3 top-3 bg-slate-950/80 text-amber-200">
-                    {prompt.category}
-                  </Badge>
-                </div>
-                <CardContent className="space-y-3 p-5">
-                  <div className="flex items-center gap-2 text-amber-300">
-                    <Sparkles className="h-4 w-4" />
-                    <span className="text-xs uppercase tracking-[0.25em]">
-                      Preview
+                <div>
+                  <div className="relative aspect-video overflow-hidden border-b border-[#27272a]">
+                    <img
+                      src={prompt.imageUrl}
+                      alt={prompt.title}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <span className="absolute right-3 top-3 rounded-full border border-[#27272a] bg-[#09090b]/90 px-2.5 py-0.5 font-mono text-[10px] text-[#62f6b5]">
+                      {prompt.category}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold">{prompt.title}</h3>
-                  <p className="text-sm leading-6 text-slate-300">
-                    {prompt.previewText}
-                  </p>
-                </CardContent>
+                  <CardContent className="space-y-3 p-5">
+                    <div className="flex items-center gap-2 text-[#e96b34]">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span className="font-mono text-[10px] uppercase tracking-console text-[#71717a]">
+                        TEMPLATE PREVIEW
+                      </span>
+                    </div>
+                    <h3 className="font-sans text-lg font-medium text-[#fffaea]">{prompt.title}</h3>
+                    <p className="text-xs leading-relaxed text-[#71717a]">
+                      {prompt.previewText}
+                    </p>
+                  </CardContent>
+                </div>
                 <CardFooter className="p-5 pt-0">
                   <Button
-                    className="w-full bg-amber-400 text-slate-950 hover:bg-amber-300"
+                    className="w-full rounded-full bg-[#fffaea] text-[#0e0e13] font-mono text-xs uppercase tracking-console font-medium hover:bg-white transition-all shadow-none"
                     onClick={() => setSelectedPrompt(prompt)}
                   >
-                    View template
+                    View template →
                   </Button>
                 </CardFooter>
               </Card>

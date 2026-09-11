@@ -90,15 +90,15 @@ createRoot(document.getElementById("root") as HTMLElement).render(
           }
         }}
       >
-        <ContractSyncProvider>
-          <TransactionProvider>
-            <WalletProvider>
+        <TransactionProvider>
+          <WalletProvider>
+            <ContractSyncProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
-            </WalletProvider>
-          </TransactionProvider>
-        </ContractSyncProvider>
+            </ContractSyncProvider>
+          </WalletProvider>
+        </TransactionProvider>
       </PersistQueryClientProvider>
     </NotificationProvider>
   </StrictMode>,

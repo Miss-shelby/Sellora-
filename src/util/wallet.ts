@@ -53,8 +53,13 @@ export const wallet = {
   setWallet: (id: string): void => {
     StellarWalletsKit.setWallet(id);
   },
-  getAddress: (): Promise<{ address: string }> =>
-    StellarWalletsKit.getAddress(),
+  getAddress: async (): Promise<{ address: string }> => {
+    try {
+      return await StellarWalletsKit.fetchAddress();
+    } catch {
+      return await StellarWalletsKit.getAddress();
+    }
+  },
   getNetwork: (): Promise<{ network: string; networkPassphrase: string }> =>
     StellarWalletsKit.getNetwork(),
   signTransaction: async (

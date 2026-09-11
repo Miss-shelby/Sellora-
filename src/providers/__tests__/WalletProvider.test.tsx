@@ -16,6 +16,7 @@ vi.mock('@creit.tech/stellar-wallets-kit', async (importOriginal) => {
       init: vi.fn(),
       setWallet: vi.fn(),
       getAddress: vi.fn().mockResolvedValue({ address: 'GABC123' }),
+      fetchAddress: vi.fn().mockResolvedValue({ address: 'GABC123' }),
       getNetwork: vi.fn().mockResolvedValue({
         network: 'TESTNET',
         networkPassphrase: 'Test SDF Network ; September 2015',

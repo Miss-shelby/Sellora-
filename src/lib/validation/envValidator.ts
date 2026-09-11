@@ -64,7 +64,10 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
     process.env.PUBLIC_STELLAR_HORIZON_URL ||
     (isProd ? "" : "https://horizon-testnet.stellar.org");
 
-  const SelloraContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "";
+  const SelloraContractId =
+    process.env.PUBLIC_SELLORA_CONTRACT_ID ||
+    process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ||
+    "";
   const nativeAssetContractId = process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID || "";
   const simulationAccount = process.env.PUBLIC_STELLAR_SIMULATION_ACCOUNT || "";
   const unlockPublicKey = process.env.UNLOCK_PUBLIC_KEY || "";
@@ -77,8 +80,8 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
     if (!process.env.PUBLIC_STELLAR_RPC_URL) {
       errors.push("PUBLIC_STELLAR_RPC_URL must be explicitly set in production mode.");
     }
-    if (!process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID) {
-      errors.push("PUBLIC_PROMPT_HASH_CONTRACT_ID must be explicitly set in production mode.");
+    if (!SelloraContractId) {
+      errors.push("PUBLIC_SELLORA_CONTRACT_ID must be explicitly set in production mode.");
     }
     if (!process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID) {
       errors.push("PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID must be explicitly set in production mode.");
@@ -92,14 +95,14 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
   if (isPlaceholder(network)) errors.push("PUBLIC_STELLAR_NETWORK has a placeholder value.");
   if (!rpcUrl || isPlaceholder(rpcUrl)) errors.push("PUBLIC_STELLAR_RPC_URL is missing or has a placeholder value.");
   if (SelloraContractId && isPlaceholder(SelloraContractId)) {
-    errors.push("PUBLIC_PROMPT_HASH_CONTRACT_ID has a placeholder value.");
+    errors.push("PUBLIC_SELLORA_CONTRACT_ID has a placeholder value.");
   }
 
   const STELLAR_CONTRACT_ID = /^C[A-Z0-9]{55}$/;
   const STELLAR_ACCOUNT_ID = /^G[A-Z0-9]{55}$/;
 
   if (SelloraContractId && !STELLAR_CONTRACT_ID.test(SelloraContractId) && isProd) {
-    errors.push("PUBLIC_PROMPT_HASH_CONTRACT_ID must be a valid 56-character Soroban contract address starting with C.");
+    errors.push("PUBLIC_SELLORA_CONTRACT_ID must be a valid 56-character Soroban contract address starting with C.");
   }
 
   if (simulationAccount && !STELLAR_ACCOUNT_ID.test(simulationAccount) && isProd) {
