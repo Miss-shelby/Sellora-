@@ -183,14 +183,14 @@ export async function deliverRow(row: InstanceType<typeof WebhookOutboxEvent>): 
   });
   const headers = {
     "Content-Type": "application/json",
-    "X-PromptHash-Signature": signWebhookPayload(sub.secret, { body, timestamp, eventId, deliveryId }),
-    "X-PromptHash-Delivery": deliveryId,
-    "X-PromptHash-Event-Id": eventId,
-    "X-PromptHash-Event-Version": String(schemaVersion),
-    "X-PromptHash-Timestamp": timestamp,
-    "X-PromptHash-Sequence": String(row.sequence),
-    "X-PromptHash-Payload-Hash": row.payloadHash,
-    "X-PromptHash-Event": row.event,
+    "X-Sellora-Signature": signWebhookPayload(sub.secret, { body, timestamp, eventId, deliveryId }),
+    "X-Sellora-Delivery": deliveryId,
+    "X-Sellora-Event-Id": eventId,
+    "X-Sellora-Event-Version": String(schemaVersion),
+    "X-Sellora-Timestamp": timestamp,
+    "X-Sellora-Sequence": String(row.sequence),
+    "X-Sellora-Payload-Hash": row.payloadHash,
+    "X-Sellora-Event": row.event,
   };
 
   try {

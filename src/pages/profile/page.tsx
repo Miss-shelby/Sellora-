@@ -49,7 +49,7 @@ import {
   setPromptSaleStatus,
   updatePromptPrice,
   type PromptRecord,
-} from "@/lib/stellar/promptHashClient";
+} from "@/lib/stellar/SelloraClient";
 import {
   formatPriceLabel,
   stroopsToXlmString,
@@ -746,7 +746,7 @@ function SavedPromptCard({
 export default function ProfilePage() {
   usePageMeta({
     title: "My Profile",
-    description: "Manage your purchased prompts, listings, and wallet settings on Prompt Hash Stellar.",
+    description: "Manage your purchased prompts, listings, and wallet settings on Sellora.",
   });
 
   const queryClient = useQueryClient();

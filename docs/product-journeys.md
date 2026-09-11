@@ -1,6 +1,6 @@
-# PromptHash Stellar — Product Journeys
+# Sellora — Product Journeys
 
-This document explains how PromptHash works from both the **creator** and **buyer** perspectives. It is written for new contributors who want to understand the product flow before changing code.
+This document explains how Sellora works from both the **creator** and **buyer** perspectives. It is written for new contributors who want to understand the product flow before changing code.
 
 ---
 
@@ -16,7 +16,7 @@ This document explains how PromptHash works from both the **creator** and **buye
 
 ## Overview
 
-PromptHash Stellar is a marketplace where creators sell reusable AI prompt licenses and buyers purchase access in XLM. The key design principle is that **the full prompt is never stored in plaintext** — it is encrypted in the browser before anything touches the blockchain.
+Sellora is a marketplace where creators sell reusable AI prompt licenses and buyers purchase access in XLM. The key design principle is that **the full prompt is never stored in plaintext** — it is encrypted in the browser before anything touches the blockchain.
 
 Three layers work together:
 
@@ -75,8 +75,8 @@ The app calls `create_prompt` on the Soroban contract with:
 
 The transaction is signed by the creator's wallet and submitted to the Stellar network.
 
-**Contract method:** `create_prompt` in `contracts/prompt-hash/src/contract.rs`  
-**Client helper:** `src/lib/stellar/promptHashClient.ts`
+**Contract method:** `create_prompt` in `contracts/sellora/src/contract.rs`  
+**Client helper:** `src/lib/stellar/SelloraClient.ts`
 
 ### Step 5 — Manage listings
 
@@ -128,7 +128,7 @@ The buyer clicks "Buy". The app:
 3. The contract transfers XLM from the buyer to the seller and the platform fee wallet.
 4. The contract records the buyer's purchase rights on-chain.
 
-**Contract method:** `buy_prompt` in `contracts/prompt-hash/src/contract.rs`
+**Contract method:** `buy_prompt` in `contracts/sellora/src/contract.rs`
 
 ### Step 4 — Request a challenge token
 
@@ -197,7 +197,7 @@ Buyer
 
 Understanding which layer owns which responsibility helps contributors find the right place to make changes.
 
-### Soroban contract (`contracts/prompt-hash/`)
+### Soroban contract (`contracts/sellora/`)
 
 - Stores all prompt metadata and encrypted payload on-chain
 - Enforces purchase rights and XLM fee splits
@@ -268,8 +268,8 @@ Prompt recommendations and curated discovery surfaces filter out ineligible cont
 | `api/auth/challenge.ts` | Challenge token issuance |
 | `api/prompts/unlock.ts` | Prompt unlock and decryption |
 | `src/lib/crypto/promptCrypto.ts` | AES-GCM encryption helpers |
-| `src/lib/stellar/promptHashClient.ts` | Soroban contract client |
-| `contracts/prompt-hash/src/contract.rs` | Soroban contract implementation |
+| `src/lib/stellar/SelloraClient.ts` | Soroban contract client |
+| `contracts/sellora/src/contract.rs` | Soroban contract implementation |
 | `docs/architecture.md` | System architecture overview |
 | `docs/api-reference.md` | Challenge-response protocol details |
 | `docs/frontend-testing.md` | Frontend test patterns |
@@ -277,8 +277,8 @@ Prompt recommendations and curated discovery surfaces filter out ineligible cont
 
 **Related issues:**
 
-- [#154](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/154) — Listing quality checklist before publication
-- [#155](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/155) — Standardize challenge and unlock API error codes
-- [#157](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/157) — One-command local setup validation
-- [#159](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/159) — Buyer and creator journey documentation (this file)
-- [#715](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/715) — Recommendation logic controls and eligibility filtering
+- [#154](https://github.com/Obiajulu-gif/sellora/issues/154) — Listing quality checklist before publication
+- [#155](https://github.com/Obiajulu-gif/sellora/issues/155) — Standardize challenge and unlock API error codes
+- [#157](https://github.com/Obiajulu-gif/sellora/issues/157) — One-command local setup validation
+- [#159](https://github.com/Obiajulu-gif/sellora/issues/159) — Buyer and creator journey documentation (this file)
+- [#715](https://github.com/Obiajulu-gif/sellora/issues/715) — Recommendation logic controls and eligibility filtering

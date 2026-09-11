@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 
-const STORAGE_KEY = "prompt-hash:recently-viewed";
+const STORAGE_KEY = "sellora:recently-viewed";
 const MAX_ITEMS = 20;
 
 export interface RecentlyViewedPrompt {

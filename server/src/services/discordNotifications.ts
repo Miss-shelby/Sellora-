@@ -62,14 +62,14 @@ function isRateLimited(): boolean {
  * Build a rich embed for Discord
  */
 function buildDiscordEmbed(prompt: PromptData): DiscordEmbed {
-  const appUrl = process.env.APP_URL || "https://prompthash.io";
+  const appUrl = process.env.APP_URL || "https://Sellora.io";
   const priceXlm = (prompt.price / 10000000).toFixed(2);
   
   return {
     title: `🚀 New Prompt Published: ${prompt.title}`,
     description: prompt.description 
       ? prompt.description.slice(0, 200) + (prompt.description.length > 200 ? "..." : "")
-      : "Check out this new AI prompt on PromptHash Stellar!",
+      : "Check out this new AI prompt on Sellora!",
     url: `${appUrl}/prompts/${prompt.promptId}`,
     color: 0x00ffff, // Cyan color matching the brand
     fields: [
@@ -91,7 +91,7 @@ function buildDiscordEmbed(prompt: PromptData): DiscordEmbed {
     ],
     image: prompt.imageUrl ? { url: prompt.imageUrl } : undefined,
     footer: {
-      text: "PromptHash Stellar Marketplace",
+      text: "Sellora Marketplace",
     },
     timestamp: new Date().toISOString(),
   };

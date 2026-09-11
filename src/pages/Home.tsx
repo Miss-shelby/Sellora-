@@ -90,7 +90,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/20 bg-amber-500/10">
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 <span className="text-sm text-amber-300">
-                  PromptHash on Stellar
+                  Sellora on Stellar
                 </span>
               </div>
 

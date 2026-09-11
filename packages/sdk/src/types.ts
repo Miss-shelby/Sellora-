@@ -1,7 +1,7 @@
 /** SDK configuration — Issue #110 */
 
 export interface ClientConfig {
-  /** PromptHash backend API base URL */
+  /** Sellora backend API base URL */
   apiUrl: string;
   /** Stellar network: "testnet" | "mainnet" */
   network?: "testnet" | "mainnet";
@@ -33,7 +33,7 @@ export interface VoteResult {
  *
  * Every field is derived from finalized contract state and transaction
  * evidence — never from a mutable database row — so a receipt can be
- * re-verified against Stellar RPC alone, without trusting the PromptHash
+ * re-verified against Stellar RPC alone, without trusting the Sellora
  * API or database.
  */
 export interface PurchaseReceipt {

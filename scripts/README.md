@@ -1,6 +1,6 @@
 # Soroban Deployment & Upgrade Scripts
 
-This directory contains scripts to automate the deployment, initialization, and upgrade of the `PromptHash` contract.
+This directory contains scripts to automate the deployment, initialization, and upgrade of the `Sellora` contract.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Performs a comprehensive check of the deployed contract's configuration (owner, 
 ```
 
 ### 4. `preflight_upgrade.py`
-Blocks network-affecting upgrades on unacknowledged breaking interface changes. See `docs/operations/contract-upgrades.md` and `contracts/prompt-hash/MIGRATION.md`.
+Blocks network-affecting upgrades on unacknowledged breaking interface changes. See `docs/operations/contract-upgrades.md` and `contracts/sellora/MIGRATION.md`.
 
 ### 5. `dry-run-migration.py` (#712)
 Previews the storage-migration effect of an upgrade **without writing state**:

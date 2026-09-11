@@ -16,7 +16,7 @@ export const collections: Collection[] = [
       "High-performance prompts for system design, code generation, and technical architecture planning.",
     imageUrl: "/images/codeguru.png",
     promptIds: [1],
-    curator: "PromptHash",
+    curator: "Sellora",
     promptCount: 1,
   },
   {
@@ -26,7 +26,7 @@ export const collections: Collection[] = [
       "Unlock narrative structures, character development, and creative writing techniques from expert curators.",
     imageUrl: "/images/codeguru.png",
     promptIds: [2],
-    curator: "PromptHash",
+    curator: "Sellora",
     promptCount: 1,
   },
   {
@@ -36,7 +36,7 @@ export const collections: Collection[] = [
       "Crafted prompts for copywriting, sales funnels, brand strategy, and audience engagement.",
     imageUrl: "/images/codeguru.png",
     promptIds: [],
-    curator: "PromptHash",
+    curator: "Sellora",
     promptCount: 0,
   },
   {
@@ -46,7 +46,7 @@ export const collections: Collection[] = [
       "Streamline your daily workflow with prompts designed for task management, automation, and team coordination.",
     imageUrl: "/images/codeguru.png",
     promptIds: [],
-    curator: "PromptHash",
+    curator: "Sellora",
     promptCount: 0,
   },
 ];

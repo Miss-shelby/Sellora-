@@ -1,12 +1,13 @@
 {
-  "name": "prompt-hash-stellar",
+  "name": "sellora",
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Soroban-based prompt licensing marketplace with XLM payments and wallet-verified unlocks.",
+  "description": "Decentralized marketplace for AI Agent workflows and system prompts on Stellar.",
+  "author": "Miss-shelby",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Obiajulu-gif/Prompt-Hash-Stellar"
+    "url": "https://github.com/Miss-shelby/Sellora-.git"
   },
   "scripts": {
     "dev": "node scripts/check-local-setup.mjs --warn-only && vite",
@@ -17,7 +18,7 @@
     "test": "vitest run",
     "test:frontend": "vitest run",
     "test:frontend:watch": "vitest",
-    "test:contract": "cargo test -p prompt-hash",
+    "test:contract": "cargo test -p sellora",
     "test:e2e": "playwright test",
     "preview": "vite preview",
     "lint": "eslint .",

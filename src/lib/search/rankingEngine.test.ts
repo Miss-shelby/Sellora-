@@ -4,7 +4,7 @@ import {
   rankPrompts,
   generateNoResultSuggestions,
 } from "./rankingEngine";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 const mockPrompt = (overrides: Partial<PromptRecord> = {}): PromptRecord => ({
   id: 1n,

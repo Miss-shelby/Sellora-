@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "../render";
 import { PromptModal } from "@/pages/browse/PromptModal";
 import type { WalletContextType } from "@/providers/WalletProvider";
-import { PromptHashClient } from "@/lib/stellar/promptHashClient";
+import { SelloraClient } from "@/lib/stellar/SelloraClient";
 
 // Preserves module boundaries and provides all necessary configuration keys
 vi.mock("@/lib/env", async (importOriginal) => {
@@ -15,20 +15,20 @@ vi.mock("@/lib/env", async (importOriginal) => {
     rpcUrl: "https://soroban-testnet.stellar.org",
     networkPassphrase: "Test SDF Network ; September 2015",
     allowHttp: false,
-    promptHashContractId: "CCONTRACTMOCKADDRESS1234567890ABCDEF",
+    SelloraContractId: "CCONTRACTMOCKADDRESS1234567890ABCDEF",
     browserStellarConfig: {
       stellarWalletNetwork: "Test SDF Network ; September 2015",
       rpcUrl: "https://soroban-testnet.stellar.org",
       networkPassphrase: "Test SDF Network ; September 2015",
       allowHttp: false,
-      promptHashContractId: "CCONTRACTMOCKADDRESS1234567890ABCDEF",
+      SelloraContractId: "CCONTRACTMOCKADDRESS1234567890ABCDEF",
     },
   };
 });
 
-// Mock the PromptHashClient
-vi.mock("@/lib/stellar/promptHashClient", () => ({
-  PromptHashClient: {
+// Mock the SelloraClient
+vi.mock("@/lib/stellar/SelloraClient", () => ({
+  SelloraClient: {
     checkAccess: vi.fn(),
     getPrompt: vi.fn(),
     purchasePrompt: vi.fn(),
@@ -66,8 +66,8 @@ describe("Purchase Button States", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(PromptHashClient.checkAccess).mockResolvedValue(false);
-    vi.mocked(PromptHashClient.getPrompt).mockResolvedValue(mockPrompt);
+    vi.mocked(SelloraClient.checkAccess).mockResolvedValue(false);
+    vi.mocked(SelloraClient.getPrompt).mockResolvedValue(mockPrompt);
   });
 
   it("disables purchase button when wallet is disconnected", async () => {
@@ -122,7 +122,7 @@ describe("Purchase Button States", () => {
       networkCompatibility: { compatible: true } as any,
     };
 
-    vi.mocked(PromptHashClient.purchasePrompt).mockImplementation(
+    vi.mocked(SelloraClient.purchasePrompt).mockImplementation(
       () =>
         new Promise((resolve) =>
           setTimeout(() => resolve({ txHash: "test", success: true }), 100),
@@ -154,7 +154,7 @@ describe("Purchase Button States", () => {
       networkCompatibility: { compatible: true } as any,
     };
 
-    vi.mocked(PromptHashClient.purchasePrompt).mockRejectedValue(
+    vi.mocked(SelloraClient.purchasePrompt).mockRejectedValue(
       new Error("Insufficient XLM balance"),
     );
 
@@ -201,7 +201,7 @@ describe("Purchase Button States", () => {
       networkCompatibility: { compatible: true } as any,
     };
 
-    vi.mocked(PromptHashClient.checkAccess).mockResolvedValue(true);
+    vi.mocked(SelloraClient.checkAccess).mockResolvedValue(true);
 
     renderWithProviders(
       <PromptModal itemId="1" isOpen={true} onClose={vi.fn()} />,

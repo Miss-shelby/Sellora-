@@ -31,9 +31,9 @@ export interface SearchListingAlert {
   read: boolean;
 }
 
-const SEARCHES_STORAGE_KEY_PREFIX = 'prompthash_saved_searches_';
-const ALERTS_STORAGE_KEY_PREFIX = 'prompthash_search_alerts_';
-const SEEN_ALERTS_KEY_PREFIX = 'prompthash_seen_alerts_';
+const SEARCHES_STORAGE_KEY_PREFIX = 'Sellora_saved_searches_';
+const ALERTS_STORAGE_KEY_PREFIX = 'Sellora_search_alerts_';
+const SEEN_ALERTS_KEY_PREFIX = 'Sellora_seen_alerts_';
 
 export function useSavedSearches() {
   const { address } = useWallet();

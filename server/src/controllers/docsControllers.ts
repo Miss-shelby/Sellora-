@@ -21,7 +21,7 @@ const REDOC_HTML = `<!DOCTYPE html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PromptHash Marketplace API — Reference</title>
+    <title>Sellora Marketplace API — Reference</title>
     <style>
       body { margin: 0; font-family: system-ui, sans-serif; }
       #openapi { position: relative; }

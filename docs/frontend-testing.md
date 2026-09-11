@@ -1,6 +1,6 @@
 # Frontend Testing Guide
 
-PromptHash Stellar uses Vitest + jsdom + React Testing Library for frontend integration coverage.
+Sellora uses Vitest + jsdom + React Testing Library for frontend integration coverage.
 
 ## Run The Suite
 
@@ -31,7 +31,7 @@ Prefer real user journeys at the component or page-flow level:
 2. Reuse realistic prompt fixtures from [`src/test/fixtures/prompts.ts`](../src/test/fixtures/prompts.ts).
 3. Mock wallet, Soroban client, encryption, unlock, and buyer-library API boundaries at the edge:
    - `@/util/wallet`
-   - `@/lib/stellar/promptHashClient`
+   - `@/lib/stellar/SelloraClient`
    - `@/lib/crypto/promptCrypto`
    - `@/lib/prompts/unlock`
    - `@/lib/prompts/library` (saved/owned collection `fetch` calls)

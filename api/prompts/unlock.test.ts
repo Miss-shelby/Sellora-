@@ -20,7 +20,7 @@ const unwrapPromptKeyMock = vi.fn();
 const decryptPromptCiphertextMock = vi.fn();
 const hashPromptPlaintextMock = vi.fn();
 
-vi.mock("../../src/lib/stellar/promptHashClient", () => ({
+vi.mock("../../src/lib/stellar/SelloraClient", () => ({
   hasAccess: (...args: unknown[]) => hasAccessMock(...args),
   verifyEntitlement: (...args: unknown[]) => verifyEntitlementMock(...args),
   getPrompt: (...args: unknown[]) => getPromptMock(...args),
@@ -250,7 +250,7 @@ describe("unlock challenge message contract", () => {
     };
 
     expect(buildChallengeMessage(payload)).toBe(
-      "prompt-hash:unlock::Test SDF Network ; September 2015:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC:GBUYERACCOUNT1234567890ABCDEFGH1234567890ABCDEFGH123456789:7::::nonce-123:1700000000000:1700000000000",
+      "sellora:unlock::Test SDF Network ; September 2015:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC:GBUYERACCOUNT1234567890ABCDEFGH1234567890ABCDEFGH123456789:7::::nonce-123:1700000000000:1700000000000",
     );
   });
 });

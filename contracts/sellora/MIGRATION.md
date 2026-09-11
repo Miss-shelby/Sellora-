@@ -3,7 +3,7 @@
 `scripts/preflight_upgrade.py` blocks an upgrade whenever it detects a
 breaking change to the contract's public interface (a removed/changed
 trait function, error code, storage-key/record shape, or event) relative to
-`contracts/prompt-hash/spec-baseline.json`.
+`contracts/sellora/spec-baseline.json`.
 
 `scripts/dry-run-migration.py` (introduced for #712) previews the migration
 effect of the same diff **without writing any state**. It classifies the
@@ -29,7 +29,7 @@ regenerate the baseline:
 
 ```bash
 python3 scripts/preflight_upgrade.py generate-baseline
-git add contracts/prompt-hash/spec-baseline.json contracts/prompt-hash/MIGRATION.md
+git add contracts/sellora/spec-baseline.json contracts/sellora/MIGRATION.md
 ```
 
 ## Log
@@ -89,7 +89,7 @@ Example:
 
 ### 2026-01-01 — renamed `has_access` to `check_access`
 
-ACK-BREAKING: function `has_access` was removed from PromptHashTrait
+ACK-BREAKING: function `has_access` was removed from SelloraTrait
 
 Migration: `has_access` was renamed to `check_access` with an identical
 signature. Existing storage is untouched — no data migration is required.

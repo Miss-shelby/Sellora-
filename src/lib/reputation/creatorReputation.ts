@@ -1,4 +1,4 @@
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 export interface CreatorReputation {
   creator: string;
@@ -14,7 +14,7 @@ export interface CreatorReputation {
 
 export type ThumbRating = "up" | "down";
 
-const RATING_PREFIX = "prompt-hash:creator-rating:";
+const RATING_PREFIX = "sellora:creator-rating:";
 
 const verifiedCreators: Record<string, { label: string; firstSeenAt: string }> = {
   "GD...1234": {

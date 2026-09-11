@@ -19,7 +19,7 @@ const unwrapPromptKeyMock = vi.fn();
 const decryptPromptCiphertextMock = vi.fn();
 const hashPromptPlaintextMock = vi.fn();
 
-vi.mock("../../../src/lib/stellar/promptHashClient", () => ({
+vi.mock("../../../src/lib/stellar/SelloraClient", () => ({
   hasAccess: (...args: unknown[]) => hasAccessMock(...args),
   verifyEntitlement: (...args: unknown[]) => verifyEntitlementMock(...args),
   getPrompt: (...args: unknown[]) => getPromptMock(...args),

@@ -18,7 +18,7 @@ import { browserStellarConfig } from "@/lib/stellar/browserConfig";
 import {
   hasAccess,
   type PromptRecord,
-} from "@/lib/stellar/promptHashClient";
+} from "@/lib/stellar/SelloraClient";
 import { useCatalogPages } from "./useCatalogPages";
 import {
   fetchSavedPrompts,
@@ -38,7 +38,7 @@ const ITEMS_PER_PAGE = 9;
 const ENABLE_INFINITE_SCROLL = true;
 
 const isMarketplaceConfigured = Boolean(
-  browserStellarConfig.promptHashContractId &&
+  browserStellarConfig.SelloraContractId &&
   browserStellarConfig.simulationAccount &&
   browserStellarConfig.rpcUrl,
 );

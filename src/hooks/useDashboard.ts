@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "./useWallet";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { getPromptsByCreator, getPromptsByBuyer } from "@/lib/stellar/promptHashClient";
+import { getPromptsByCreator, getPromptsByBuyer } from "@/lib/stellar/SelloraClient";
 
 export const useDashboard = () => {
   const { address } = useWallet();

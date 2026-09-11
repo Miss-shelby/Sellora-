@@ -6,7 +6,7 @@ Please reach out to the team using GitHub's own security mechanism to submit an 
 
 ---
 
-# PromptHash Soroban Contract - Threat Model & Security Review
+# Sellora Soroban Contract - Threat Model & Security Review
 
 ## 1. Threat Model Overview
 

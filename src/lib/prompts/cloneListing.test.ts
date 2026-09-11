@@ -6,7 +6,7 @@ import {
   seedCloneDraft,
 } from "./cloneListing";
 import { getDraftStorageKey } from "@/hooks/useDraftAutoSave";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 const OWNER = "GABC1234567890OWNERADDRESS0000000000000000000";
 const OTHER = "GXYZ9999990000OTHERADDRESS00000000000000000";

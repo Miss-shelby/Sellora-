@@ -1,6 +1,6 @@
 # Mainnet Deployment Guide
 
-This guide provides step-by-step instructions for deploying the PromptHash Stellar application to the Stellar Mainnet.
+This guide provides step-by-step instructions for deploying the Sellora application to the Stellar Mainnet.
 
 ## Prerequisites
 

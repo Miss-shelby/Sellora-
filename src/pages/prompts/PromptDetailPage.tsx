@@ -21,7 +21,7 @@ import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { getPrompt } from "@/lib/stellar/promptHashClient";
+import { getPrompt } from "@/lib/stellar/SelloraClient";
 import { formatPriceLabel } from "@/lib/stellar/format";
 import { usePageMeta } from "@/lib/seo/usePageMeta";
 import { buildCreatorReputation } from "@/lib/reputation/creatorReputation";

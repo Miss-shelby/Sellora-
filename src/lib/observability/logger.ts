@@ -43,7 +43,7 @@ export const logger = pino({
       },
   base: {
     env: process.env.NODE_ENV,
-    service: "prompt-hash-unlock",
+    service: "sellora-unlock",
   },
 });
 

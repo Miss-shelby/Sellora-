@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 interface SearchFilters {
   query?: string;
@@ -83,7 +83,7 @@ export function useSearchPrompts(filters: SearchFilters, enabled = true) {
       } catch (error) {
         console.warn("Search API unavailable, falling back to contract reads:", error);
         // Fallback to contract reads if API fails
-        const { getAllPrompts } = await import("@/lib/stellar/promptHashClient");
+        const { getAllPrompts } = await import("@/lib/stellar/SelloraClient");
         const { browserStellarConfig } = await import("@/lib/stellar/browserConfig");
         
         const allPrompts = await getAllPrompts(browserStellarConfig);

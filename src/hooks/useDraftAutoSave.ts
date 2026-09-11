@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const DRAFT_PREFIX = "prompt-hash:create-draft:";
+const DRAFT_PREFIX = "sellora:create-draft:";
 
 /** Fields that are safe to persist — never include secret prompt content. */
 const SENSITIVE_FIELDS = new Set(["fullPrompt"]);

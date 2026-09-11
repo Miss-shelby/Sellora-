@@ -15,5 +15,5 @@ mod types;
 #[cfg(test)]
 mod mock_asset;
 
-pub use contract::PromptHashContract;
+pub use contract::SelloraContract;
 pub use types::{DataKey, Error, Prompt};

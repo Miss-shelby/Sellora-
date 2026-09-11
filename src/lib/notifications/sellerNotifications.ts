@@ -8,7 +8,7 @@
  * listing updates. Read/unread state and the notification feed are persisted in
  * localStorage so they survive reloads.
  */
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 export type SellerNotificationType = "sale" | "listing";
 
@@ -38,8 +38,8 @@ export interface SellerActivitySummary {
 }
 
 const MAX_STORED_NOTIFICATIONS = 50;
-const NOTIFICATIONS_PREFIX = "prompt-hash:seller-notifications:";
-const SNAPSHOT_PREFIX = "prompt-hash:seller-snapshot:";
+const NOTIFICATIONS_PREFIX = "sellora:seller-notifications:";
+const SNAPSHOT_PREFIX = "sellora:seller-snapshot:";
 
 export function snapshotOf(prompts: PromptRecord[]): SnapshotMap {
   const map: SnapshotMap = {};

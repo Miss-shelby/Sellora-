@@ -10,7 +10,7 @@
  *
  * Environment variables:
  *   BACKUP_S3_BUCKET        – Target S3 bucket name
- *   BACKUP_S3_PREFIX        – Key prefix, e.g. "backups/prompthash" (default: "backups")
+ *   BACKUP_S3_PREFIX        – Key prefix, e.g. "backups/Sellora" (default: "backups")
  *   BACKUP_S3_REGION        – AWS region (default: "us-east-1")
  *   AWS_ACCESS_KEY_ID       – AWS credentials
  *   AWS_SECRET_ACCESS_KEY   – AWS credentials
@@ -416,7 +416,7 @@ async function alertOnFailure(message: string): Promise<void> {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        text: `[PromptHash] ⚠️ Backup FAILED: ${message}`,
+        text: `[Sellora] ⚠️ Backup FAILED: ${message}`,
         timestamp: new Date().toISOString(),
       }),
     });

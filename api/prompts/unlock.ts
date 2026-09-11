@@ -16,10 +16,10 @@ import {
   getPrompt,
   hasAccess,
   verifyEntitlement,
-  type PromptHashConfig,
+  type SelloraConfig,
   type LedgerVerifiedEntitlement,
   DEFAULT_MAX_LEDGER_AGE,
-} from "../../src/lib/stellar/promptHashClient";
+} from "../../src/lib/stellar/SelloraClient";
 import { fetchCiphertextFromIpfs } from "../../src/lib/ipfs/gateway";
 import { isIpfsReference } from "../../src/lib/ipfs/reference";
 import { withObservability } from "../../src/lib/observability/wrapper";
@@ -122,7 +122,7 @@ function getActiveSecrets(primarySecret: string): string[] {
   return secrets;
 }
 
-function getServerConfig(): PromptHashConfig {
+function getServerConfig(): SelloraConfig {
   const manifest = getServerDeploymentManifest();
   return {
     rpcUrl,
@@ -133,7 +133,7 @@ function getServerConfig(): PromptHashConfig {
       ? Number(process.env.PUBLIC_STELLAR_ENTITLEMENT_QUORUM)
       : undefined,
     networkPassphrase,
-    promptHashContractId,
+    SelloraContractId,
     nativeAssetContractId,
     simulationAccount,
     allowHttp: new URL(rpcUrl).hostname === "localhost",
@@ -338,7 +338,7 @@ async function handler(
       {
         origin: String(req.headers.origin ?? ""),
         networkPassphrase: config.networkPassphrase,
-        contractId: config.promptHashContractId,
+        contractId: config.SelloraContractId,
         action: "unlock",
       },
     );

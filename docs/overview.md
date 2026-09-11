@@ -1,8 +1,8 @@
-# PromptHash Stellar Overview
+# Sellora Overview
 
 ## Summary
 
-PromptHash Stellar is a Soroban-native marketplace for encrypted prompt licensing. It is designed for creators who want to sell reusable AI prompt assets and for buyers who want verifiable access rights backed by Stellar transactions.
+Sellora is a Soroban-native marketplace for encrypted prompt licensing. It is designed for creators who want to sell reusable AI prompt assets and for buyers who want verifiable access rights backed by Stellar transactions.
 
 ## Product Direction
 
@@ -29,7 +29,7 @@ The project treats prompts as licensable digital goods, not transferable collect
 
 ## Why This Matters For Stellar
 
-PromptHash Stellar introduces a practical digital goods model to the ecosystem:
+Sellora introduces a practical digital goods model to the ecosystem:
 
 - XLM becomes the settlement asset for creator commerce
 - Soroban contract state becomes the source of truth for access rights

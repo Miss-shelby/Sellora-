@@ -10,7 +10,7 @@ import {
 
 const SECRET = "unit-test-admin-secret";
 const OTHER_SECRET = "a-completely-different-secret";
-const AUDIENCE = "prompt-hash-admin-test";
+const AUDIENCE = "sellora-admin-test";
 const ISSUED_AT = 1_700_000_000_000;
 
 function mint(scope: string[], ttlMs = 60_000, secret = SECRET) {

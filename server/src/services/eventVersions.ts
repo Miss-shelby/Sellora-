@@ -225,7 +225,7 @@ export function getUpgradeInstructions(eventType: string, targetVersion: number)
   return `
 To support ${eventType} version ${targetVersion}:
 
-1. Review the contract event schema changes in contracts/prompt-hash/src/events.rs
+1. Review the contract event schema changes in contracts/sellora/src/events.rs
 2. Add version ${targetVersion} to SUPPORTED_VERSIONS["${eventType}"] array
 3. Implement decode${eventType}V${targetVersion}() decoder function
 4. Add version-specific validation in validateEventStructure()

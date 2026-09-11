@@ -43,14 +43,14 @@ export function Navigation() {
           <Link to="/" className="flex items-center gap-3">
             <img
               src="/images/logo.png"
-              alt="PromptHash"
+              alt="Sellora"
               width={36}
               height={36}
               className="rounded-full border border-white/10 bg-white/5 p-1"
             />
             <div>
               <div className="text-sm uppercase tracking-[0.28em] text-amber-300">
-                PromptHash
+                Sellora
               </div>
               <div className="text-xs text-slate-400">
                 Stellar testnet marketplace

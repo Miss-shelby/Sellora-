@@ -22,9 +22,9 @@ const ownedPrompt = {
 
 const getPromptsByCreatorMock = vi.fn();
 
-vi.mock("@/lib/stellar/promptHashClient", async () => {
-  const actual = await vi.importActual<typeof import("@/lib/stellar/promptHashClient")>(
-    "@/lib/stellar/promptHashClient",
+vi.mock("@/lib/stellar/SelloraClient", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/stellar/SelloraClient")>(
+    "@/lib/stellar/SelloraClient",
   );
   return {
     ...actual,

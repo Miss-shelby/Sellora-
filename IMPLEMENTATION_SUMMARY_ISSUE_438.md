@@ -6,7 +6,7 @@ Implemented comprehensive solution for bulk purchase error handling when `buy_pr
 
 ### What Was Done
 
-#### 1. **Contract Changes** (`contracts/prompt-hash/src/contract.rs`)
+#### 1. **Contract Changes** (`contracts/sellora/src/contract.rs`)
 
 **New Helper Function: `validate_bulk_purchase_items`**
 - Private function that validates each prompt independently
@@ -34,9 +34,9 @@ For each prompt:
 ✓ Payment >= price
 ```
 
-#### 2. **Trait Definition** (`contracts/prompt-hash/src/types.rs`)
+#### 2. **Trait Definition** (`contracts/sellora/src/types.rs`)
 
-Added `validate_bulk_purchase` method signature to `PromptHashTrait`:
+Added `validate_bulk_purchase` method signature to `SelloraTrait`:
 ```rust
 fn validate_bulk_purchase(
     env: Env,
@@ -46,7 +46,7 @@ fn validate_bulk_purchase(
 ) -> Result<Vec<bool>, Error>;
 ```
 
-#### 3. **Comprehensive Tests** (`contracts/prompt-hash/src/test.rs`)
+#### 3. **Comprehensive Tests** (`contracts/sellora/src/test.rs`)
 
 Added 8 new tests (lines ~2869-3080):
 
@@ -84,7 +84,7 @@ Added 8 new tests (lines ~2869-3080):
 **New Method: `contractValidateBulkPurchase`**
 ```typescript
 export async function contractValidateBulkPurchase(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   buyerAddress: string,
   promptIds: bigint[],
   paymentAmounts: bigint[],
@@ -94,9 +94,9 @@ export async function contractValidateBulkPurchase(
 - Returns per-item boolean array
 - Falls back to all-false on network error
 
-#### 5. **Frontend Wrapper** (`src/lib/stellar/promptHashClient.ts`)
+#### 5. **Frontend Wrapper** (`src/lib/stellar/SelloraClient.ts`)
 
-**New Static Method: `PromptHashClient.validateBulkPurchase`**
+**New Static Method: `SelloraClient.validateBulkPurchase`**
 **New Exported Function: `validateBulkPurchase`**
 - Public API for UI components to call
 - Easy integration point for bundle/bulk purchase flows
@@ -133,11 +133,11 @@ Complete guide including:
 ### Files Modified/Created
 
 **Modified:**
-- `contracts/prompt-hash/src/contract.rs` (added validate_bulk_purchase_items + method)
-- `contracts/prompt-hash/src/types.rs` (added trait method signature)
-- `contracts/prompt-hash/src/test.rs` (added 8 tests)
+- `contracts/sellora/src/contract.rs` (added validate_bulk_purchase_items + method)
+- `contracts/sellora/src/types.rs` (added trait method signature)
+- `contracts/sellora/src/test.rs` (added 8 tests)
 - `src/lib/stellar/contractMethods.ts` (added contractValidateBulkPurchase)
-- `src/lib/stellar/promptHashClient.ts` (added wrapper methods)
+- `src/lib/stellar/SelloraClient.ts` (added wrapper methods)
 
 **Created:**
 - `src/lib/errors/bulkPurchaseErrors.ts` (error mapping & guidance)
@@ -291,8 +291,8 @@ User selects 20 items
 ### References
 
 - **Issue:** #438 Bulk purchase bounds and atomicity
-- **Contract:** `contracts/prompt-hash/src/contract.rs` lines ~2389-2450
-- **Tests:** `contracts/prompt-hash/src/test.rs` lines ~2869-3080
+- **Contract:** `contracts/sellora/src/contract.rs` lines ~2389-2450
+- **Tests:** `contracts/sellora/src/test.rs` lines ~2869-3080
 - **Client:** `src/lib/stellar/contractMethods.ts` lines ~515-560
 - **Errors:** `src/lib/errors/bulkPurchaseErrors.ts`
 

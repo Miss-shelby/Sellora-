@@ -62,7 +62,7 @@ describe("unlock challenge verification", () => {
     const context = {
       origin: "https://app.example",
       networkPassphrase: "Test SDF Network ; September 2015",
-      contractId: "CPROMPTHASH",
+      contractId: "CSellora",
       action: "unlock",
       promptVersion: "v1",
       expectedPriceStroops: "1000",

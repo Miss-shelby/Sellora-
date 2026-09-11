@@ -1,4 +1,4 @@
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 import { stroopsToXlmString } from "@/lib/stellar/format";
 import { getDraftStorageKey, type DraftMeta } from "@/hooks/useDraftAutoSave";
 

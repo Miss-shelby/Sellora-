@@ -61,7 +61,7 @@ export default function ConfigDashboard() {
     try {
       // Query WASM Hash via footprint lookup first
       const server = new Server(readConfig.rpcUrl, { allowHttp: readConfig.allowHttp });
-      const contractLedgerKey = new Contract(readConfig.promptHashContractId).getFootprint();
+      const contractLedgerKey = new Contract(readConfig.SelloraContractId).getFootprint();
       
       let wasmHashVal: string | null = null;
       try {
@@ -82,12 +82,12 @@ export default function ConfigDashboard() {
       // Execute read-only contract calls in parallel
       const [owner, feePercentage, referralPercentage, feeWallet, xlmSac, isPaused] =
         await Promise.all([
-          readContract<string>(readConfig, readConfig.promptHashContractId, "owner").catch(() => "Unavailable"),
-          readContract<number>(readConfig, readConfig.promptHashContractId, "get_fee_percentage").catch(() => -1),
-          readContract<number>(readConfig, readConfig.promptHashContractId, "get_referral_percentage").catch(() => -1),
-          readContract<string | null>(readConfig, readConfig.promptHashContractId, "get_fee_wallet").catch(() => null),
-          readContract<string | null>(readConfig, readConfig.promptHashContractId, "get_xlm_sac").catch(() => null),
-          readContract<boolean>(readConfig, readConfig.promptHashContractId, "is_paused").catch(() => false),
+          readContract<string>(readConfig, readConfig.SelloraContractId, "owner").catch(() => "Unavailable"),
+          readContract<number>(readConfig, readConfig.SelloraContractId, "get_fee_percentage").catch(() => -1),
+          readContract<number>(readConfig, readConfig.SelloraContractId, "get_referral_percentage").catch(() => -1),
+          readContract<string | null>(readConfig, readConfig.SelloraContractId, "get_fee_wallet").catch(() => null),
+          readContract<string | null>(readConfig, readConfig.SelloraContractId, "get_xlm_sac").catch(() => null),
+          readContract<boolean>(readConfig, readConfig.SelloraContractId, "is_paused").catch(() => false),
         ]);
 
       setOnChainData({
@@ -436,7 +436,7 @@ export default function ConfigDashboard() {
                     </label>
                     <div className="mt-1 flex items-center justify-between font-mono text-xs">
                       <span className="truncate text-slate-300">
-                        {browserStellarConfig.promptHashContractId}
+                        {browserStellarConfig.SelloraContractId}
                       </span>
                       <div className="flex gap-1 shrink-0">
                         <Button
@@ -444,13 +444,13 @@ export default function ConfigDashboard() {
                           variant="ghost"
                           className="h-6 w-6 hover:bg-white/10"
                           onClick={() =>
-                            void handleCopy("contractId", browserStellarConfig.promptHashContractId)
+                            void handleCopy("contractId", browserStellarConfig.SelloraContractId)
                           }
                         >
                           <Copy className="h-3 w-3" />
                         </Button>
                         <a
-                          href={stellarExpertAccountUrl(browserStellarConfig.promptHashContractId)}
+                          href={stellarExpertAccountUrl(browserStellarConfig.SelloraContractId)}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex h-6 w-6 items-center justify-center rounded-md hover:bg-white/10"

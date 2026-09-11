@@ -35,7 +35,7 @@ import {
   createBundle,
   setPromptSaleStatus,
   updatePromptPrice,
-} from "@/lib/stellar/promptHashClient";
+} from "@/lib/stellar/SelloraClient";
 import {
   formatPriceLabel,
   stroopsToXlmString,

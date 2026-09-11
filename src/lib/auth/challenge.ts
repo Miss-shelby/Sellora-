@@ -89,7 +89,7 @@ function signPayload(secret: string, body: string) {
 
 export function buildChallengeMessage(payload: ChallengePayload) {
   return [
-    "prompt-hash",
+    "sellora",
     payload.action,
     payload.origin,
     payload.networkPassphrase,

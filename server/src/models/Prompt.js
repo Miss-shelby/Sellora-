@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PROMPT_CATEGORIES, PROMPT_METADATA_LIMITS } from "@prompthash/schema";
+import { PROMPT_CATEGORIES, PROMPT_METADATA_LIMITS } from "@Sellora/schema";
 
 const promptSchema = new mongoose.Schema(
   {

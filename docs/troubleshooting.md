@@ -42,7 +42,7 @@
 
 3. **Check for Minimum Reserve:**
    - Stellar accounts require a minimum balance: 1 XLM for base + additional XLM per subentries
-   - The PromptHash contract may hold some XLM for operational balances
+   - The Sellora contract may hold some XLM for operational balances
    - Keep at least 2-3 XLM free to avoid hitting this limit
 
 4. **Verify Network Conditions:**
@@ -85,13 +85,13 @@
 
 2. **Verify Wallet Connection:**
    - Open Freighter wallet
-   - Ensure you're connected to PromptHash Stellar
+   - Ensure you're connected to Sellora
    - Verify the connected wallet address matches the one that purchased the prompt
    - If disconnected, reconnect and try again
 
 3. **Check Browser Wallet State:**
    - Close and reopen the Freighter extension
-   - Refresh the PromptHash page
+   - Refresh the Sellora page
    - Reconnect your wallet
    - Try the unlock process again
 
@@ -122,12 +122,12 @@
 
 ### Wallet Won't Connect
 
-**Problem:** Freighter or other wallet extension won't connect to PromptHash Stellar.
+**Problem:** Freighter or other wallet extension won't connect to Sellora.
 
 **Solutions:**
 1. Install Freighter: https://www.freighter.app/
 2. Ensure you're on a Stellar-compatible browser (Chrome, Firefox, Brave)
-3. Grant PromptHash permission to access your wallet:
+3. Grant Sellora permission to access your wallet:
    - Look for permission popup when connecting
    - Click "Approve" or "Connect"
 4. Check wallet is connected to the correct network (testnet/mainnet)
@@ -136,14 +136,14 @@
 
 ### Wallet Shows Different Address Than Expected
 
-**Problem:** The address shown in PromptHash doesn't match your Freighter wallet.
+**Problem:** The address shown in Sellora doesn't match your Freighter wallet.
 
 **Solutions:**
 1. Ensure only one Freighter wallet is installed/enabled
 2. Check you're not using multiple browser profiles with different wallets
-3. Verify the address in Freighter matches what PromptHash displays
+3. Verify the address in Freighter matches what Sellora displays
 4. Disconnect and reconnect the wallet
-5. Click your wallet address in PromptHash to verify it's correct
+5. Click your wallet address in Sellora to verify it's correct
 
 ---
 
@@ -193,7 +193,7 @@
 **Solutions:**
 
 1. **Verify Wallet Address:**
-   - Check connected wallet in PromptHash
+   - Check connected wallet in Sellora
    - Go to your purchase history
    - Verify the purchase was made with THIS wallet
    - If purchased with different wallet, switch to that one
@@ -233,7 +233,7 @@
 
 ## Browser Cache and State
 
-### Clearing Browser Cache for PromptHash
+### Clearing Browser Cache for Sellora
 
 **Why Clear Cache?**
 - Old wallet connections can cause conflicts
@@ -246,7 +246,7 @@
 3. Check: Cookies, Cached images/files
 4. Uncheck: Passwords (optional - keeps login info)
 5. Click "Clear data"
-6. Refresh PromptHash page
+6. Refresh Sellora page
 
 **Steps to Clear Cache (Firefox):**
 1. Press `Ctrl+Shift+Delete` (or `Cmd+Shift+Delete` on Mac)
@@ -304,7 +304,7 @@
 
 **Using Stellar Expert:**
 1. Go to https://stellar.expert
-2. Search for the PromptHash contract address
+2. Search for the Sellora contract address
 3. View: Balances, Transactions, State
 4. Verify your wallet shows in purchase records
 
@@ -329,7 +329,7 @@
 - You'll need that same wallet/account to unlock prompts
 - Recovery depends on your wallet backup/recovery phrase
 
-### Q: Is PromptHash available on mainnet or testnet?
+### Q: Is Sellora available on mainnet or testnet?
 
 **A:** Check the platform documentation. Most development/testing is on testnet. Mainnet access should be announced officially.
 

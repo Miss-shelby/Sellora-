@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { collections } from "@/data/collections";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { getPrompt } from "@/lib/stellar/promptHashClient";
+import { getPrompt } from "@/lib/stellar/SelloraClient";
 import { formatPriceLabel } from "@/lib/stellar/format";
 import { shortenAddress } from "@/lib/utils";
 import { usePageMeta } from "@/lib/seo/usePageMeta";

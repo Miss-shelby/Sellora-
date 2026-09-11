@@ -1,7 +1,7 @@
 # TTL Renewal & Dependency Operations Runbook
 
 This runbook covers the **storage TTL (Time-To-Live) renewal system** implemented
-in `contracts/prompt-hash/src/ttl_policy.rs` and `contracts/prompt-hash/src/storage.rs`.
+in `contracts/sellora/src/ttl_policy.rs` and `contracts/sellora/src/storage.rs`.
 It is meant to be driven by an **off-chain operator process** (cron job) that
 periodically calls the `renew_critical_keys` contract entry point so that
 persistent storage entries do not expire and get evicted by the Soroban
@@ -207,7 +207,7 @@ per day** (hourly is fine too):
 
 ```cron
 # m h dom mon dow   command
-17 3 * * *  node /path/to/renew-ttl.js >> /var/log/prompt-hash-ttl.log 2>&1
+17 3 * * *  node /path/to/renew-ttl.js >> /var/log/sellora-ttl.log 2>&1
 ```
 
 `renew-ttl.js` should:

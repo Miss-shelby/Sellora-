@@ -115,7 +115,7 @@ export function Footer() {
         </div>
         <div className="mt-10 border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} PromptHash. All rights reserved.
+            © {new Date().getFullYear()} Sellora. All rights reserved.
           </p>
         </div>
       </div>

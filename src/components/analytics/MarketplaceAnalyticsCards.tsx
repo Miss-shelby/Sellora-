@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { TrendingUp, Package, ShoppingCart, Coins } from "lucide-react";
 import { Skeleton } from "@/components/Skeleton";
-import { getAllPrompts } from "@/lib/stellar/promptHashClient";
+import { getAllPrompts } from "@/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
 import { stroopsToXlmString } from "@/lib/stellar/format";
 

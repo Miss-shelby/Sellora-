@@ -99,7 +99,7 @@ const LISTING_PROCESS_STEPS = [
 // Helpers
 // ---------------------------------------------------------------------------
 
-const DISMISS_KEY_PREFIX = "prompt-hash:onboarding-dismissed:";
+const DISMISS_KEY_PREFIX = "sellora:onboarding-dismissed:";
 
 function getDismissKey(walletAddress?: string): string {
   return walletAddress

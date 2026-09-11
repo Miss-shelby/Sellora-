@@ -21,11 +21,11 @@ vi.mock("@/lib/env", () => ({
 }));
 vi.mock("@/lib/stellar/browserConfig", () => ({
   browserStellarConfig: {
-    promptHashContractId: "mock-contract-id",
+    SelloraContractId: "mock-contract-id",
   },
 }));
-vi.mock("@/lib/stellar/promptHashClient", () => ({
-  PromptHashClient: { createPrompt: vi.fn() },
+vi.mock("@/lib/stellar/SelloraClient", () => ({
+  SelloraClient: { createPrompt: vi.fn() },
   findPromptByContentHash: vi.fn(),
   getPrompt: vi.fn(),
 }));

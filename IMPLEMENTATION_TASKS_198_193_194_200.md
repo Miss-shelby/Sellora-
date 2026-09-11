@@ -2,7 +2,7 @@
 
 ## Overview
 
-Successfully implemented four marketplace improvements for the Prompt-Hash-Stellar project:
+Successfully implemented four marketplace improvements for the sellora project:
 
 1. ✅ **Task #198**: Marketplace analytics cards with volume, listings, and sales metrics
 2. ✅ **Task #193**: Wallet network mismatch detection and user-friendly recovery instructions
@@ -53,7 +53,7 @@ Successfully implemented four marketplace improvements for the Prompt-Hash-Stell
 MarketplaceAnalyticsCards
   → useQuery("marketplace-analytics")
     → getAllPrompts(browserStellarConfig)
-      → PromptHashClient.getAllPrompts()
+      → SelloraClient.getAllPrompts()
         → Returns PromptRecord[]
   → Compute metrics from prompt data
   → Display in AnalyticsCard components
@@ -128,7 +128,7 @@ Maps technical Stellar errors to user-friendly messages:
 ```
 PromptMetadataSection
   → useQuery("prompt-detail", itemId)
-    → PromptHashClient.getPrompt(config, BigInt(itemId))
+    → SelloraClient.getPrompt(config, BigInt(itemId))
       → Returns PromptRecord
   → Display metadata in grid layout
   → Show purchase state based on status prop
@@ -163,7 +163,7 @@ PromptMetadataSection
 **Test Infrastructure:**
 - Uses `renderWithProviders` from `src/test/render.tsx`
 - Mocks `WalletContext` with partial implementations
-- Mocks `PromptHashClient` methods
+- Mocks `SelloraClient` methods
 - Mocks `unlockPrompt` and `ReviewClient`
 - No live wallet or blockchain dependencies
 - Fast execution (<2 seconds for full suite)
@@ -181,8 +181,8 @@ const mockWallet: Partial<WalletContextType> = {
 };
 
 // Contract mock
-vi.mock("@/lib/stellar/promptHashClient", () => ({
-  PromptHashClient: {
+vi.mock("@/lib/stellar/SelloraClient", () => ({
+  SelloraClient: {
     checkAccess: vi.fn().mockResolvedValue(false),
     getPrompt: vi.fn().mockResolvedValue(mockPrompt),
     purchasePrompt: vi.fn().mockResolvedValue({ txHash: "test", success: true }),

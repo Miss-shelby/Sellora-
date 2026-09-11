@@ -1,6 +1,6 @@
 # End-to-End Architecture Overview
 
-This guide explains how PromptHash Stellar fits together from end to end: the
+This guide explains how Sellora fits together from end to end: the
 frontend application, the Soroban smart contract, the serverless unlock/auth
 service, the encryption scheme, and the wallet-verification flow. It is written
 for new contributors who want a single map of the system before diving into the
@@ -46,11 +46,11 @@ flowchart TB
         UI["React 19 + Vite UI"]
         Wallet["Stellar Wallet<br/>Freighter / wallet-kit"]
         Crypto["Client encryption<br/>src/lib/crypto/promptCrypto.ts"]
-        Client_SDK["Contract client<br/>src/lib/stellar/promptHashClient.ts"]
+        Client_SDK["Contract client<br/>src/lib/stellar/SelloraClient.ts"]
     end
 
     subgraph Chain["Stellar Network"]
-        Contract["Soroban contract<br/>contracts/prompt-hash"]
+        Contract["Soroban contract<br/>contracts/sellora"]
         Native["Native asset XLM<br/>contract"]
         RPC["Soroban RPC / Horizon"]
     end
@@ -87,7 +87,7 @@ Mermaid), here is the same picture in plain text:
 Browser (React UI, wallet, client crypto, contract client)
    |  create/buy/has_access            request challenge / unlock + signature
    v                                    v
-Soroban RPC ---> prompt-hash contract   Serverless unlock & auth (api/)
+Soroban RPC ---> sellora contract   Serverless unlock & auth (api/)
                     |  settle XLM           |  verify signature
                     v                        |  call has_access (RPC sim)
               Native asset contract          |  decrypt + integrity check
@@ -111,13 +111,13 @@ React 19 + TypeScript + Vite. Responsibilities:
 
 Key modules:
 
-- `src/lib/stellar/promptHashClient.ts` - typed wrappers over contract methods.
+- `src/lib/stellar/SelloraClient.ts` - typed wrappers over contract methods.
 - `src/lib/crypto/promptCrypto.ts` - encryption, key wrapping, content hashing.
 - `src/lib/auth/challenge.ts` - challenge message building and signature checks.
 - `src/pages/sell/CreatePromptForm.tsx` - listing creation.
 - `src/pages/browse/PromptModal.tsx` - purchase and unlock UI.
 
-### Soroban contract (`contracts/prompt-hash`)
+### Soroban contract (`contracts/sellora`)
 
 The authoritative state layer. It stores listing records and encrypted prompt
 references, tracks creator-owned listings and buyer purchase rights, routes XLM
@@ -156,7 +156,7 @@ size cap).
 
 ## Encryption model
 
-PromptHash uses a hybrid scheme so that prompt plaintext is never readable
+Sellora uses a hybrid scheme so that prompt plaintext is never readable
 on-chain and only the unlock service can recover the symmetric key.
 
 - **Content encryption**: the prompt plaintext is encrypted with **AES-256-GCM**
@@ -295,7 +295,7 @@ client.
 | `PUBLIC_STELLAR_NETWORK_PASSPHRASE` | Network passphrase used when building transactions. |
 | `PUBLIC_STELLAR_RPC_URL` | Soroban RPC endpoint for contract calls and simulation. |
 | `PUBLIC_STELLAR_HORIZON_URL` | Horizon endpoint for account and payment data. |
-| `PUBLIC_PROMPT_HASH_CONTRACT_ID` | Deployed `prompt-hash` contract ID. |
+| `PUBLIC_PROMPT_HASH_CONTRACT_ID` | Deployed `sellora` contract ID. |
 | `PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID` | Native asset (XLM) contract ID used to settle purchases. |
 | `PUBLIC_STELLAR_SIMULATION_ACCOUNT` | Account used for read-only RPC simulation (e.g. `has_access`). |
 | `PUBLIC_UNLOCK_PUBLIC_KEY` | Unlock service public key the browser seals AES keys to. |

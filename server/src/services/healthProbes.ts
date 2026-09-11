@@ -17,8 +17,8 @@ import {
 import {
   getPrompt,
   hasAccess,
-  type PromptHashConfig,
-} from "../../../src/lib/stellar/promptHashClient";
+  type SelloraConfig,
+} from "../../../src/lib/stellar/SelloraClient";
 import { logger } from "./structuredLogger";
 
 export interface ProbeResult {
@@ -33,7 +33,7 @@ export interface ProbeResult {
 export interface HealthProbeConfig {
   rpcUrl: string;
   networkPassphrase: string;
-  promptHashContractId: string;
+  SelloraContractId: string;
   simulationAccount: string;
   horizonUrl?: string;
   challengeSecret: string;
@@ -70,7 +70,7 @@ export async function probeChallenge(config: HealthProbeConfig): Promise<ProbeRe
       {
         origin: "",
         networkPassphrase: config.networkPassphrase,
-        contractId: config.promptHashContractId,
+        contractId: config.SelloraContractId,
         action: "unlock",
       }
     );
@@ -89,7 +89,7 @@ export async function probeChallenge(config: HealthProbeConfig): Promise<ProbeRe
       {
         origin: "",
         networkPassphrase: config.networkPassphrase,
-        contractId: config.promptHashContractId,
+        contractId: config.SelloraContractId,
         action: "unlock",
       }
     );
@@ -159,10 +159,10 @@ export async function probeContractRead(config: HealthProbeConfig): Promise<Prob
   const timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
 
   try {
-    const contractConfig: PromptHashConfig = {
+    const contractConfig: SelloraConfig = {
       rpcUrl: config.rpcUrl,
       networkPassphrase: config.networkPassphrase,
-      promptHashContractId: config.promptHashContractId,
+      SelloraContractId: config.SelloraContractId,
       simulationAccount: config.simulationAccount,
       nativeAssetContractId: "", // Not needed for reads
       allowHttp: config.rpcUrl.startsWith("http://"),
@@ -244,10 +244,10 @@ export async function probeUnlockPreflight(config: HealthProbeConfig): Promise<P
   const timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
 
   try {
-    const contractConfig: PromptHashConfig = {
+    const contractConfig: SelloraConfig = {
       rpcUrl: config.rpcUrl,
       networkPassphrase: config.networkPassphrase,
-      promptHashContractId: config.promptHashContractId,
+      SelloraContractId: config.SelloraContractId,
       simulationAccount: config.simulationAccount,
       nativeAssetContractId: "",
       allowHttp: config.rpcUrl.startsWith("http://"),

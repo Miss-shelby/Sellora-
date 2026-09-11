@@ -14,7 +14,7 @@ This document describes the event versioning system for Stellar contract events,
 
 ## Overview
 
-The Prompt Hash marketplace emits events from Stellar smart contracts that are consumed by the indexer service. As the contract evolves, event structures may change. The event versioning system ensures consumers can safely handle events from multiple contract versions without data loss or corruption.
+The Sellora marketplace emits events from Stellar smart contracts that are consumed by the indexer service. As the contract evolves, event structures may change. The event versioning system ensures consumers can safely handle events from multiple contract versions without data loss or corruption.
 
 ### Design Principles
 
@@ -31,7 +31,7 @@ The Prompt Hash marketplace emits events from Stellar smart contracts that are c
 Events are currently emitted without explicit version fields. The indexer infers version 1 for all existing events based on structure and topic names.
 
 ```rust
-// contracts/prompt-hash/src/events.rs
+// contracts/sellora/src/events.rs
 #[contractevent]
 struct PromptCreated {
     #[topic]
@@ -564,5 +564,5 @@ it("should maintain consistent V1 PromptCreated structure", () => {
 
 ## Contact
 
-For event versioning questions: [engineering@prompthash.example](mailto:engineering@prompthash.example)
-For breaking change proposals: [architecture@prompthash.example](mailto:architecture@prompthash.example)
+For event versioning questions: [engineering@Sellora.example](mailto:engineering@Sellora.example)
+For breaking change proposals: [architecture@Sellora.example](mailto:architecture@Sellora.example)

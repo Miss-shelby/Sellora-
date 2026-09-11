@@ -1,17 +1,17 @@
 # Creator Publishing and Payout Guide
 
-This guide walks creators through publishing prompts on PromptHash and understanding their payout statements.
+This guide walks creators through publishing prompts on Sellora and understanding their payout statements.
 
 ## Publishing a Prompt
 
 1. Connect your wallet from the top navigation bar.
 2. Open **Sell Prompt** from the creator menu and fill in the form: title, description, one or more content blocks, category, tags, and the sale price in XLM.
-3. Review the preview and confirm. The prompt is registered on-chain via the PromptHash smart contract, and its marketplace metadata is indexed off-chain for search and discovery.
+3. Review the preview and confirm. The prompt is registered on-chain via the Sellora smart contract, and its marketplace metadata is indexed off-chain for search and discovery.
 4. Your prompt appears in the marketplace. You can pause sales, change the price, or retire a listing at any time from **My Prompts**.
 
 ## The Platform Fee
 
-PromptHash charges a **5% platform fee** on every sale. A purchase of `100 XLM` therefore yields:
+Sellora charges a **5% platform fee** on every sale. A purchase of `100 XLM` therefore yields:
 
 - **Gross Amount**: `100 XLM`
 - **Platform Fee**: `5 XLM`

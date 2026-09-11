@@ -1,6 +1,6 @@
 # Indexing and Search System
 
-This document describes the advanced indexing and search system for the PromptHash Stellar marketplace.
+This document describes the advanced indexing and search system for the Sellora marketplace.
 
 ## Overview
 
@@ -47,7 +47,7 @@ Soroban Contract → Indexer Service → MongoDB → Search API → Frontend
 The indexer service runs as a background process that:
 
 1. Polls the Stellar RPC every 5 seconds for new ledgers
-2. Filters events for the PromptHash contract
+2. Filters events for the Sellora contract
 3. Decodes event topics and values from XDR
 4. Updates MongoDB based on event type
 5. Tracks the last processed ledger to avoid reprocessing

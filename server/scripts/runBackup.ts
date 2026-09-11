@@ -11,7 +11,7 @@
  *   BACKUP_S3_PREFIX, BACKUP_S3_REGION, BACKUP_ALERT_WEBHOOK
  *
  * Cron example (daily at 02:00 UTC):
- *   0 2 * * * cd /app && ts-node server/scripts/runBackup.ts >> /var/log/prompthash-backup.log 2>&1
+ *   0 2 * * * cd /app && ts-node server/scripts/runBackup.ts >> /var/log/Sellora-backup.log 2>&1
  */
 
 import mongoose from "mongoose";

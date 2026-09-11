@@ -9,7 +9,7 @@ const buyerFaqs: FaqItem[] = [
   {
     question: "What is XLM and do I need it to buy prompts?",
     answer:
-      "XLM (Lumens) is the native token of the Stellar network. Yes — all purchases on PromptHash are settled in XLM. You'll need a Stellar-compatible wallet with a small XLM balance to cover the prompt price plus a negligible network fee (typically < 0.001 XLM).",
+      "XLM (Lumens) is the native token of the Stellar network. Yes — all purchases on Sellora are settled in XLM. You'll need a Stellar-compatible wallet with a small XLM balance to cover the prompt price plus a negligible network fee (typically < 0.001 XLM).",
   },
   {
     question: "How do I purchase a prompt?",
@@ -42,7 +42,7 @@ const creatorFaqs: FaqItem[] = [
   {
     question: "How are my prompts protected from theft?",
     answer:
-      "Your prompt text is encrypted with AES-GCM in your browser before upload. Only the ciphertext is stored — on-chain and in our database. The plaintext is never exposed without a valid on-chain purchase proof, so even PromptHash staff cannot read it.",
+      "Your prompt text is encrypted with AES-GCM in your browser before upload. Only the ciphertext is stored — on-chain and in our database. The plaintext is never exposed without a valid on-chain purchase proof, so even Sellora staff cannot read it.",
   },
   {
     question: "How do I earn revenue from my prompts?",

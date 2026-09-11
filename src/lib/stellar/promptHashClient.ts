@@ -1,5 +1,5 @@
 /**
- * Real Soroban contract client for PromptHash.
+ * Real Soroban contract client for Sellora.
  * All reads and writes invoke the deployed contract on-chain.
  */
 import type { WalletTransactionSigner } from "./tx";
@@ -8,13 +8,13 @@ import { Server } from "@stellar/stellar-sdk/rpc";
 import { hashKey } from "../observability/sharedStore";
 import { getSourcePromptId } from "../prompts/remixAttribution";
 
-export interface PromptHashConfig {
+export interface SelloraConfig {
   rpcUrl: string;
   rpcUrls?: string[];
   entitlementQuorum?: number;
   networkPassphrase: string;
   allowHttp?: boolean;
-  promptHashContractId: string;
+  SelloraContractId: string;
   nativeAssetContractId: string;
   simulationAccount?: string;
 }
@@ -46,7 +46,7 @@ export interface EntitlementProviderSample {
   ledgerClosedAt?: number;
 }
 
-function getEntitlementRpcUrls(config: PromptHashConfig): string[] {
+function getEntitlementRpcUrls(config: SelloraConfig): string[] {
   const envUrls =
     typeof process !== "undefined"
       ? process.env.PUBLIC_STELLAR_RPC_URLS?.split(",").map((url) => url.trim()).filter(Boolean)
@@ -201,7 +201,7 @@ export interface CreateAccessPassInput {
  * Error types for prompt client read failures, distinguishing between
  * empty results and actual failures (RPC outage, malformed data, stale state).
  */
-export enum PromptHashReadError {
+export enum SelloraReadError {
   Empty = "EMPTY",
   RPCOutage = "RPC_OUTAGE",
   MalformedXDR = "MALFORMED_XDR",
@@ -210,7 +210,7 @@ export enum PromptHashReadError {
 }
 
 export interface ReadErrorResult {
-  error: PromptHashReadError;
+  error: SelloraReadError;
   message: string;
   retryable: boolean;
 }
@@ -220,14 +220,14 @@ export interface ReadErrorResult {
  */
 export type PromptRecordResult =
   | { success: true; records: PromptRecord[] }
-  | { success: false; error: PromptHashReadError; message: string };
+  | { success: false; error: SelloraReadError; message: string };
 
-export class PromptHashClient {
+export class SelloraClient {
   /**
    * Checks if the user has access to the prompt via contract.
    */
   static async checkAccess(
-    config: PromptHashConfig | string,
+    config: SelloraConfig | string,
     address: string,
     itemId?: string | bigint,
   ): Promise<boolean> {
@@ -237,7 +237,7 @@ export class PromptHashClient {
   }
 
   static async getPrompt(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     promptId: bigint,
   ): Promise<PromptRecord> {
     const prompt = await contractMethods.contractGetPrompt(config, promptId);
@@ -254,7 +254,7 @@ export class PromptHashClient {
     itemId: string,
     userAddress: string,
     _walletSigner?: WalletTransactionSigner,
-    config?: PromptHashConfig,
+    config?: SelloraConfig,
   ): Promise<{ txHash: string; success: boolean }> {
     if (!config || !_walletSigner) {
       throw new Error(
@@ -276,7 +276,7 @@ export class PromptHashClient {
    * Issue #438: Per-item error surfacing.
    */
   static async validateBulkPurchase(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     buyerAddress: string,
     promptIds: bigint[],
     paymentAmounts: bigint[],
@@ -293,7 +293,7 @@ export class PromptHashClient {
     bundleId: string,
     userAddress: string,
     _walletSigner?: WalletTransactionSigner,
-    config?: PromptHashConfig,
+    config?: SelloraConfig,
   ): Promise<{ txHash: string; success: boolean }> {
     if (!config || !_walletSigner) {
       throw new Error(
@@ -313,7 +313,7 @@ export class PromptHashClient {
     passId: string,
     userAddress: string,
     _walletSigner?: WalletTransactionSigner,
-    config?: PromptHashConfig,
+    config?: SelloraConfig,
   ): Promise<{ txHash: string; success: boolean }> {
     if (!config || !_walletSigner) {
       throw new Error(
@@ -330,7 +330,7 @@ export class PromptHashClient {
   }
 
   static async getAllPrompts(
-    config: PromptHashConfig,
+    config: SelloraConfig,
   ): Promise<PromptRecord[]> {
     return contractMethods.contractGetAllPrompts(config);
   }
@@ -341,7 +341,7 @@ export class PromptHashClient {
    * `contractGetAllPromptsPaginated` for cursor semantics.
    */
   static async getAllPromptsPaginated(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     cursor?: string | null,
     limit = 50,
   ): Promise<{ prompts: PromptRecord[]; nextCursor: string | null }> {
@@ -349,14 +349,14 @@ export class PromptHashClient {
   }
 
   static async getPromptsByBuyer(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     address: string,
   ): Promise<PromptRecord[]> {
     return contractMethods.contractGetPromptsByBuyer(config, address);
   }
 
   static async getPromptsByCreator(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     address: string,
   ): Promise<PromptRecord[]> {
     return contractMethods.contractGetPromptsByCreator(config, address);
@@ -368,7 +368,7 @@ export class PromptHashClient {
  * Distinguishes between an truly empty result and a failure to fetch.
  */
   static async findPromptByContentHash(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     contentHash: string,
   ): Promise<PromptRecordResult> {
     try {
@@ -379,7 +379,7 @@ export class PromptHashClient {
       if (!response.ok) {
         return {
           success: false,
-          error: PromptHashReadError.RPCOutage,
+          error: SelloraReadError.RPCOutage,
           message: `HTTP ${response.status}: failed to fetch prompts by content hash`,
         };
       }
@@ -409,28 +409,28 @@ export class PromptHashClient {
     } catch (error: any) {
       return {
         success: false,
-        error: PromptHashReadError.RPCOutage,
+        error: SelloraReadError.RPCOutage,
         message: error.message || "Unknown error fetching prompts by content hash",
       };
     }
   }
 
   static async getBundlesByCreator(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     address: string,
   ): Promise<BundleRecord[]> {
     return contractMethods.contractGetBundlesByCreator(config, address);
   }
 
   static async getAccessPassesByCreator(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     address: string,
   ): Promise<AccessPassRecord[]> {
     return contractMethods.contractGetAccessPassesByCreator(config, address);
   }
 
   static async createPrompt(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     address: string,
     data: any,
@@ -449,7 +449,7 @@ export class PromptHashClient {
   }
 
   static async createBundle(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     address: string,
     data: CreateBundleInput,
@@ -468,7 +468,7 @@ export class PromptHashClient {
   }
 
   static async createAccessPass(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     address: string,
     data: CreateAccessPassInput,
@@ -487,7 +487,7 @@ export class PromptHashClient {
   }
 
   static async setPromptSaleStatus(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     address: string,
     promptId: string,
@@ -504,7 +504,7 @@ export class PromptHashClient {
   }
 
   static async adminSetPromptSaleStatus(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     adminAddress: string,
     promptId: string,
@@ -521,7 +521,7 @@ export class PromptHashClient {
   }
 
   static async updatePromptPrice(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     walletSignerLike: WalletTransactionSigner,
     address: string,
     promptId: string,
@@ -539,7 +539,7 @@ export class PromptHashClient {
   }
 
   static async getRecentPurchases(
-    config: PromptHashConfig,
+    config: SelloraConfig,
     limit: number = 10,
   ) {
     try {
@@ -558,7 +558,7 @@ export class PromptHashClient {
         filters: [
           {
             type: "contract",
-            contractIds: [config.promptHashContractId],
+            contractIds: [config.SelloraContractId],
             // Topics could be strictly typed to the PromptPurchased event topic if known
           },
         ],
@@ -601,7 +601,7 @@ export class PromptHashClient {
  * the entitlement is DENIED.
  */
 export const hasAccess = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
   itemId: string | bigint,
 ): Promise<boolean> => {
@@ -614,7 +614,7 @@ export const hasAccess = async (
  * full ledger provenance for caller-side verification.
  */
 export const verifyEntitlement = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
   itemId: string | bigint,
   maxLedgerAge: number = DEFAULT_MAX_LEDGER_AGE,
@@ -632,7 +632,7 @@ export const verifyEntitlement = async (
         const server = new Server(rpcUrl, { allowHttp: config.allowHttp });
         const [latestLedger, access] = await Promise.all([
           server.getLatestLedger(),
-          PromptHashClient.checkAccess(providerConfig, address, promptId),
+          SelloraClient.checkAccess(providerConfig, address, promptId),
         ]);
         return {
           providerUrl: rpcUrl,
@@ -647,7 +647,7 @@ export const verifyEntitlement = async (
       quorum,
       maxLedgerAge,
       networkId,
-      contractId: config.promptHashContractId,
+      contractId: config.SelloraContractId,
       checkedAt: now,
     });
   } catch {
@@ -657,7 +657,7 @@ export const verifyEntitlement = async (
       ledgerSequence: 0,
       ledgerHash: "",
       networkId,
-      contractId: config.promptHashContractId,
+      contractId: config.SelloraContractId,
       checkedAt: now,
       providerCount: rpcUrls.length,
       quorum,
@@ -665,61 +665,61 @@ export const verifyEntitlement = async (
     };
   }
 };
-export const getPrompt = async (config: PromptHashConfig, promptId: bigint) =>
-  PromptHashClient.getPrompt(config, promptId);
-export const getAllPrompts = async (config: PromptHashConfig) =>
-  PromptHashClient.getAllPrompts(config);
+export const getPrompt = async (config: SelloraConfig, promptId: bigint) =>
+  SelloraClient.getPrompt(config, promptId);
+export const getAllPrompts = async (config: SelloraConfig) =>
+  SelloraClient.getAllPrompts(config);
 export const getAllPromptsPaginated = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   cursor?: string | null,
   limit = 50,
-) => PromptHashClient.getAllPromptsPaginated(config, cursor, limit);
+) => SelloraClient.getAllPromptsPaginated(config, cursor, limit);
 export const getPromptsByBuyer = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
-) => PromptHashClient.getPromptsByBuyer(config, address);
+) => SelloraClient.getPromptsByBuyer(config, address);
 export const getPromptsByCreator = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
-) => PromptHashClient.getPromptsByCreator(config, address);
+) => SelloraClient.getPromptsByCreator(config, address);
 export const createPrompt = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   address: string,
   data: CreatePromptInput,
-) => PromptHashClient.createPrompt(config, walletSignerLike, address, data);
+) => SelloraClient.createPrompt(config, walletSignerLike, address, data);
 export const createBundle = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   address: string,
   data: CreateBundleInput,
-) => PromptHashClient.createBundle(config, walletSignerLike, address, data);
+) => SelloraClient.createBundle(config, walletSignerLike, address, data);
 export const createAccessPass = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   address: string,
   data: CreateAccessPassInput,
-) => PromptHashClient.createAccessPass(config, walletSignerLike, address, data);
+) => SelloraClient.createAccessPass(config, walletSignerLike, address, data);
 export const getBundlesByCreator = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
-) => PromptHashClient.getBundlesByCreator(config, address);
+) => SelloraClient.getBundlesByCreator(config, address);
 export const getAccessPassesByCreator = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   address: string,
-) => PromptHashClient.getAccessPassesByCreator(config, address);
+) => SelloraClient.getAccessPassesByCreator(config, address);
 export const purchaseBundle = async (bundleId: string, address: string) =>
-  PromptHashClient.purchaseBundle(bundleId, address);
+  SelloraClient.purchaseBundle(bundleId, address);
 export const purchaseAccessPass = async (passId: string, address: string) =>
-  PromptHashClient.purchaseAccessPass(passId, address);
+  SelloraClient.purchaseAccessPass(passId, address);
 export const setPromptSaleStatus = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   address: string,
   promptId: string,
   isForSale: boolean,
 ) =>
-  PromptHashClient.setPromptSaleStatus(
+  SelloraClient.setPromptSaleStatus(
     config,
     walletSignerLike,
     address,
@@ -727,13 +727,13 @@ export const setPromptSaleStatus = async (
     isForSale,
   );
 export const adminSetPromptSaleStatus = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   adminAddress: string,
   promptId: string,
   isForSale: boolean,
 ) =>
-  PromptHashClient.adminSetPromptSaleStatus(
+  SelloraClient.adminSetPromptSaleStatus(
     config,
     walletSignerLike,
     adminAddress,
@@ -741,13 +741,13 @@ export const adminSetPromptSaleStatus = async (
     isForSale,
   );
 export const updatePromptPrice = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   walletSignerLike: any,
   address: string,
   promptId: string,
   newPrice: string,
 ) =>
-  PromptHashClient.updatePromptPrice(
+  SelloraClient.updatePromptPrice(
     config,
     walletSignerLike,
     address,
@@ -756,22 +756,22 @@ export const updatePromptPrice = async (
   );
 
 export const getRecentPurchases = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   limit?: number,
-) => PromptHashClient.getRecentPurchases(config, limit);
+) => SelloraClient.getRecentPurchases(config, limit);
 
 export const findPromptByContentHash = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   contentHash: string,
-) => PromptHashClient.findPromptByContentHash(config, contentHash);
+) => SelloraClient.findPromptByContentHash(config, contentHash);
 
 export const validateBulkPurchase = async (
-  config: PromptHashConfig,
+  config: SelloraConfig,
   buyerAddress: string,
   promptIds: bigint[],
   paymentAmounts: bigint[],
 ) =>
-  PromptHashClient.validateBulkPurchase(
+  SelloraClient.validateBulkPurchase(
     config,
     buyerAddress,
     promptIds,

@@ -21,15 +21,15 @@ vi.mock("@/lib/stellar/browserConfig", () => ({
     rpcUrl: "https://stellar.test/rpc",
     networkPassphrase: "Test SDF Network ; September 2015",
     allowHttp: false,
-    promptHashContractId: "prompt-hash-contract",
+    SelloraContractId: "sellora-contract",
     nativeAssetContractId: "native-asset-contract",
     simulationAccount: "GTESTSIMULATIONACCOUNT1234567890ABCDEFGH1234567890ABCD",
   },
 }));
 
-vi.mock("@/lib/stellar/promptHashClient", async () => {
-  const actual = await vi.importActual<typeof import("@/lib/stellar/promptHashClient")>(
-    "@/lib/stellar/promptHashClient",
+vi.mock("@/lib/stellar/SelloraClient", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/stellar/SelloraClient")>(
+    "@/lib/stellar/SelloraClient",
   );
   return {
     ...actual,

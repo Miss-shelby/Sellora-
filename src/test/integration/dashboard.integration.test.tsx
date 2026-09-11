@@ -16,13 +16,13 @@ vi.mock("@/lib/stellar/browserConfig", () => ({
     rpcUrl: "https://stellar.test/rpc",
     networkPassphrase: "Test SDF Network ; September 2015",
     allowHttp: false,
-    promptHashContractId: "prompt-hash-contract",
+    SelloraContractId: "sellora-contract",
     nativeAssetContractId: "native-asset-contract",
     simulationAccount: "GTESTSIMULATIONACCOUNT1234567890ABCDEFGH1234567890ABCD",
   },
 }));
 
-vi.mock("@/lib/stellar/promptHashClient", () => ({
+vi.mock("@/lib/stellar/SelloraClient", () => ({
   getPromptsByCreator: (...args: unknown[]) => getPromptsByCreatorMock(...args),
   getPromptsByBuyer: (...args: unknown[]) => getPromptsByBuyerMock(...args),
   updatePromptPrice: (...args: unknown[]) => updatePromptPriceMock(...args),

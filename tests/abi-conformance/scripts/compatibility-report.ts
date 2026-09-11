@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths
-const CONTRACT_SPEC_PATH = path.join(__dirname, '../../../contracts/prompt-hash/spec-baseline.json');
+const CONTRACT_SPEC_PATH = path.join(__dirname, '../../../contracts/sellora/spec-baseline.json');
 const CLIENT_MAPPINGS_PATH = path.join(__dirname, '../fixtures/client-mappings.json');
 const COMPATIBILITY_REPORT_PATH = path.join(__dirname, '../fixtures/compatibility-report.json');
 

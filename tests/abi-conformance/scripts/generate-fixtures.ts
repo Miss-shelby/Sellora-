@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths
-const CONTRACT_SPEC_PATH = path.join(__dirname, '../../../contracts/prompt-hash/spec-baseline.json');
+const CONTRACT_SPEC_PATH = path.join(__dirname, '../../../contracts/sellora/spec-baseline.json');
 const FIXTURES_DIR = path.join(__dirname, '../fixtures');
 const CONTRACT_SPEC_FIXTURE = path.join(FIXTURES_DIR, 'contract-spec.json');
 const CARGO_TOML_PATH = path.join(__dirname, '../../../Cargo.toml');
@@ -98,7 +98,7 @@ function generateFixture(spec: ContractSpec, contractVersion: string): ContractS
   const metadata: FixtureMetadata = {
     generated_at: new Date().toISOString(),
     contract_version: contractVersion,
-    spec_source: 'contracts/prompt-hash/spec-baseline.json',
+    spec_source: 'contracts/sellora/spec-baseline.json',
     generator: 'abi-conformance-test-suite'
   };
 

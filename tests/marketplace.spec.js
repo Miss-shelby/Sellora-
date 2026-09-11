@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Prompt-Hash E2E Suite', () => {
+test.describe('sellora E2E Suite', () => {
   
   test('should mock wallet injection and connect successfully', async ({ page }) => {
     await page.addInitScript(() => {

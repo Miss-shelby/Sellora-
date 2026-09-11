@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "PromptHash Marketplace API",
+    "title": "Sellora Marketplace API",
     "version": "1.0.0",
-    "description": "Read-only marketplace API for PromptHash. The Soroban contract at `contracts/prompt-hash` is the single source of truth for prompt ownership, listing state, and purchase records. This server is a read-through cache, event indexer, and user-preference store; it never originates authoritative state changes.\n\nServed by the backend at `GET /api/openapi.json`. An interactive explorer (Redoc) is available at `/api/docs`.\n\nGenerated as part of #713 so Stellar/PromptHash SDK consumers and integrators can validate requests against a machine-readable schema."
+    "description": "Read-only marketplace API for Sellora. The Soroban contract at `contracts/sellora` is the single source of truth for prompt ownership, listing state, and purchase records. This server is a read-through cache, event indexer, and user-preference store; it never originates authoritative state changes.\n\nServed by the backend at `GET /api/openapi.json`. An interactive explorer (Redoc) is available at `/api/docs`.\n\nGenerated as part of #713 so Stellar/Sellora SDK consumers and integrators can validate requests against a machine-readable schema."
   },
   "servers": [
-    { "url": "https://prompt-hash.example.com", "description": "Production" },
+    { "url": "https://sellora.example.com", "description": "Production" },
     { "url": "http://localhost:5000", "description": "Local development" }
   ],
   "tags": [

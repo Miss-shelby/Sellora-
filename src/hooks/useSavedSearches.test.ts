@@ -188,7 +188,7 @@ describe('useSavedSearches hook (#467)', () => {
     ];
 
     // Store old data in localStorage
-    const key = 'prompthash_saved_searches_GUSER123456789';
+    const key = 'Sellora_saved_searches_GUSER123456789';
     localStorage.setItem(key, JSON.stringify(oldSearchData));
 
     // Re-render to load from storage

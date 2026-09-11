@@ -1,6 +1,6 @@
 # Automated Dependency Updates & Maintainer Guide
 
-This document describes the automated dependency update strategy, grouping rules, CI quality validation, and maintainer review process for **Prompt-Hash-Stellar**.
+This document describes the automated dependency update strategy, grouping rules, CI quality validation, and maintainer review process for **sellora**.
 
 ---
 

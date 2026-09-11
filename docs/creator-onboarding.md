@@ -1,9 +1,9 @@
 # Creator Onboarding and Best Practices Guide
 
-Welcome to PromptHash Stellar! This guide helps non-technical prompt engineers get started listing and selling their AI prompts with confidence.
+Welcome to Sellora! This guide helps non-technical prompt engineers get started listing and selling their AI prompts with confidence.
 
 ## Table of Contents
-- [What is PromptHash Stellar?](#what-is-prompthash-stellar)
+- [What is Sellora?](#what-is-Sellora-stellar)
 - [Why Licensing, Not NFTs?](#why-licensing-not-nfts)
 - [Getting Started Checklist](#getting-started-checklist)
 - [Step 1: Set Up Your Freighter Wallet](#step-1-set-up-your-freighter-wallet)
@@ -17,9 +17,9 @@ Welcome to PromptHash Stellar! This guide helps non-technical prompt engineers g
 
 ---
 
-## What is PromptHash Stellar?
+## What is Sellora?
 
-PromptHash Stellar is a blockchain-powered marketplace for selling reusable AI prompts. Unlike traditional platforms, PromptHash gives you:
+Sellora is a blockchain-powered marketplace for selling reusable AI prompts. Unlike traditional platforms, Sellora gives you:
 
 - **Full Control:** Your prompts are encrypted end-to-end; only buyers with verified wallet access can unlock them
 - **Transparent Payments:** XLM transfers settle on-chain with zero intermediaries taking cuts
@@ -37,7 +37,7 @@ You might wonder: "Why not use NFTs?"
 
 **The key difference:**
 
-| Aspect | NFTs | PromptHash Licensing |
+| Aspect | NFTs | Sellora Licensing |
 |--------|------|---------------------|
 | **What buyer owns** | A unique token (collectible) | Permanent access rights |
 | **Can creator resell?** | No (buyer owns it now) | Yes, infinite sales to different buyers |
@@ -45,7 +45,7 @@ You might wonder: "Why not use NFTs?"
 | **Buyer value** | Ownership/bragging rights | Actual usable content |
 | **Best for** | Art, collectibles, uniqueness | Prompts, templates, knowledge products |
 
-**Why PromptHash Uses Licensing:**
+**Why Sellora Uses Licensing:**
 - You want to sell the same prompt to 100 people, not just one
 - Buyers don't care about "owning" a prompt; they care about using it
 - Licensing supports creator economy better than NFTs for knowledge products
@@ -60,7 +60,7 @@ You might wonder: "Why not use NFTs?"
 - [ ] Install Freighter wallet browser extension
 - [ ] Create/restore your Stellar account
 - [ ] Fund your wallet with at least 2 XLM (for transaction fees)
-- [ ] Connect wallet to PromptHash Stellar
+- [ ] Connect wallet to Sellora
 - [ ] **Complete your creator profile** (display name and bio required)
 - [ ] **Configure your payout address** in settings
 - [ ] **Verify payout readiness** passes all checks
@@ -137,7 +137,7 @@ Freighter is a browser wallet extension that securely manages your Stellar accou
 
 ## Step 2.5: Complete Payout Readiness Validation
 
-**NEW REQUIREMENT:** Before you can publish paid prompts, PromptHash validates that your payout setup is complete. This prevents failed settlements and ensures you can receive earnings from buyers.
+**NEW REQUIREMENT:** Before you can publish paid prompts, Sellora validates that your payout setup is complete. This prevents failed settlements and ensures you can receive earnings from buyers.
 
 ### What is Payout Readiness?
 
@@ -245,7 +245,7 @@ You need XLM (Stellar Lumens) to list and eventually transfer funds from sales. 
 
 ### For Testing (Testnet)
 
-If you're testing PromptHash on testnet:
+If you're testing Sellora on testnet:
 
 1. Go to [Stellar Development Foundation Testnet Faucet](https://stellar.org/developers/reference/testnet)
 2. Enter your wallet address (from Freighter)
@@ -316,8 +316,8 @@ Have these ready:
 
 ### Step-by-Step Listing
 
-1. **Go to PromptHash and Connect Wallet:**
-   - Visit the PromptHash Stellar marketplace
+1. **Go to Sellora and Connect Wallet:**
+   - Visit the Sellora marketplace
    - Click "Connect Wallet" (top-right)
    - Freighter popup appears
    - Click "Approve" to connect
@@ -489,7 +489,7 @@ Your listing is live, but how do buyers find it?
    - Go to your creator profile (click your name)
    - Copy the link
    - Share on:
-     - Twitter/X (mention #PromptHash #Stellar)
+     - Twitter/X (mention #Sellora #Stellar)
      - LinkedIn (AI/automation community)
      - Discord (AI and crypto communities)
      - Reddit (r/ChatGPT, r/cryptocurrency, niche subreddits)
@@ -602,11 +602,11 @@ You **cannot** change the full encrypted prompt (for buyer security). If you nee
 ### Q: Can I sell the same prompt on other platforms?
 
 **A:** Yes! You can:
-- Sell on PromptHash AND other marketplaces
+- Sell on Sellora AND other marketplaces
 - There are no exclusivity requirements
 - Multi-channel approach maximizes your revenue
 
-### Q: How much does PromptHash take as a cut?
+### Q: How much does Sellora take as a cut?
 
 **A:** Check the current platform fees in the docs. Typically:
 - Creator gets: 95% of sale price
@@ -655,11 +655,11 @@ For identical copying: Report to platform moderators.
 
 ### Q: Can I sell editing/writing services alongside prompts?
 
-**A:** Check platform guidelines. PromptHash focuses on:
+**A:** Check platform guidelines. Sellora focuses on:
 - Selling prompts (primary)
 - Individual services outside platform (your choice)
 
-Avoid directly selling services through PromptHash if not intended.
+Avoid directly selling services through Sellora if not intended.
 
 ### Q: What if I want to stop selling?
 
@@ -688,4 +688,4 @@ Avoid directly selling services through PromptHash if not intended.
 - See [docs/security-model.md](./security-model.md) for technical details
 - Create a GitHub issue with your question
 
-**Welcome to PromptHash Stellar! Happy listing! 🚀**
+**Welcome to Sellora! Happy listing! 🚀**

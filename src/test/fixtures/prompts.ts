@@ -1,4 +1,4 @@
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 export function makePrompt(
   overrides: Partial<PromptRecord> = {},

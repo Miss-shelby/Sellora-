@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document defines the versioning policy for the PromptHash Stellar contract ABI (Application Binary Interface) and how clients (SDK, API, frontend) should handle compatibility across different contract versions.
+This document defines the versioning policy for the Sellora contract ABI (Application Binary Interface) and how clients (SDK, API, frontend) should handle compatibility across different contract versions.
 
 ## Version Numbering
 
@@ -246,7 +246,7 @@ In rare cases of critical security issues, breaking changes may be deployed with
 ## References
 
 - [ABI Conformance Tests](../tests/abi-conformance/)
-- [Contract Specification](../contracts/prompt-hash/spec-baseline.json)
+- [Contract Specification](../contracts/sellora/spec-baseline.json)
 - [SDK Documentation](../packages/sdk/)
 - [API Documentation](../server/)
-- [Issue #433](https://github.com/Benalex8797/Prompt-Hash-Stellar/issues/433)
+- [Issue #433](https://github.com/Benalex8797/sellora/issues/433)

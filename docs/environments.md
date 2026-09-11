@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-PromptHash Stellar uses a **root `.env`** for the frontend and serverless unlock API, **`environments.toml`** for Soroban contract tooling, and an optional **`server/.env`** for the MongoDB-backed API.
+Sellora uses a **root `.env`** for the frontend and serverless unlock API, **`environments.toml`** for Soroban contract tooling, and an optional **`server/.env`** for the MongoDB-backed API.
 
 Run the validator at any time:
 
@@ -120,7 +120,7 @@ Returns:
   "ready": true,
   "network": "MAINNET",
   "manifestHash": "a1b2c3d4e5f67890",
-  "promptHashContractId": "CB...",
+  "SelloraContractId": "CB...",
   "nativeAssetContractId": "CD...",
   "simulationAccount": "GA...",
   "timestamp": 1785305900000

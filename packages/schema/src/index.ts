@@ -1,5 +1,5 @@
 /**
- * @prompthash/schema — Issue #502
+ * @Sellora/schema — Issue #502
  *
  * Shared, versioned prompt metadata schema for frontend forms, server
  * validation, and the indexer's Mongo model.

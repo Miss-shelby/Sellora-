@@ -14,7 +14,7 @@ function challengeResponse(): Response {
   return new Response(
     JSON.stringify({
       token: "token-1",
-      challenge: "prompt-hash unlock:challenge",
+      challenge: "sellora unlock:challenge",
       expiresAt: Date.now() + 60_000,
       nonce: "nonce-1",
     }),
@@ -35,7 +35,7 @@ describe("unlockPromptContent client", () => {
         new Response(
           JSON.stringify({
             token: "token-1",
-            challenge: "prompt-hash unlock:challenge",
+            challenge: "sellora unlock:challenge",
             expiresAt: Date.now() + 60_000,
             nonce: "nonce-1",
           }),
@@ -72,7 +72,7 @@ describe("unlockPromptContent client", () => {
       "/api/prompts/unlock",
       expect.objectContaining({ method: "POST" }),
     );
-    expect(signMessage).toHaveBeenCalledWith("prompt-hash unlock:challenge");
+    expect(signMessage).toHaveBeenCalledWith("sellora unlock:challenge");
     expect(result.plaintext).toBe("Decrypted prompt body");
     expect(result.decryptedContent).toBe("Decrypted prompt body");
   });
@@ -88,7 +88,7 @@ describe("unlockPromptContent client", () => {
           new Response(
             JSON.stringify({
               token: "token-1",
-              challenge: "prompt-hash unlock:challenge",
+              challenge: "sellora unlock:challenge",
               expiresAt: Date.now() + 60_000,
               nonce: "nonce-1",
             }),
@@ -126,7 +126,7 @@ describe("unlockPromptContent client", () => {
           new Response(
             JSON.stringify({
               token: "token-1",
-              challenge: "prompt-hash unlock:challenge",
+              challenge: "sellora unlock:challenge",
               expiresAt: Date.now() + 60_000,
               nonce: "nonce-1",
             }),

@@ -117,7 +117,7 @@ export function OwnershipTransferPanel({
     setActionError(null);
     setBusy("request");
     try {
-      const message = `prompt-hash transfer request:${selectedPromptId}:${toWallet}`;
+      const message = `sellora transfer request:${selectedPromptId}:${toWallet}`;
       const signature = await signedMessage(message);
       if (!signature) {
         throw new Error("The wallet did not return a signature.");
@@ -147,7 +147,7 @@ export function OwnershipTransferPanel({
     setActionError(null);
     setBusy(`${transfer.id}-${decision}`);
     try {
-      const message = `prompt-hash transfer ${decision}:${transfer.id}`;
+      const message = `sellora transfer ${decision}:${transfer.id}`;
       const signature = await signedMessage(message);
       if (!signature) {
         throw new Error("The wallet did not return a signature.");
@@ -171,7 +171,7 @@ export function OwnershipTransferPanel({
     setActionError(null);
     setBusy(`${transfer.id}-cancel`);
     try {
-      const message = `prompt-hash transfer cancel:${transfer.id}`;
+      const message = `sellora transfer cancel:${transfer.id}`;
       const signature = await signedMessage(message);
       if (!signature) {
         throw new Error("The wallet did not return a signature.");

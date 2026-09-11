@@ -2,17 +2,17 @@ import {
   allowHttp,
   nativeAssetContractId,
   networkPassphrase,
-  promptHashContractId,
+  SelloraContractId,
   rpcUrl,
   simulationAccount,
 } from "@/lib/env";
-import type { PromptHashConfig } from "./promptHashClient";
+import type { SelloraConfig } from "./SelloraClient";
 
-export const browserStellarConfig: PromptHashConfig = {
+export const browserStellarConfig: SelloraConfig = {
   rpcUrl,
   networkPassphrase,
   allowHttp,
-  promptHashContractId,
+  SelloraContractId,
   nativeAssetContractId,
   simulationAccount,
 };

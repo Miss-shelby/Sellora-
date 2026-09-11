@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { X, ChevronRight } from "lucide-react";
 
-const STORAGE_KEY = "prompthash_onboarding_done";
+const STORAGE_KEY = "Sellora_onboarding_done";
 
 interface TourStep {
   selector: string;
@@ -14,7 +14,7 @@ const STEPS: TourStep[] = [
     selector: '[data-tour="connect-wallet"]',
     title: "Connect your Wallet",
     description:
-      "Click here to connect your Stellar wallet. You need a wallet to buy or sell prompts on PromptHash.",
+      "Click here to connect your Stellar wallet. You need a wallet to buy or sell prompts on Sellora.",
   },
   {
     selector: '[data-tour="marketplace-search"]',

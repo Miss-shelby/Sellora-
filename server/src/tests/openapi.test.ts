@@ -9,7 +9,7 @@ describe("OpenAPI reference schema (#713)", () => {
 
   it("is a valid OpenAPI 3.0 document", () => {
     expect(spec.openapi).toBe("3.0.3");
-    expect(spec.info.title).toBe("PromptHash Marketplace API");
+    expect(spec.info.title).toBe("Sellora Marketplace API");
     expect(spec.info.version).toBe("1.0.0");
     expect(spec.paths).toBeDefined();
     expect(spec.components.schemas).toBeDefined();

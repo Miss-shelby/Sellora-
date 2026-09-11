@@ -62,10 +62,10 @@ export UNLOCK_SERVICE_URL="https://your-domain.com"
 
 ```bash
 # Copy example cron configuration
-cp scripts/cron-rotation.example /etc/cron.d/prompt-hash-rotation
+cp scripts/cron-rotation.example /etc/cron.d/sellora-rotation
 
 # Edit with your schedule and paths
-sudo nano /etc/cron.d/prompt-hash-rotation
+sudo nano /etc/cron.d/sellora-rotation
 
 # Example: Rotate every 30 days at 2 AM UTC
 0 2 1 * * /path/to/scripts/rotate-secrets.sh --grace-period 600 >> /var/log/secret-rotation.log 2>&1

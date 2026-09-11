@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getAllPromptsPaginated } from "@/lib/stellar/promptHashClient";
-import type { PromptHashConfig, PromptRecord } from "@/lib/stellar/promptHashClient";
+import { getAllPromptsPaginated } from "@/lib/stellar/SelloraClient";
+import type { SelloraConfig, PromptRecord } from "@/lib/stellar/SelloraClient";
 
 /** Number of prompts requested from the contract per paginated page. */
 export const CATALOG_PAGE_SIZE = 50;
@@ -23,12 +23,12 @@ export type CatalogPage = {
  * accumulates each fetched page in `data.pages` (load-more *appends* rather
  * than replacing), which is exactly the behavior the browse grid relies on.
  */
-export function useCatalogPages(config: PromptHashConfig | null) {
+export function useCatalogPages(config: SelloraConfig | null) {
   return useInfiniteQuery<CatalogPage>({
-    queryKey: ["marketplace-prompts", config?.promptHashContractId],
+    queryKey: ["marketplace-prompts", config?.SelloraContractId],
     enabled: Boolean(config),
     queryFn: ({ pageParam }) =>
-      getAllPromptsPaginated(config as PromptHashConfig, pageParam ?? null, CATALOG_PAGE_SIZE),
+      getAllPromptsPaginated(config as SelloraConfig, pageParam ?? null, CATALOG_PAGE_SIZE),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     staleTime: CATALOG_CACHE_STALE_MS,

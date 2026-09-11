@@ -16,7 +16,7 @@ import { useWallet } from "@/hooks/useWallet";
 export default function PayoutReadinessPage() {
   usePageMeta({
     title: "Payout Readiness Check",
-    description: "Complete your payout setup to publish paid prompts on PromptHash Stellar.",
+    description: "Complete your payout setup to publish paid prompts on Sellora.",
   });
 
   const { address } = useWallet();
@@ -218,7 +218,7 @@ export default function PayoutReadinessPage() {
                 size="sm"
               >
                 <a
-                  href="mailto:support@prompthash.com"
+                  href="mailto:support@Sellora.com"
                   className="flex items-center gap-2"
                 >
                   Email Support

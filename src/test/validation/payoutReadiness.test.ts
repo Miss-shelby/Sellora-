@@ -372,7 +372,7 @@ describe("payoutReadiness validation", () => {
       const result = getPayoutPreferences(mockAddress);
 
       expect(result).toEqual(mockPrefs);
-      expect(localStorageMock.getItem).toHaveBeenCalledWith(`prompt-hash:payout:${mockAddress}`);
+      expect(localStorageMock.getItem).toHaveBeenCalledWith(`sellora:payout:${mockAddress}`);
     });
 
     it("should return null when no preferences exist", () => {

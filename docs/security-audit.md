@@ -1,14 +1,14 @@
-# PromptHash Security Audit Report — Issue #111
+# Sellora Security Audit Report — Issue #111
 
 **Date:** 2026-04-28  
 **Scope:** Soroban smart contract (`contracts/prompt_hash`) + Unlock Service (`server/`)  
-**Auditor:** PromptHash Core Team
+**Auditor:** Sellora Core Team
 
 ---
 
 ## Executive Summary
 
-This report documents a review of the PromptHash Stellar smart contract and the off-chain unlock service. No critical vulnerabilities were found. Two medium-severity findings and three low-severity findings are disclosed below with recommended mitigations.
+This report documents a review of the Sellora smart contract and the off-chain unlock service. No critical vulnerabilities were found. Two medium-severity findings and three low-severity findings are disclosed below with recommended mitigations.
 
 ---
 

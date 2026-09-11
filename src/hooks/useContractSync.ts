@@ -15,7 +15,7 @@ import { browserStellarConfig } from "@/lib/stellar/browserConfig";
  *    on-chain state right away without waiting for the background poll.
  *
  * 2. Background event polling — `useContractSync` (mounted once via
- *    `ContractSyncProvider`) polls ALL contract events from the PromptHash
+ *    `ContractSyncProvider`) polls ALL contract events from the Sellora
  *    contract every 10 seconds. When any new event arrives it invalidates
  *    every prompt-related query key. This keeps browse/profile pages fresh
  *    for users who did not submit the transaction — e.g. a browsing user
@@ -96,7 +96,7 @@ export function useContractSync() {
   }, []);
 
   useEffect(() => {
-    if (!browserStellarConfig.promptHashContractId) return;
+    if (!browserStellarConfig.SelloraContractId) return;
 
     pollInProgressRef.current = false;
     consecutiveErrorsRef.current = 0;

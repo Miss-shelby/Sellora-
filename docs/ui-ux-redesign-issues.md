@@ -6,7 +6,7 @@ Design backlog for the core product routes. These issues are intended to drive r
 
 ### `/browse`
 
-- Issue: [#1](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/1)
+- Issue: [#1](https://github.com/Obiajulu-gif/sellora/issues/1)
 - Title: `Redesign the /browse marketplace experience`
 - Priority: `High`
 - Focus:
@@ -17,7 +17,7 @@ Design backlog for the core product routes. These issues are intended to drive r
 
 ### `/sell`
 
-- Issue: [#2](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/2)
+- Issue: [#2](https://github.com/Obiajulu-gif/sellora/issues/2)
 - Title: `Redesign the /sell creator listing workflow`
 - Priority: `High`
 - Focus:
@@ -28,7 +28,7 @@ Design backlog for the core product routes. These issues are intended to drive r
 
 ### `/chat`
 
-- Issue: [#3](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/3)
+- Issue: [#3](https://github.com/Obiajulu-gif/sellora/issues/3)
 - Title: `Redesign the /chat experience for stronger prompt iteration flow`
 - Priority: `Medium`
 - Focus:
@@ -39,7 +39,7 @@ Design backlog for the core product routes. These issues are intended to drive r
 
 ### `/profile`
 
-- Issue: [#4](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/issues/4)
+- Issue: [#4](https://github.com/Obiajulu-gif/sellora/issues/4)
 - Title: `Redesign the /profile page around wallet identity and owned prompt access`
 - Priority: `Medium`
 - Focus:

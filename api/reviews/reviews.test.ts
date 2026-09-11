@@ -13,7 +13,7 @@ describe("Durable Wallet-Signed Reviews API", () => {
 
   it("builds correct domain-separated review message", () => {
     const message = buildReviewMessage(buyerAddress, promptId, rating, text);
-    expect(message).toBe(`prompt-hash review:${buyerAddress}:${promptId}:${rating}:${text}`);
+    expect(message).toBe(`sellora review:${buyerAddress}:${promptId}:${rating}:${text}`);
   });
 
   it("verifies valid domain-separated signature", () => {

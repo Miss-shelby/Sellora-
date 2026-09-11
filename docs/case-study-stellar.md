@@ -2,7 +2,7 @@
 
 ## Introduction
 
-PromptHash is a decentralized prompt marketplace built on Stellar's Soroban smart contract platform. Creators list encrypted AI prompts with on-chain pricing, and buyers purchase perpetual or time-limited access using any Stellar asset. The platform handles payment routing, access control, and content delivery without a centralized database for ownership records.
+Sellora is a decentralized prompt marketplace built on Stellar's Soroban smart contract platform. Creators list encrypted AI prompts with on-chain pricing, and buyers purchase perpetual or time-limited access using any Stellar asset. The platform handles payment routing, access control, and content delivery without a centralized database for ownership records.
 
 This case study examines why Soroban was chosen and the technical advantages it provides for digital-content commerce.
 
@@ -10,7 +10,7 @@ This case study examines why Soroban was chosen and the technical advantages it 
 
 ### Native Asset Integration
 
-Stellar's asset model treats every issued asset — XLM, USDC, ARS, or any custom token — as a first-class citizen through the Stellar Asset Contract (SAC) standard. PromptHash prompts can be priced in any SAC-compatible asset without deploying custom token contracts or managing bridge infrastructure. A single `token::StellarAssetClient` interface handles transfers regardless of the underlying asset.
+Stellar's asset model treats every issued asset — XLM, USDC, ARS, or any custom token — as a first-class citizen through the Stellar Asset Contract (SAC) standard. Sellora prompts can be priced in any SAC-compatible asset without deploying custom token contracts or managing bridge infrastructure. A single `token::StellarAssetClient` interface handles transfers regardless of the underlying asset.
 
 ### Built-in Authentication
 
@@ -56,7 +56,7 @@ This two-step pattern doubles the transaction count, introduces a window where t
 
 ### Authorization
 
-Every state-mutating function in the PromptHash contract begins with explicit authorization:
+Every state-mutating function in the Sellora contract begins with explicit authorization:
 
 - `create_prompt`: `creator.require_auth()`
 - `buy_prompt`: `buyer.require_auth()`
@@ -145,7 +145,7 @@ The SAC standard guarantees that any Stellar-issued asset exposes the same `tran
 
 ## Comparison with Alternative Approaches
 
-| Aspect | Soroban (PromptHash) | EVM/Solidity | Off-chain Only |
+| Aspect | Soroban (Sellora) | EVM/Solidity | Off-chain Only |
 |--------|---------------------|--------------|----------------|
 | Payment | Single-tx atomic | 2-tx approve+buy | Credit card / PayPal |
 | Access records | On-chain, verifiable | On-chain, verifiable | Database, trust-dependent |

@@ -10,7 +10,7 @@ vi.mock("@tanstack/react-query", () => ({
   useQueryClient: vi.fn(),
 }));
 vi.mock("@/lib/stellar/browserConfig", () => ({
-  browserStellarConfig: { promptHashContractId: "test-contract-id" },
+  browserStellarConfig: { SelloraContractId: "test-contract-id" },
 }));
 
 import { invalidateAllPromptQueries, useContractSync } from "./useContractSync";

@@ -2,7 +2,7 @@
   "_metadata": {
     "generated_at": "2026-07-31T14:04:40.335Z",
     "contract_version": "0.0.1",
-    "spec_source": "contracts/prompt-hash/spec-baseline.json",
+    "spec_source": "contracts/sellora/spec-baseline.json",
     "generator": "abi-conformance-test-suite"
   },
   "data_types": {

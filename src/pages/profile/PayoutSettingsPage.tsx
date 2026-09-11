@@ -34,7 +34,7 @@ import {
   type PayoutOnChainVerificationResult,
 } from "@/lib/stellar/payoutValidation";
 
-const PAYOUT_STORAGE_KEY = (address: string) => `prompt-hash:payout:${address}`;
+const PAYOUT_STORAGE_KEY = (address: string) => `sellora:payout:${address}`;
 
 interface PayoutPreferences {
   payoutAddress: string;

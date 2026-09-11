@@ -8,7 +8,7 @@
   - [x] Read methods (checkAccess, getPrompt, getAllPrompts, etc.)
   - [x] Write methods (createPrompt, purchasePrompt, setPromptSaleStatus, etc.)
   - [x] XDR to struct decoders
-- [x] Replaced mock implementations in `src/lib/stellar/promptHashClient.ts`
+- [x] Replaced mock implementations in `src/lib/stellar/SelloraClient.ts`
   - [x] Removed mock data generators
   - [x] Removed `warnMockUse()` warnings
   - [x] All methods now call real contract via `contractMethods.*`
@@ -67,7 +67,7 @@ npm run build
 ```bash
 get_diagnostics on:
   - src/lib/stellar/contractMethods.ts ✅ No errors
-  - src/lib/stellar/promptHashClient.ts ✅ No errors
+  - src/lib/stellar/SelloraClient.ts ✅ No errors
   - src/pages/browse/PromptModal.tsx ✅ No errors
   - src/pages/sell/CreatePromptForm.tsx ✅ No errors
 ```
@@ -102,7 +102,7 @@ npm run test
   - dashboard.integration.test.tsx ✅
   - wallet.integration.test.tsx ✅
 
-# Tests mock at PromptHashClient level — no changes needed
+# Tests mock at SelloraClient level — no changes needed
 # Real contract methods called by UI in browser, not in tests
 ```
 
@@ -190,7 +190,7 @@ npm run test
 ❌ Build failed: Mock implementation detected in production files.
 ```
 
-- Check `src/lib/stellar/promptHashClient.ts` for leftover mocks
+- Check `src/lib/stellar/SelloraClient.ts` for leftover mocks
 - Check `src/lib/stellar/contractMethods.ts` for test/stub code
 - Ensure all method implementations call `contractMethods.*` functions
 

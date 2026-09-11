@@ -1,7 +1,7 @@
 {
-  "name": "@prompthash/sdk",
+  "name": "@Sellora/sdk",
   "version": "0.1.0",
-  "description": "JavaScript/TypeScript SDK for the PromptHash Stellar protocol",
+  "description": "JavaScript/TypeScript SDK for the Sellora protocol",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

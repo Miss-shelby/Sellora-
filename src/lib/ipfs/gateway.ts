@@ -135,7 +135,7 @@ export class IPFSGatewayPool {
         signal: controller.signal,
         redirect: "error",
         headers: {
-          "User-Agent": "PromptHash-IPFS-Client/1.0",
+          "User-Agent": "Sellora-IPFS-Client/1.0",
           "Accept-Encoding": "identity",
         },
       });

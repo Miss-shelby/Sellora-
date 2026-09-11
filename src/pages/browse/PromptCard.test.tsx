@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { PromptCard } from "./PromptCard";
 import { renderWithProviders } from "@/test/render";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 const mockPrompt = (overrides: Partial<PromptRecord> = {}): PromptRecord => ({
   id: 1n,

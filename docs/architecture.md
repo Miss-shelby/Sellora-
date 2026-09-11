@@ -1,12 +1,12 @@
-# PromptHash Stellar Architecture
+# Sellora Architecture
 
 ## System Components
 
-PromptHash Stellar is organized into three main layers.
+Sellora is organized into three main layers.
 
 ## 1. Soroban Contract Layer
 
-Path: `contracts/prompt-hash`
+Path: `contracts/sellora`
 
 Responsibilities:
 
@@ -47,7 +47,7 @@ Important modules:
 - `src/pages/sell/CreatePromptForm.tsx`
 - `src/pages/browse/PromptModal.tsx`
 - `src/pages/sell/MyPrompts.tsx`
-- `src/lib/stellar/promptHashClient.ts`
+- `src/lib/stellar/SelloraClient.ts`
 - `src/lib/crypto/promptCrypto.ts`
 
 ## 3. Unlock / Auth Layer

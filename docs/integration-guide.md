@@ -1,15 +1,15 @@
-# PromptHash Developer Integration Guide — Issue #110
+# Sellora Developer Integration Guide — Issue #110
 
-This guide shows third-party developers how to fetch prompts, buy licenses, and verify ownership using the `@prompthash/sdk` package and the REST API directly.
+This guide shows third-party developers how to fetch prompts, buy licenses, and verify ownership using the `@Sellora/sdk` package and the REST API directly.
 
 ---
 
 ## Installation
 
 ```bash
-npm install @prompthash/sdk @stellar/stellar-sdk
+npm install @Sellora/sdk @stellar/stellar-sdk
 # or
-yarn add @prompthash/sdk @stellar/stellar-sdk
+yarn add @Sellora/sdk @stellar/stellar-sdk
 ```
 
 ---
@@ -17,10 +17,10 @@ yarn add @prompthash/sdk @stellar/stellar-sdk
 ## Quick Start
 
 ```typescript
-import { PromptHashClient } from "@prompthash/sdk";
+import { SelloraClient } from "@Sellora/sdk";
 
-const client = new PromptHashClient({
-  apiUrl: "https://api.prompthash.io",
+const client = new SelloraClient({
+  apiUrl: "https://api.Sellora.io",
   network: "mainnet", // or "testnet"
 });
 ```
@@ -50,7 +50,7 @@ console.log(prompt.title, prompt.priceUSDC);
 
 ## Buying a License
 
-PromptHash uses a two-step flow: the buyer submits a Stellar transaction on-chain, then records it with the backend to claim their license.
+Sellora uses a two-step flow: the buyer submits a Stellar transaction on-chain, then records it with the backend to claim their license.
 
 ```typescript
 import {
@@ -67,7 +67,7 @@ const server = new Server("https://soroban-testnet.stellar.org");
 const buyerKeypair = Keypair.fromSecret("S...");
 
 // 1. Build and submit the on-chain purchase transaction
-// (Exact call depends on the PromptHash contract ABI — see contracts/prompt_hash)
+// (Exact call depends on the Sellora contract ABI — see contracts/prompt_hash)
 const txHash = await submitOnChainPurchase(promptId, buyerKeypair);
 
 // 2. Record the purchase with the backend
@@ -185,5 +185,5 @@ All SDK methods throw typed errors. The REST API returns `{ error: string }` wit
 ## TypeScript Types
 
 ```typescript
-import type { PromptInfo, PurchaseResult, ClientConfig } from "@prompthash/sdk";
+import type { PromptInfo, PurchaseResult, ClientConfig } from "@Sellora/sdk";
 ```

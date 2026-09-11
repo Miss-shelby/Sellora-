@@ -35,7 +35,7 @@ export const promptRouter = express.Router();
 /**
  * OFF-CHAIN INDEXING ONLY — READ-PROJECTION BOUNDARY
  *
- * The Soroban smart contract at contracts/prompt-hash is the single source of
+ * The Soroban smart contract at contracts/sellora is the single source of
  * truth for prompt ownership, listing state, and purchase records. This server
  * is strictly a read-through cache, event indexer, and user-preference store.
  * It must never originate authoritative state changes that should be governed

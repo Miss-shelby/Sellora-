@@ -27,7 +27,7 @@ import {
 } from "@/lib/profiles/creatorProfile";
 import { buildCreatorReputation } from "@/lib/reputation/creatorReputation";
 import { formatPriceLabel } from "@/lib/stellar/format";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 import { useQuery } from "@tanstack/react-query";
 
 const shortenAddress = (address: string) =>

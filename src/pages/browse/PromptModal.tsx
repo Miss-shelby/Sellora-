@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { WalletContext } from "../../providers/WalletProvider";
 import { useAsyncTransaction } from "../../components/useAsyncTransaction";
-import { PromptHashClient } from "../../lib/stellar/promptHashClient";
+import { SelloraClient } from "../../lib/stellar/SelloraClient";
 import { browserStellarConfig } from "../../lib/stellar/browserConfig";
 import { unlockPrompt } from "../../lib/prompts/unlock";
 import { Skeleton } from "../../components/Skeleton";
@@ -133,7 +133,7 @@ const PromptMetadataSection: React.FC<{
   const { data: prompt, isLoading } = useQuery({
     queryKey: ["prompt-detail", itemId],
     queryFn: async () => {
-      return await PromptHashClient.getPrompt(
+      return await SelloraClient.getPrompt(
         browserStellarConfig,
         BigInt(itemId),
       );
@@ -318,7 +318,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
   const { data: promptDetail } = useQuery({
     queryKey: ["prompt-detail", itemId],
     queryFn: async () =>
-      PromptHashClient.getPrompt(browserStellarConfig, BigInt(itemId)),
+      SelloraClient.getPrompt(browserStellarConfig, BigInt(itemId)),
     enabled: isOpen && !!itemId,
   });
 
@@ -381,7 +381,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
   useEffect(() => {
     if (isOpen && wallet?.address) {
       setIsCheckingAccess(true);
-      PromptHashClient.checkAccess(itemId, wallet.address)
+      SelloraClient.checkAccess(itemId, wallet.address)
         .then((hasAccess) => setStatus(hasAccess ? "PURCHASED_LOCKED" : "IDLE"))
         .catch(() => setStatus("IDLE"))
         .finally(() => setIsCheckingAccess(false));
@@ -456,7 +456,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
       }
 
       setStatus("AWAITING_APPROVAL");
-      return await PromptHashClient.purchasePrompt(
+      return await SelloraClient.purchasePrompt(
         itemId,
         wallet.address,
         { signTransaction: wallet.signTransaction },

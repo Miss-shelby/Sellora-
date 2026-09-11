@@ -6,7 +6,7 @@
  * that preserves full history and allows restore at any time.
  */
 
-const STORE_PREFIX = "prompt-hash:archive:";
+const STORE_PREFIX = "sellora:archive:";
 
 interface ArchivedEntry {
   archivedAt: string; // ISO-8601 timestamp

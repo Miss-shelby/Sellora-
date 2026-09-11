@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const STORAGE_KEY = "prompt-hash:clipboard-autoclear";
+const STORAGE_KEY = "sellora:clipboard-autoclear";
 
 function readAutoClearEnabled(): boolean {
   try {

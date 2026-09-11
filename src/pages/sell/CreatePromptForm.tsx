@@ -44,8 +44,8 @@ import { xlmToStroops } from "@/lib/stellar/format";
 import {
   createPrompt,
   findPromptByContentHash,
-  PromptHashClient,
-} from "@/lib/stellar/promptHashClient";
+  SelloraClient,
+} from "@/lib/stellar/SelloraClient";
 import { hashPromptPlaintext } from "@/lib/crypto/promptCrypto";
 import {
   LISTING_LIMITS,
@@ -55,11 +55,11 @@ import {
 import { MarkdownContent } from "@/components/MarkdownContent";
 
 import { PromptCard } from "@/pages/browse/PromptCard";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 import { EncryptedPayloadSizeEstimator } from "@/components/sell/EncryptedPayloadSizeEstimator";
 import { estimateEncryptedPayloadSize } from "@/lib/crypto/payloadEstimator";
-import { getPrompt } from "@/lib/stellar/promptHashClient";
+import { getPrompt } from "@/lib/stellar/SelloraClient";
 import { saveRemixAttribution } from "@/lib/prompts/remixAttribution";
 import { useOfflineQueue } from "@/hooks/useOfflineQueue";
 
@@ -153,7 +153,7 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
   const isConfigured = useMemo(
     () =>
       Boolean(
-        address && browserStellarConfig.promptHashContractId && unlockPublicKey,
+        address && browserStellarConfig.SelloraContractId && unlockPublicKey,
       ),
     [address],
   );
@@ -376,7 +376,7 @@ export function CreatePromptForm({ onCreated }: CreatePromptFormProps) {
       };
 
       // Call the contract
-      const result = await PromptHashClient.createPrompt(
+      const result = await SelloraClient.createPrompt(
         browserStellarConfig,
         { signTransaction },
         address,

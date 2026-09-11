@@ -1,10 +1,10 @@
 # API Reference
 
-This reference covers the marketplace and account endpoints used by the PromptHash frontend and the Express backend.
+This reference covers the marketplace and account endpoints used by the Sellora frontend and the Express backend.
 
 ## New: Payout Readiness Validation
 
-PromptHash now includes comprehensive payout readiness validation to ensure creators can receive earnings before publishing paid prompts. 
+Sellora now includes comprehensive payout readiness validation to ensure creators can receive earnings before publishing paid prompts. 
 
 For detailed information, see [Payout Readiness API Reference](./payout-readiness-api.md).
 
@@ -382,11 +382,11 @@ from the (mutable) database row. Responds with:
 }
 ```
 
-Verify a receipt independently — against Stellar RPC only, no PromptHash API
-or database access required — with `@prompthash/sdk`:
+Verify a receipt independently — against Stellar RPC only, no Sellora API
+or database access required — with `@Sellora/sdk`:
 
 ```ts
-import { verifyReceipt } from "@prompthash/sdk";
+import { verifyReceipt } from "@Sellora/sdk";
 
 const result = await verifyReceipt(receipt, signature, signerPublicKey);
 // result.valid, result.checks.{signatureValid,networkMatches,transactionFound,transactionSucceeded,eventMatches}

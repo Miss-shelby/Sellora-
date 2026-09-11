@@ -1,4 +1,4 @@
-# Backup and Recovery — PromptHash Indexer DB
+# Backup and Recovery — Sellora Indexer DB
 
 _Issue #135 — Automated Backup and Recovery for Indexer DB_
 
@@ -6,7 +6,7 @@ _Issue #135 — Automated Backup and Recovery for Indexer DB_
 
 ## Overview
 
-The PromptHash indexer stores off-chain prompt metadata (titles, pricing, ownership, purchase counts, audit logs) in MongoDB. Because all on-chain state can be replayed from the Stellar ledger, the DB is reproducible from scratch. However, full re-indexing can take many minutes; regular backups reduce recovery time to seconds.
+The Sellora indexer stores off-chain prompt metadata (titles, pricing, ownership, purchase counts, audit logs) in MongoDB. Because all on-chain state can be replayed from the Stellar ledger, the DB is reproducible from scratch. However, full re-indexing can take many minutes; regular backups reduce recovery time to seconds.
 
 Two complementary recovery paths are provided:
 
@@ -132,10 +132,10 @@ TIMESTAMP="2025-05-27T02-00-00-000Z"
 BUCKET="my-bucket"
 PREFIX="backups"
 
-mkdir -p /tmp/prompthash-restore
+mkdir -p /tmp/Sellora-restore
 for col in prompts purchases promptversions indexerstates auditlogs; do
-  aws s3 cp "s3://${BUCKET}/${PREFIX}/${TIMESTAMP}/${col}.ndjson.gz" /tmp/prompthash-restore/
-  gunzip "/tmp/prompthash-restore/${col}.ndjson.gz"
+  aws s3 cp "s3://${BUCKET}/${PREFIX}/${TIMESTAMP}/${col}.ndjson.gz" /tmp/Sellora-restore/
+  gunzip "/tmp/Sellora-restore/${col}.ndjson.gz"
 done
 ```
 
@@ -152,7 +152,7 @@ for col in prompts purchases promptversions indexerstates auditlogs; do
   mongoimport \
     --uri "$MONGODB_URI" \
     --collection "$col" \
-    --file "/tmp/prompthash-restore/${col}.ndjson" \
+    --file "/tmp/Sellora-restore/${col}.ndjson" \
     --jsonArray=false
 done
 ```
@@ -167,7 +167,7 @@ mongosh "$MONGODB_URI" --eval '
 '
 
 # Restart the backend server
-pm2 restart prompthash-server   # or systemctl restart prompthash
+pm2 restart Sellora-server   # or systemctl restart Sellora
 ```
 
 ---
@@ -220,7 +220,7 @@ By default, daily backups accumulate indefinitely. Enable lifecycle cleanup via:
 ```json
 {
   "Rules": [{
-    "ID": "prompthash-backup-retention",
+    "ID": "Sellora-backup-retention",
     "Prefix": "backups/",
     "Status": "Enabled",
     "Expiration": { "Days": 30 }
@@ -236,7 +236,7 @@ Or use the weekly cleanup snippet in `server/backup.crontab` (requires AWS CLI o
 
 | Symptom | Likely cause | Action |
 |---------|-------------|--------|
-| `/health` shows `backup.healthy: false` | Backup failed or missed window | Check `/var/log/prompthash-backup.log`; run `npm run backup` manually |
+| `/health` shows `backup.healthy: false` | Backup failed or missed window | Check `/var/log/Sellora-backup.log`; run `npm run backup` manually |
 | S3 upload fails with `AccessDenied` | Missing IAM permissions | Ensure the role has `s3:PutObject` on the target bucket |
 | Re-index script exits with `Missing required environment variable` | Env not set | Export `MONGODB_URI`, `PUBLIC_STELLAR_RPC_URL`, `PUBLIC_PROMPT_HASH_CONTRACT_ID` |
 | Re-index exits without `--confirm` or `--dry-run` | Safety guard | Add the appropriate flag |

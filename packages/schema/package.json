@@ -1,7 +1,7 @@
 {
-  "name": "@prompthash/schema",
+  "name": "@Sellora/schema",
   "version": "0.1.0",
-  "description": "Shared, versioned prompt metadata schema for the PromptHash frontend, server, and indexer",
+  "description": "Shared, versioned prompt metadata schema for the Sellora frontend, server, and indexer",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

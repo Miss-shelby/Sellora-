@@ -1,6 +1,6 @@
 # Contract Upgrades
 
-PromptHash Stellar utilizes a Soroban smart contract that stores prompt listings and purchase rights. As the protocol evolves, it may be necessary to upgrade the smart contract without losing the underlying state (prompt data, purchase records, balances). 
+Sellora utilizes a Soroban smart contract that stores prompt listings and purchase rights. As the protocol evolves, it may be necessary to upgrade the smart contract without losing the underlying state (prompt data, purchase records, balances). 
 
 The contract implements the `Ownable` trait, meaning that the `admin` who initialized the contract has the exclusive right to upgrade the contract's Wasm logic.
 
@@ -58,13 +58,13 @@ Execute the upgrade script from the repository root:
 `scripts/upgrade.sh` runs `scripts/preflight_upgrade.py check` before it
 builds or touches the network. The gate:
 
-1. **Diffs the contract's public interface** — `PromptHashTrait` functions,
+1. **Diffs the contract's public interface** — `SelloraTrait` functions,
    `Error` codes, every `#[contracttype]` enum/struct (storage keys and
    record layouts), and `#[contractevent]` structs — against the checked-in
-   snapshot at `contracts/prompt-hash/spec-baseline.json`. Removing or
+   snapshot at `contracts/sellora/spec-baseline.json`. Removing or
    reshaping any of these is a breaking change; additions are not.
 2. **Fails the upgrade** if a breaking change is found and it hasn't been
-   acknowledged in `contracts/prompt-hash/MIGRATION.md` (see that file for
+   acknowledged in `contracts/sellora/MIGRATION.md` (see that file for
    the exact format). CI runs the same diff offline on every PR that touches
    `contracts/**` via `python3 scripts/preflight_upgrade.py check --self-check`.
 3. **Validates the deployment environment** — `CONTRACT_ID` is set and not a

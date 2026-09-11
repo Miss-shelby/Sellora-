@@ -263,7 +263,7 @@ describe("useClipboardAutoClear", () => {
       result.current.toggle();
     });
 
-    expect(localStorage.getItem("prompt-hash:clipboard-autoclear")).toBe(
+    expect(localStorage.getItem("sellora:clipboard-autoclear")).toBe(
       "false",
     );
 
@@ -271,7 +271,7 @@ describe("useClipboardAutoClear", () => {
       result.current.toggle();
     });
 
-    expect(localStorage.getItem("prompt-hash:clipboard-autoclear")).toBe(
+    expect(localStorage.getItem("sellora:clipboard-autoclear")).toBe(
       "true",
     );
   });

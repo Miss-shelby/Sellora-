@@ -1,6 +1,6 @@
 # Contributor Local Development Guide
 
-This guide documents the local setup required to work on the PromptHash Stellar frontend, Soroban contract, and serverless unlock endpoints.
+This guide documents the local setup required to work on the Sellora frontend, Soroban contract, and serverless unlock endpoints.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Fill in the values below before running the frontend or unlock endpoints:
 | `PUBLIC_STELLAR_NETWORK_PASSPHRASE`       | frontend, unlock API | Must match the selected Stellar network.                                                      |
 | `PUBLIC_STELLAR_RPC_URL`                  | frontend, unlock API | Testnet default is `https://soroban-testnet.stellar.org`.                                     |
 | `PUBLIC_STELLAR_HORIZON_URL`              | frontend             | Testnet default is `https://horizon-testnet.stellar.org`.                                     |
-| `PUBLIC_PROMPT_HASH_CONTRACT_ID`          | frontend, unlock API | Set to the deployed prompt-hash Soroban contract ID you want to exercise.                     |
+| `PUBLIC_PROMPT_HASH_CONTRACT_ID`          | frontend, unlock API | Set to the deployed sellora Soroban contract ID you want to exercise.                     |
 | `PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID` | frontend, unlock API | Native XLM SAC contract ID for the selected network.                                          |
 | `PUBLIC_STELLAR_SIMULATION_ACCOUNT`       | frontend, unlock API | Public account used for read/simulation calls.                                                |
 | `PUBLIC_UNLOCK_PUBLIC_KEY`                | frontend             | Public key paired with the unlock service encryption key.                                     |
@@ -80,10 +80,10 @@ yarn build
 
 ## Run Soroban contract tests locally
 
-Run the prompt-hash contract tests from the repository root:
+Run the sellora contract tests from the repository root:
 
 ```bash
-cargo test -p prompt-hash
+cargo test -p sellora
 ```
 
 If contract dependencies or toolchains fail to resolve, confirm that rustup is using the pinned toolchain and that the target is installed:
@@ -126,7 +126,7 @@ Every pull request is expected to pass the same checks that CI runs:
 yarn lint
 yarn test:frontend --run api/prompts/unlock.test.ts src/lib/auth/challenge.test.ts src/lib/crypto/promptCrypto.test.ts
 yarn build
-cargo test -p prompt-hash
+cargo test -p sellora
 ```
 
 Run the relevant subset locally before pushing, and run the full set when touching shared frontend, API, or contract code.

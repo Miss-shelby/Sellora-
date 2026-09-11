@@ -317,7 +317,7 @@ function validateSettlementReadiness(data: CreatorReadinessData): PayoutReadines
  */
 export function getPayoutPreferences(address: string): PayoutPreferences | null {
   try {
-    const storageKey = `prompt-hash:payout:${address}`;
+    const storageKey = `sellora:payout:${address}`;
     const raw = localStorage.getItem(storageKey);
     return raw ? JSON.parse(raw) : null;
   } catch {

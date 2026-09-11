@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { AlertTriangle, CheckCircle2, Loader2 } from "lucide-react";
 import { useWallet } from "@/hooks/useWallet";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { PromptHashContractClient } from "@/lib/stellar/promptHashClient";
+import { SelloraContractClient } from "@/lib/stellar/SelloraClient";
 import { Keypair, TransactionBuilder, Networks, BASE_FEE } from "@stellar/stellar-sdk";
 
 export function Dialog({ children, open }: { children: React.ReactNode; open: boolean }) {
@@ -57,14 +57,14 @@ export function DisputeModal({ isOpen, onClose, promptId, buyerWallet }: Dispute
 
   const mutation = useMutation<{ txHash: string; success: boolean }, Error, void>({
     mutationFn: async () => {
-      if (!browserStellarConfig.promptHashContractId || !browserStellarConfig.rpcUrl) {
+      if (!browserStellarConfig.SelloraContractId || !browserStellarConfig.rpcUrl) {
         throw new Error("Contract configuration missing");
       }
 
       return openDisputeOnChain({
         promptId,
         buyerWallet,
-        contractId: browserStellarConfig.promptHashContractId,
+        contractId: browserStellarConfig.SelloraContractId,
         rpcUrl: browserStellarConfig.rpcUrl,
         publicKey: buyerWallet,
       });

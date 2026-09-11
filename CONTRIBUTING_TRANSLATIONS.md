@@ -1,12 +1,12 @@
 # Translation Contributor Guide
 
-This document explains how to add or update translations in **PromptHash**.
+This document explains how to add or update translations in **Sellora**.
 
 ---
 
 ## How it works
 
-PromptHash uses [react-i18next](https://react.i18next.com/) for internationalisation.  
+Sellora uses [react-i18next](https://react.i18next.com/) for internationalisation.  
 The i18n configuration lives in [`src/i18n/index.ts`](../src/i18n/index.ts).
 
 - **Supported locales**: English (`en`), Spanish (`es`), French (`fr`), Chinese (`zh`).

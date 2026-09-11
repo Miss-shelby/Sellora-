@@ -1,14 +1,14 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { PromptHashClient, type PromptHashConfig } from "../promptHashClient";
+import { SelloraClient, type SelloraConfig } from "../SelloraClient";
 
-const mockConfig: PromptHashConfig = {
+const mockConfig: SelloraConfig = {
   rpcUrl: "http://localhost:8000",
   networkPassphrase: "Test SDF Network",
-  promptHashContractId: "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
+  SelloraContractId: "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
   nativeAssetContractId: "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
 };
 
-describe("PromptHashClient.findPromptByContentHash (#333)", () => {
+describe("SelloraClient.findPromptByContentHash (#333)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset REACT_APP_API_URL to default
@@ -31,7 +31,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "abcdef0123456789abcdef0123456789",
     );
@@ -64,7 +64,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "abcdef0123456789abcdef0123456789",
     );
@@ -109,7 +109,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "fedcba9876543210fedcba9876543210",
     );
@@ -129,7 +129,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
 
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "abcdef0123456789abcdef0123456789",
     );
@@ -145,7 +145,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
 
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "abcdef0123456789abcdef0123456789",
     );
@@ -168,7 +168,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    await PromptHashClient.findPromptByContentHash(
+    await SelloraClient.findPromptByContentHash(
       mockConfig,
       "abcdef0123456789abcdef0123456789",
     );
@@ -198,7 +198,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "0123456789abcdef0123456789abcdef",
     );
@@ -231,7 +231,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
       ),
     );
 
-    const result = await PromptHashClient.findPromptByContentHash(
+    const result = await SelloraClient.findPromptByContentHash(
       mockConfig,
       "11111111111111111111111111111111",
     );
@@ -241,7 +241,7 @@ describe("PromptHashClient.findPromptByContentHash (#333)", () => {
   });
 
   it("can be used via the exported wrapper function", async () => {
-    const { findPromptByContentHash } = await import("../promptHashClient");
+    const { findPromptByContentHash } = await import("../SelloraClient");
 
     vi.spyOn(global, "fetch").mockResolvedValueOnce(
       new Response(

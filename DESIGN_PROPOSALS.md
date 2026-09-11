@@ -327,7 +327,7 @@ $ ./reIndexFromLedger --from-ledger 12345 --mode reconcile
 
 ### Proposed Design
 - Introduce `IndexType::Buyer = 5` to `pagination.rs`.
-- Add `get_prompts_by_creator_paginated(creator, cursor, limit)` and `get_prompts_by_buyer_paginated(buyer, cursor, limit)` to `PromptHashTrait` and `PromptHashContract`.
+- Add `get_prompts_by_creator_paginated(creator, cursor, limit)` and `get_prompts_by_buyer_paginated(buyer, cursor, limit)` to `SelloraTrait` and `SelloraContract`.
 - Cursors are 9-byte raw serialized byte buffers encoding big-endian last item ID and 1-byte index type discriminant.
 - TypeScript client bindings `contractGetPromptsByCreatorPaginated` and `contractGetPromptsByBuyerPaginated` in `src/lib/stellar/contractMethods.ts`.
 

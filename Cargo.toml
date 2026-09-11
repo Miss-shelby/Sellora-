@@ -3,10 +3,10 @@ members = ["contracts/*"]
 resolver = "2"
 
 [workspace.package]
-authors = ["Birdmannn, OWK50GA"]
+authors = ["Miss-shelby"]
 edition = "2021"
 license = "Apache-2.0"
-repository = "https://github.com/Birdmannn/prompt-hash"
+repository = "https://github.com/Miss-shelby/Sellora-.git"
 version = "0.0.1"
 
 [workspace.dependencies.soroban-sdk]

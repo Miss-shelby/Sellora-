@@ -1,13 +1,13 @@
 /**
- * PromptHashClient — Issue #110
+ * SelloraClient — Issue #110
  *
- * Main SDK class. Wraps PromptHash REST API calls and provides typed helpers
+ * Main SDK class. Wraps Sellora REST API calls and provides typed helpers
  * for fetching prompts, buying licenses, verifying ownership, and voting.
  */
 
 import type { ClientConfig, PromptInfo, PurchaseResult, VoteResult } from "./types.js";
 
-export class PromptHashClient {
+export class SelloraClient {
   private readonly apiUrl: string;
   private readonly network: "testnet" | "mainnet";
 

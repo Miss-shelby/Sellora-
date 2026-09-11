@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, CheckCircle, Clock, EyeOff, Loader2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ReportClient, type PromptReport } from "@/lib/reports/reportClient";
-import { adminSetPromptSaleStatus } from "@/lib/stellar/promptHashClient";
+import { adminSetPromptSaleStatus } from "@/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
 import { useWallet } from "@/hooks/useWallet";
 

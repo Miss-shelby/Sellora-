@@ -5,7 +5,7 @@
  * {@link decodeEvent}/`decode.ts` derives its decoders from, instead of
  * each consumer (indexer, SDK, frontend) hand-rolling its own field list
  * per event. It mirrors the `#[contractevent]` struct definitions in
- * `contracts/prompt-hash/src/events.rs` as of schema version 1.
+ * `contracts/sellora/src/events.rs` as of schema version 1.
  *
  * ## What this does NOT cover yet (see docs/event-versioning.md)
  * - The contract does not currently emit an explicit `version` field on the
@@ -51,7 +51,7 @@ export interface EventSchema {
 export const CURRENT_EVENT_SCHEMA_VERSION = 1;
 
 /**
- * One entry per `#[contractevent]` in `contracts/prompt-hash/src/events.rs`.
+ * One entry per `#[contractevent]` in `contracts/sellora/src/events.rs`.
  * Keyed by event/topic name.
  */
 export const EVENT_SCHEMAS: Record<string, EventSchema> = {

@@ -4,7 +4,7 @@ import {
   generateNoResultSuggestions,
   type SearchSuggestion,
 } from "@/lib/search/rankingEngine";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 export interface NoResultsSuggestionsProps {
   allPrompts: PromptRecord[];

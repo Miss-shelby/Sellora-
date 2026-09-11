@@ -2,7 +2,7 @@
 
 ## Overview
 
-Replaced the mock `PromptHashClient` implementation with **real Soroban transaction building, signing, submission, and finality polling**. Users now receive authentic transaction hashes, wallet rejections, simulation failures, and on-chain state changes.
+Replaced the mock `SelloraClient` implementation with **real Soroban transaction building, signing, submission, and finality polling**. Users now receive authentic transaction hashes, wallet rejections, simulation failures, and on-chain state changes.
 
 ## Changes
 
@@ -38,7 +38,7 @@ Typed contract method wrappers for every contract invocation:
 - `decodeBundleRecord()` — XDR → BundleRecord struct
 - `decodeAccessPassRecord()` — XDR → AccessPassRecord struct
 
-### 2. Updated: `src/lib/stellar/promptHashClient.ts`
+### 2. Updated: `src/lib/stellar/SelloraClient.ts`
 
 **Removed:**
 
@@ -74,7 +74,7 @@ All methods now delegate to `contractMethods.*` and invoke real Soroban:
 
 Build-time safety check. Runs before Vite build:
 
-- Scans `promptHashClient.ts` and `contractMethods.ts`
+- Scans `SelloraClient.ts` and `contractMethods.ts`
 - Fails build if any mock patterns detected:
   - `warnMockUse`
   - `USING MOCK`
@@ -188,18 +188,18 @@ For every write operation:
 Old (mock):
 
 ```typescript
-const result = await PromptHashClient.purchasePrompt(itemId, userAddress);
+const result = await SelloraClient.purchasePrompt(itemId, userAddress);
 // result: {txHash: "tx_abc123", success: true}
 ```
 
 New (real):
 
 ```typescript
-const result = await PromptHashClient.purchasePrompt(
+const result = await SelloraClient.purchasePrompt(
   itemId,
   userAddress,
   signer, // ← REQUIRED: WalletTransactionSigner
-  config, // ← REQUIRED: PromptHashConfig
+  config, // ← REQUIRED: SelloraConfig
 );
 // result: {txHash: "18d8f5f...", success: true}
 ```
@@ -217,7 +217,7 @@ Check for TODOs in those files or grep for `purchasePrompt(` calls.
 ### Unit Tests
 
 - Continue to mock at `contractMethods.*` level
-- Existing integration tests remain valid (they mock PromptHashClient)
+- Existing integration tests remain valid (they mock SelloraClient)
 - No changes required to `src/test/integration/`
 
 ### Testnet Integration Tests
@@ -235,7 +235,7 @@ Check for TODOs in those files or grep for `purchasePrompt(` calls.
 ## Compatibility
 
 - ✅ Public API unchanged (all methods still callable with same names)
-- ✅ Existing unit & integration tests still pass (they mock PromptHashClient)
+- ✅ Existing unit & integration tests still pass (they mock SelloraClient)
 - ✅ Wallet integration unchanged (uses existing `signTransaction` flow)
 - ✅ Error handling flow unchanged (uses existing `mapWalletError`)
 - ⚠️ **Purchase/create methods now require `config` + `signer` (breaking change for direct calls)**
@@ -273,7 +273,7 @@ Before production release:
 
 ## References
 
-- **Soroban Contract:** `contracts/prompt-hash/src/contract.rs`
+- **Soroban Contract:** `contracts/sellora/src/contract.rs`
 - **Transaction Layer:** `src/lib/stellar/tx.ts` (prepareContractCall, submitPreparedTransaction)
 - **Error Handling:** `src/lib/stellar/tx.ts` (mapWalletError)
 - **Wallet Integration:** `src/providers/WalletProvider.tsx` (WalletContext, signTransaction)

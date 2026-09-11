@@ -165,12 +165,12 @@ describe("webhookOutboxWorker.deliverRow", () => {
 
     const [, headers, body] = (postSignedWebhook as any).mock.calls[0];
     expect(headers).toMatchObject({
-      "X-PromptHash-Delivery": "delivery-42",
-      "X-PromptHash-Event-Id": "event-42",
-      "X-PromptHash-Event-Version": "1",
-      "X-PromptHash-Timestamp": expect.any(String),
-      "X-PromptHash-Sequence": "1",
-      "X-PromptHash-Payload-Hash": "a".repeat(64),
+      "X-Sellora-Delivery": "delivery-42",
+      "X-Sellora-Event-Id": "event-42",
+      "X-Sellora-Event-Version": "1",
+      "X-Sellora-Timestamp": expect.any(String),
+      "X-Sellora-Sequence": "1",
+      "X-Sellora-Payload-Hash": "a".repeat(64),
     });
     expect(JSON.parse(body)).toMatchObject({
       schemaVersion: 1,
@@ -180,9 +180,9 @@ describe("webhookOutboxWorker.deliverRow", () => {
       payloadHash: "a".repeat(64),
     });
     expect(
-      verifyWebhookSignature("s3cret", headers["X-PromptHash-Signature"], {
+      verifyWebhookSignature("s3cret", headers["X-Sellora-Signature"], {
         body,
-        timestamp: headers["X-PromptHash-Timestamp"],
+        timestamp: headers["X-Sellora-Timestamp"],
         eventId: "event-42",
         deliveryId: "delivery-42",
       }),

@@ -242,7 +242,7 @@ All validation functions handle errors gracefully:
 
 Payout preferences are stored in localStorage:
 
-- **Key pattern:** `prompt-hash:payout:${address}`
+- **Key pattern:** `sellora:payout:${address}`
 - **Data format:** JSON-serialized `PayoutPreferences`
 - **Fallbacks:** Graceful handling of missing or corrupted data
 

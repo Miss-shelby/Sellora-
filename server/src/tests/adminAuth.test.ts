@@ -21,7 +21,7 @@ import { requireAdminScope, AdminRequest } from "../middleware/adminAuth";
 import { createAdminToken } from "../services/adminToken";
 import { recordAuditEvent } from "../services/auditTrail";
 
-const AUDIENCE = "prompt-hash-admin-test";
+const AUDIENCE = "sellora-admin-test";
 
 function makeReq(headers: Record<string, string> = {}): AdminRequest {
   return {
@@ -156,7 +156,7 @@ describe("route inventory: every privileged endpoint carries the admin guard (#5
     // Importing promptRoutes pulls in controllers.ts and its large
     // dependency graph (ai, mongoose, etc.), which esbuild/Vite must
     // transform on first import — allow more time than the default.
-    process.env.MONGODB_URI ||= "mongodb://127.0.0.1:27017/prompt-hash-stellar-test";
+    process.env.MONGODB_URI ||= "mongodb://127.0.0.1:27017/sellora-test";
     const { promptRouter } = await import("../routes/promptRoutes");
     const guardedRoutes: Array<{ method: string; path: string }> = [
       { method: "get", path: "/reports" },

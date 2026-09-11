@@ -1,7 +1,7 @@
 /**
  * Drift check against the contract's checked-in spec — Issue #424.
  *
- * `contracts/prompt-hash/spec-baseline.json` is this repo's existing
+ * `contracts/sellora/spec-baseline.json` is this repo's existing
  * checked-in ABI specification (see docs/abi-versioning-policy.md and
  * `tests/abi-conformance/`), kept in sync with `events.rs` by hand today.
  * This test cross-validates `EVENT_SCHEMAS` (schema.ts) against that same
@@ -20,7 +20,7 @@ import { EVENT_SCHEMAS, type EventFieldType } from "./schema.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPEC_BASELINE_PATH = path.join(
   __dirname,
-  "../../../../contracts/prompt-hash/spec-baseline.json",
+  "../../../../contracts/sellora/spec-baseline.json",
 );
 
 interface SpecBaseline {
@@ -47,7 +47,7 @@ function loadSpecBaseline(): SpecBaseline {
   return JSON.parse(raw) as SpecBaseline;
 }
 
-describe("EVENT_SCHEMAS vs. contracts/prompt-hash/spec-baseline.json", () => {
+describe("EVENT_SCHEMAS vs. contracts/sellora/spec-baseline.json", () => {
   const spec = loadSpecBaseline();
   const specEventNames = Object.keys(spec.events);
 

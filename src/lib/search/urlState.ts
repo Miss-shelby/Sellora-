@@ -157,7 +157,7 @@ export function buildSearchQueryString(state: Partial<SearchState>): string {
  * routes (`/browse` today) — never arbitrary pages — since those are the only
  * "safe" filters this feature is scoped to restore.
  */
-const MARKETPLACE_RETURN_STORAGE_KEY = "prompt-hash:last-marketplace-url";
+const MARKETPLACE_RETURN_STORAGE_KEY = "sellora:last-marketplace-url";
 const SAFE_MARKETPLACE_PATHS = ["/browse"];
 
 /** Records the current marketplace URL so a detail page can link back to it. */

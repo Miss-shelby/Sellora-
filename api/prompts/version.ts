@@ -4,11 +4,11 @@ import Prompt from "../../server/src/models/Prompt";
 import PromptVersion from "../../server/src/models/PromptVersion";
 import Purchase from "../../server/src/models/Purchase";
 import User from "../../server/src/models/User";
-import { getPrompt, type PromptHashConfig } from "../../src/lib/stellar/promptHashClient";
+import { getPrompt, type SelloraConfig } from "../../src/lib/stellar/SelloraClient";
 import { computeListingSnapshotHash } from "../../src/lib/auth/challenge";
 
 /** Minimal server-side contract config built from public env vars. */
-function buildServerConfig(): PromptHashConfig {
+function buildServerConfig(): SelloraConfig {
   const rpcUrl = process.env.PUBLIC_STELLAR_RPC_URL ?? "";
   return {
     rpcUrl,
@@ -17,7 +17,7 @@ function buildServerConfig(): PromptHashConfig {
       .filter(Boolean),
     networkPassphrase:
       process.env.PUBLIC_STELLAR_NETWORK_PASSPHRASE ?? "Test SDF Network ; September 2015",
-    promptHashContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "",
+    SelloraContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "",
     nativeAssetContractId: process.env.PUBLIC_NATIVE_ASSET_CONTRACT_ID ?? "",
     simulationAccount: process.env.PUBLIC_SIMULATION_ACCOUNT ?? "",
     allowHttp: rpcUrl.includes("localhost"),

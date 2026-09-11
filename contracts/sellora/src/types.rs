@@ -707,7 +707,7 @@ pub struct IndexRepairSummary {
     pub next_cursor: Option<u64>,
 }
 
-pub trait PromptHashTrait {
+pub trait SelloraTrait {
     fn __constructor(
         env: Env,
         admin: Address,

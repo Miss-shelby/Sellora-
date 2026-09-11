@@ -24,7 +24,7 @@ vi.mock("../lib/auth/challenge", () => ({
   verifyChallengeSignature: (...args: unknown[]) => mockVerifyChallengeSignature(...args),
 }));
 
-vi.mock("../lib/stellar/promptHashClient", () => ({
+vi.mock("../lib/stellar/SelloraClient", () => ({
   getPrompt: (...args: unknown[]) => mockGetPrompt(...args),
   hasAccess: (...args: unknown[]) => mockHasAccess(...args),
 }));

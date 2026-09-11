@@ -1,5 +1,5 @@
 /**
- * PromptHash Stellar environment & deployment manifest validation.
+ * Sellora environment & deployment manifest validation.
  * Eliminates silent testnet fallbacks and hard-coded defaults in production.
  */
 
@@ -23,7 +23,7 @@ export interface ServerDeploymentManifest {
   networkPassphrase: string;
   rpcUrl: string;
   horizonUrl: string;
-  promptHashContractId: string;
+  SelloraContractId: string;
   nativeAssetContractId: string;
   simulationAccount: string;
   unlockPublicKey: string;
@@ -64,7 +64,7 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
     process.env.PUBLIC_STELLAR_HORIZON_URL ||
     (isProd ? "" : "https://horizon-testnet.stellar.org");
 
-  const promptHashContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "";
+  const SelloraContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "";
   const nativeAssetContractId = process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID || "";
   const simulationAccount = process.env.PUBLIC_STELLAR_SIMULATION_ACCOUNT || "";
   const unlockPublicKey = process.env.UNLOCK_PUBLIC_KEY || "";
@@ -91,14 +91,14 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
   // 2. Format & Placeholder Checks
   if (isPlaceholder(network)) errors.push("PUBLIC_STELLAR_NETWORK has a placeholder value.");
   if (!rpcUrl || isPlaceholder(rpcUrl)) errors.push("PUBLIC_STELLAR_RPC_URL is missing or has a placeholder value.");
-  if (promptHashContractId && isPlaceholder(promptHashContractId)) {
+  if (SelloraContractId && isPlaceholder(SelloraContractId)) {
     errors.push("PUBLIC_PROMPT_HASH_CONTRACT_ID has a placeholder value.");
   }
 
   const STELLAR_CONTRACT_ID = /^C[A-Z0-9]{55}$/;
   const STELLAR_ACCOUNT_ID = /^G[A-Z0-9]{55}$/;
 
-  if (promptHashContractId && !STELLAR_CONTRACT_ID.test(promptHashContractId) && isProd) {
+  if (SelloraContractId && !STELLAR_CONTRACT_ID.test(SelloraContractId) && isProd) {
     errors.push("PUBLIC_PROMPT_HASH_CONTRACT_ID must be a valid 56-character Soroban contract address starting with C.");
   }
 
@@ -120,7 +120,7 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
     network,
     networkPassphrase,
     rpcUrl,
-    promptHashContractId,
+    SelloraContractId,
     nativeAssetContractId,
     simulationAccount,
     unlockPublicKey,
@@ -133,7 +133,7 @@ export function getServerDeploymentManifest(forceRefresh = false): ServerDeploym
     networkPassphrase,
     rpcUrl,
     horizonUrl,
-    promptHashContractId,
+    SelloraContractId,
     nativeAssetContractId,
     simulationAccount,
     unlockPublicKey,
@@ -150,7 +150,7 @@ export function getReadinessAttestation() {
       ready: true,
       network: manifest.network,
       manifestHash: manifest.manifestHash,
-      promptHashContractId: manifest.promptHashContractId,
+      SelloraContractId: manifest.SelloraContractId,
       nativeAssetContractId: manifest.nativeAssetContractId,
       simulationAccount: manifest.simulationAccount,
       timestamp: Date.now(),

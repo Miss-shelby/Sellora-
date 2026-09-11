@@ -14,8 +14,8 @@ import { recordAuditEvent } from "../../server/src/services/auditTrail";
 import { 
   setPromptSaleStatus, 
   getPrompt,
-  type PromptHashConfig 
-} from "../../src/lib/stellar/promptHashClient";
+  type SelloraConfig 
+} from "../../src/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "../../src/lib/stellar/browserConfig";
 
 // Admin wallet addresses allowed to moderate content
@@ -130,11 +130,11 @@ async function handler(
     await connectDb();
 
     // Verify prompt exists on-chain
-    const config: PromptHashConfig = {
+    const config: SelloraConfig = {
       ...browserStellarConfig,
       rpcUrl: process.env.PUBLIC_STELLAR_RPC_URL!,
       networkPassphrase: process.env.PUBLIC_STELLAR_NETWORK_PASSPHRASE!,
-      promptHashContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID!,
+      SelloraContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID!,
     };
 
     const prompt = await getPrompt(config, BigInt(promptId));

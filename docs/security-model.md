@@ -1,6 +1,6 @@
 # Security Model and Threat Architecture
 
-This document outlines the security assumptions, potential attack vectors, and mitigation strategies for the PromptHash Stellar ecosystem.
+This document outlines the security assumptions, potential attack vectors, and mitigation strategies for the Sellora ecosystem.
 
 ## Security Architecture
 

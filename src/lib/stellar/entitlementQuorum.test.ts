@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { evaluateEntitlementQuorum, type EntitlementProviderSample } from "./promptHashClient";
+import { evaluateEntitlementQuorum, type EntitlementProviderSample } from "./SelloraClient";
 
 const baseSample = {
   hasAccess: true,

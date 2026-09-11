@@ -1,4 +1,4 @@
-# Contributing & Local Setup — Prompt-Hash-Stellar
+# Contributing & Local Setup — sellora
 
 Welcome! Thanks for wanting to contribute. This guide helps you get the repo running locally (frontend + Soroban contracts) quickly and safely.
 
@@ -51,8 +51,8 @@ If any command is missing, follow the relevant official install docs (Node, Rust
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/0xSlink/Prompt-Hash-Stellar.git
-   cd Prompt-Hash-Stellar
+   git clone https://github.com/0xSlink/sellora.git
+   cd sellora
    ```
 
 2. Install frontend dependencies
@@ -71,7 +71,7 @@ If any command is missing, follow the relevant official install docs (Node, Rust
 
 3. Contracts toolchain (build & test)
    ```bash
-   cd contracts/prompt-hash
+   cd contracts/sellora
    # build wasm
    cargo build --release
    # run contract unit tests (requires cargo + soroban dev dependencies)
@@ -140,7 +140,7 @@ Root overview (trimmed):
 │  ├─ components/               # Reusable React components (PurchaseProgress, UI)
 │  └─ styles/                   # Tailwind / global styles
 ├─ contracts/                   # Soroban smart contracts (Rust)
-│  └─ prompt-hash/
+│  └─ sellora/
 │     ├─ src/                   # Rust contract source, storage, events, tests
 │     ├─ Cargo.toml
 │     └─ tests/                 # Contract tests (unit)
@@ -168,7 +168,7 @@ Folder descriptions (1-line):
 
 - Contract tests:
   ```bash
-  cd contracts/prompt-hash
+  cd contracts/sellora
   cargo test
   ```
 
@@ -205,4 +205,4 @@ When opening a PR:
 - Open an issue with the `help wanted` label.
 - Join the project discussions or ping maintainers in the issue/PR.
 
-Thanks for contributing — your help makes Prompt-Hash-Stellar better!
+Thanks for contributing — your help makes sellora better!

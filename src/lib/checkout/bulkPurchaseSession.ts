@@ -28,7 +28,7 @@ export interface BulkPurchaseSession {
   updatedAt: number;
 }
 
-const SESSION_STORAGE_KEY = "prompt-hash:bulk-purchase-sessions";
+const SESSION_STORAGE_KEY = "sellora:bulk-purchase-sessions";
 const SESSION_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 /** Generate a stable session ID */

@@ -1,4 +1,4 @@
-const STORAGE_KEY = "prompthash:remix-attributions:v1";
+const STORAGE_KEY = "Sellora:remix-attributions:v1";
 
 type AttributionIndex = Record<string, string>;
 

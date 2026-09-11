@@ -5,9 +5,9 @@ import { renderHook, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useCatalogPages } from "./useCatalogPages";
-import { getAllPromptsPaginated } from "@/lib/stellar/promptHashClient";
+import { getAllPromptsPaginated } from "@/lib/stellar/SelloraClient";
 
-vi.mock("@/lib/stellar/promptHashClient", () => ({
+vi.mock("@/lib/stellar/SelloraClient", () => ({
   getAllPromptsPaginated: vi.fn(),
 }));
 
@@ -35,7 +35,7 @@ function makeWrapper() {
   );
 }
 
-const config = { promptHashContractId: "C123" } as any;
+const config = { SelloraContractId: "C123" } as any;
 
 describe("useCatalogPages (paginated browse source)", () => {
   beforeEach(() => {

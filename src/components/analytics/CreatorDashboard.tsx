@@ -16,7 +16,7 @@ import {
 import { Skeleton } from "@/components/Skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getAllPrompts, type PromptRecord } from "@/lib/stellar/promptHashClient";
+import { getAllPrompts, type PromptRecord } from "@/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
 import { stroopsToXlmString, formatPriceLabel } from "@/lib/stellar/format";
 import {

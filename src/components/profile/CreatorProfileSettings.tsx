@@ -21,7 +21,7 @@ interface CreatorProfileSettingsProps {
 
 function loadSaved(address: string): Partial<CreatorProfileData> {
   try {
-    const raw = localStorage.getItem(`prompt-hash:profile:${address}`);
+    const raw = localStorage.getItem(`sellora:profile:${address}`);
     return raw ? (JSON.parse(raw) as Partial<CreatorProfileData>) : {};
   } catch {
     return {};

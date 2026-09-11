@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@/hooks/useWallet";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { getPromptsByCreator } from "@/lib/stellar/promptHashClient";
+import { getPromptsByCreator } from "@/lib/stellar/SelloraClient";
 import {
   deriveNotifications,
   loadSnapshot,

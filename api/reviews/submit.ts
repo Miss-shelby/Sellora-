@@ -10,7 +10,7 @@ import { Buffer } from "buffer";
 import connectDb from "../../server/src/db/connectDb";
 import Review from "../../server/src/models/Review";
 import Purchase from "../../server/src/models/Purchase";
-import { hasAccess, type PromptHashConfig } from "../../src/lib/stellar/promptHashClient";
+import { hasAccess, type SelloraConfig } from "../../src/lib/stellar/SelloraClient";
 import { cacheDel, CACHE_KEYS } from "../../server/src/services/cacheService";
 
 export interface ReviewSubmission {
@@ -22,7 +22,7 @@ export interface ReviewSubmission {
 }
 
 export function buildReviewMessage(userAddress: string, promptId: string, rating: number, text: string): string {
-  return `prompt-hash review:${userAddress}:${promptId}:${rating}:${text.trim()}`;
+  return `sellora review:${userAddress}:${promptId}:${rating}:${text.trim()}`;
 }
 
 export function verifyReviewSignature(
@@ -50,17 +50,17 @@ export function verifyReviewSignature(
   }
 }
 
-function getServerConfig(): PromptHashConfig {
+function getServerConfig(): SelloraConfig {
   const rpcUrl = process.env.PUBLIC_STELLAR_RPC_URL ?? "https://soroban-testnet.stellar.org";
   const networkPassphrase = process.env.PUBLIC_STELLAR_NETWORK_PASSPHRASE ?? "Test SDF Network ; September 2015";
-  const promptHashContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "";
+  const SelloraContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "";
   const nativeAssetContractId = process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID ?? "";
   const simulationAccount = process.env.PUBLIC_STELLAR_SIMULATION_ACCOUNT ?? "";
 
   return {
     rpcUrl,
     networkPassphrase,
-    promptHashContractId,
+    SelloraContractId,
     nativeAssetContractId,
     simulationAccount,
     allowHttp: new URL(rpcUrl).hostname === "localhost",

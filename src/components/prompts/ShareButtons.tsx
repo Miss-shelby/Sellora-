@@ -63,7 +63,7 @@ export function ShareButtons({ title, url, summary, className }: ShareButtonsPro
   } = useClipboardAutoClear();
 
   const shareUrl = resolveShareUrl(url);
-  const shareText = `${title} on Prompt Hash Stellar`;
+  const shareText = `${title} on Sellora`;
 
   // navigator.share is only available in secure contexts on supporting devices,
   // so detect it on the client to avoid showing a button that would throw.

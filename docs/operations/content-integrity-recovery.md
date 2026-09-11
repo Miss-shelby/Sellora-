@@ -73,5 +73,5 @@ curl -X POST http://localhost:5000/api/prompts/admin/integrity-check \
 To automate periodic daily audits, schedule `checkIntegrity.ts` in your crontab or job orchestrator:
 ```cron
 # Run daily content integrity audit at 02:00 UTC
-0 2 * * * cd /var/app/Prompt-Hash-Stellar && npx tsx server/src/scripts/checkIntegrity.ts >> /var/log/prompt-integrity.log 2>&1
+0 2 * * * cd /var/app/sellora && npx tsx server/src/scripts/checkIntegrity.ts >> /var/log/prompt-integrity.log 2>&1
 ```

@@ -7,7 +7,7 @@
  *
  * Configuration (env vars):
  *   EMAIL_SMTP_HOST, EMAIL_SMTP_PORT, EMAIL_SMTP_USER, EMAIL_SMTP_PASS
- *   EMAIL_FROM_ADDRESS (e.g. "PromptHash <noreply@prompthash.io>")
+ *   EMAIL_FROM_ADDRESS (e.g. "Sellora <noreply@Sellora.io>")
  */
 
 import nodemailer from "nodemailer";
@@ -53,7 +53,7 @@ function createTransport() {
   });
 }
 
-const FROM = process.env.EMAIL_FROM_ADDRESS ?? "PromptHash <noreply@prompthash.io>";
+const FROM = process.env.EMAIL_FROM_ADDRESS ?? "Sellora <noreply@Sellora.io>";
 
 // ── Template builders ─────────────────────────────────────────────────────────
 
@@ -65,7 +65,7 @@ function buildPurchaseEmail(payload: PurchasePayload): { subject: string; html: 
       <p>A buyer (<code>${payload.buyerWallet.slice(0, 8)}…</code>) just purchased
          your prompt <strong>${payload.promptTitle}</strong>.</p>
       ${payload.txHash ? `<p>Transaction: <code>${payload.txHash}</code></p>` : ""}
-      <p><a href="${process.env.APP_URL ?? "https://prompthash.io"}/prompts/${payload.promptId}">
+      <p><a href="${process.env.APP_URL ?? "https://Sellora.io"}/prompts/${payload.promptId}">
         View prompt
       </a></p>
       <hr/>
@@ -81,7 +81,7 @@ function buildUpdateEmail(payload: UpdatePayload): { subject: string; html: stri
       <h2>Prompt Updated</h2>
       <p>The prompt <strong>${payload.promptTitle}</strong> you purchased has been updated
          to version ${payload.versionIndex + 1}.</p>
-      <p><a href="${process.env.APP_URL ?? "https://prompthash.io"}/prompts/${payload.promptId}">
+      <p><a href="${process.env.APP_URL ?? "https://Sellora.io"}/prompts/${payload.promptId}">
         View updated prompt
       </a></p>
       <hr/>
@@ -108,7 +108,7 @@ function buildReportEmail(payload: ReportPayload): { subject: string; html: stri
       <p><strong>Prompt:</strong> ${payload.promptTitle}</p>
       <p><strong>Reason:</strong> ${reasonLabels[payload.reason] || payload.reason}</p>
       ${payload.description ? `<p><strong>Description:</strong> ${payload.description}</p>` : ""}
-      <p><a href="${process.env.APP_URL ?? "https://prompthash.io"}/admin/reports?promptId=${payload.promptId}">
+      <p><a href="${process.env.APP_URL ?? "https://Sellora.io"}/admin/reports?promptId=${payload.promptId}">
         Review Report
       </a></p>
       <hr/>

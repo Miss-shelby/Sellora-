@@ -4,7 +4,7 @@
  * Builds a canonical purchase receipt from finalized transaction and
  * contract-event evidence (never from the mutable `Purchase` database row)
  * and signs it so it can be independently re-verified against Stellar RPC —
- * via `@prompthash/sdk`'s `verifyReceipt` — without needing API or database
+ * via `@Sellora/sdk`'s `verifyReceipt` — without needing API or database
  * access.
  */
 import { scValToNative } from "@stellar/stellar-sdk";
@@ -12,7 +12,7 @@ import sodium from "libsodium-wrappers";
 import { getRpcServer, type StellarNetworkConfig } from "./tx";
 
 export interface ReceiptContractConfig extends StellarNetworkConfig {
-  promptHashContractId: string;
+  SelloraContractId: string;
   nativeAssetContractId: string;
 }
 
@@ -136,7 +136,7 @@ export async function buildAndSignReceipt(input: BuildReceiptInput): Promise<Bui
 
   const events = await server.getEvents({
     startLedger: tx.ledger,
-    filters: [{ type: "contract", contractIds: [config.promptHashContractId] }],
+    filters: [{ type: "contract", contractIds: [config.SelloraContractId] }],
     limit: 200,
   });
 
@@ -173,7 +173,7 @@ export async function buildAndSignReceipt(input: BuildReceiptInput): Promise<Bui
       passphrase: config.networkPassphrase,
       rpcUrl: config.rpcUrl,
     },
-    contract: { id: config.promptHashContractId },
+    contract: { id: config.SelloraContractId },
     prompt: {
       id: promptId,
       revision: typeof data.revision === "number" ? data.revision : 0,

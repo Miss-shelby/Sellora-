@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document audits reentrancy guard coverage across all fund-moving contract entry points in the Prompt Hash Stellar contract. While Soroban's cross-contract call model makes classic EVM-style reentrancy less likely than on Ethereum, non-standard SAC token wrappers can still trigger callbacks during token transfers, creating potential reentrancy risks.
+This document audits reentrancy guard coverage across all fund-moving contract entry points in the Sellora contract. While Soroban's cross-contract call model makes classic EVM-style reentrancy less likely than on Ethereum, non-standard SAC token wrappers can still trigger callbacks during token transfers, creating potential reentrancy risks.
 
 **Audit Date**: August 2026  
 **Scope**: All functions that call `token::StellarAssetClient::transfer()` or `transfer_from()`  
@@ -122,7 +122,7 @@ This document audits reentrancy guard coverage across all fund-moving contract e
 
 ### `set_reentrancy_guard()` / `clear_reentrancy_guard()`
 
-**Location**: `contracts/prompt-hash/src/storage.rs`
+**Location**: `contracts/sellora/src/storage.rs`
 
 ```rust
 pub fn set_reentrancy_guard(env: &Env) -> Result<(), Error> {
@@ -173,7 +173,7 @@ Soroban SAC implementations are standard, but custom or wrapped tokens may:
 
 ### Comprehensive Reentrancy Guard Tests
 
-All tests are located in `contracts/prompt-hash/src/test.rs` under the section **"Issue #564/#571: Reentrancy Guard Audit Tests"**.
+All tests are located in `contracts/sellora/src/test.rs` under the section **"Issue #564/#571: Reentrancy Guard Audit Tests"**.
 
 1. **`test_settle_purchase_guarded_against_reentrancy()`**
    - Verifies `settle_purchase` completes successfully with guard active
@@ -226,7 +226,7 @@ All tests are located in `contracts/prompt-hash/src/test.rs` under the section *
 
 ## References
 
-- **Guard Implementation**: `contracts/prompt-hash/src/storage.rs` (lines 69-89)
-- **Error Type**: `Error::Reentrancy` in `contracts/prompt-hash/src/types.rs`
-- **Test Suite**: `contracts/prompt-hash/src/test.rs` (search for "Issue #564/#571")
+- **Guard Implementation**: `contracts/sellora/src/storage.rs` (lines 69-89)
+- **Error Type**: `Error::Reentrancy` in `contracts/sellora/src/types.rs`
+- **Test Suite**: `contracts/sellora/src/test.rs` (search for "Issue #564/#571")
 - **Affected Functions**: 11 fund-moving entry points across disputes, settlements, and purchases

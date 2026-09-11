@@ -1,11 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 // Using the mocked client to get all available prompts
-import { PromptHashClient } from "../src/lib/stellar/promptHashClient";
+import { SelloraClient } from "../src/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "../src/lib/stellar/browserConfig";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    const prompts = await PromptHashClient.getAllPrompts(browserStellarConfig);
+    const prompts = await SelloraClient.getAllPrompts(browserStellarConfig);
 
     // Get the base URL (Vercel provides this in VERCEL_URL, or fallback to localhost for dev)
     const protocol = process.env.NODE_ENV === "production" ? "https" : "http";

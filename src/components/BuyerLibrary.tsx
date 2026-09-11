@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select";
 import { useWallet } from "@/hooks/useWallet";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
-import { getPromptsByBuyer, type PromptRecord } from "@/lib/stellar/promptHashClient";
+import { getPromptsByBuyer, type PromptRecord } from "@/lib/stellar/SelloraClient";
 import { formatPriceLabel } from "@/lib/stellar/format";
 import { unlockPromptContent } from "@/lib/prompts/unlock";
 import { UnlockExplainer, type UnlockState } from "@/components/UnlockExplainer";

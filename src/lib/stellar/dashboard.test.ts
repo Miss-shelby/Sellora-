@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { getPromptsByCreator, getPromptsByBuyer, PromptHashClient } from "./promptHashClient";
+import { getPromptsByCreator, getPromptsByBuyer, SelloraClient } from "./SelloraClient";
 import * as tx from "./tx";
 
 vi.mock("./tx", async () => {
@@ -11,8 +11,8 @@ vi.mock("./tx", async () => {
 });
 
 // Override the stubbed mock methods to implement real contract calls for mapping tests
-PromptHashClient.getPromptsByCreator = async (config, address) => {
-  const result = await tx.readContract<any>(config, config.promptHashContractId, "get_prompts_by_creator", [
+SelloraClient.getPromptsByCreator = async (config, address) => {
+  const result = await tx.readContract<any>(config, config.SelloraContractId, "get_prompts_by_creator", [
     tx.scValArg(address, "address")
   ]);
   if (result.Err) throw new Error("Contract error: " + result.Err);
@@ -26,8 +26,8 @@ PromptHashClient.getPromptsByCreator = async (config, address) => {
   }));
 };
 
-PromptHashClient.getPromptsByBuyer = async (config, address) => {
-  const result = await tx.readContract<any>(config, config.promptHashContractId, "get_prompts_by_buyer", [
+SelloraClient.getPromptsByBuyer = async (config, address) => {
+  const result = await tx.readContract<any>(config, config.SelloraContractId, "get_prompts_by_buyer", [
     tx.scValArg(address, "address")
   ]);
   if (result.Err) throw new Error("Contract error: " + result.Err);
@@ -44,7 +44,7 @@ PromptHashClient.getPromptsByBuyer = async (config, address) => {
 const mockConfig = {
   rpcUrl: "https://horizon-testnet.stellar.org",
   networkPassphrase: "Test SDF Network ; September 2015",
-  promptHashContractId: "CC...",
+  SelloraContractId: "CC...",
   nativeAssetContractId: "CB...",
   simulationAccount: "GDBCL4APVRMZPAS77V2BPHTCTC5T5SYT22X6GTQC3QB5EZKTIFII3LPD",
 };
@@ -63,7 +63,7 @@ describe("dashboard fetch logic", () => {
     expect(result).toEqual([]);
     expect(tx.readContract).toHaveBeenCalledWith(
       expect.anything(),
-      mockConfig.promptHashContractId,
+      mockConfig.SelloraContractId,
       "get_prompts_by_creator",
       expect.arrayContaining([expect.anything()])
     );

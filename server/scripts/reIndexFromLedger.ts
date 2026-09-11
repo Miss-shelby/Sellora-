@@ -198,7 +198,7 @@ async function main() {
   const contractId = requireEnv("PUBLIC_PROMPT_HASH_CONTRACT_ID");
 
   console.log(`\n${"=".repeat(60)}`);
-  console.log("PromptHash Re-Index from Ledger Recovery Script");
+  console.log("Sellora Re-Index from Ledger Recovery Script");
   console.log(`${"=".repeat(60)}`);
   console.log(`Mode:         ${DRY_RUN ? "DRY RUN (no writes)" : "LIVE (writes enabled)"}`);
   console.log(`Start ledger: ${START_LEDGER}`);

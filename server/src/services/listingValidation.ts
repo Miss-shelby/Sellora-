@@ -1,4 +1,4 @@
-import { PROMPT_CATEGORIES, PROMPT_METADATA_LIMITS } from "@prompthash/schema";
+import { PROMPT_CATEGORIES, PROMPT_METADATA_LIMITS } from "@Sellora/schema";
 
 const CATEGORY_ALIASES: Record<string, string> = Object.fromEntries(
   PROMPT_CATEGORIES.map((category) => [category.toLowerCase(), category]),

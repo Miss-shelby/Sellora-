@@ -27,13 +27,13 @@ describe('ABI Conformance: Method Signatures', () => {
         (name) => !name.startsWith('__') // Skip constructor
       );
       
-      const clientMethods = Object.keys(clientMappings.client_methods.PromptHashClient);
+      const clientMethods = Object.keys(clientMappings.client_methods.SelloraClient);
       
       const missingMethods = contractMethods.filter((method) => {
         const contractMethod = contractSpec.functions[method];
         // Check if there's a corresponding client method
         return !clientMethods.some((clientMethod) => {
-          const mapping = clientMappings.client_methods.PromptHashClient[clientMethod];
+          const mapping = clientMappings.client_methods.SelloraClient[clientMethod];
           return mapping.contract_method === method;
         });
       });
@@ -42,10 +42,10 @@ describe('ABI Conformance: Method Signatures', () => {
     });
 
     it('should not have extra client methods without contract backing', () => {
-      const clientMethods = Object.keys(clientMappings.client_methods.PromptHashClient);
+      const clientMethods = Object.keys(clientMappings.client_methods.SelloraClient);
       
       const extraMethods = clientMethods.filter((clientMethod) => {
-        const mapping = clientMappings.client_methods.PromptHashClient[clientMethod];
+        const mapping = clientMappings.client_methods.SelloraClient[clientMethod];
         const contractMethod = mapping.contract_method;
         return !contractSpec.functions[contractMethod];
       });
@@ -56,7 +56,7 @@ describe('ABI Conformance: Method Signatures', () => {
 
   describe('Parameter type validation', () => {
     it('should validate parameter types for getPrompt', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.getPrompt;
+      const mapping = clientMappings.client_methods.SelloraClient.getPrompt;
       const contractSig = contractSpec.functions.get_prompt;
       
       // Parse contract signature: "fn get_prompt(env: Env, prompt_id: u64) -> Result<Prompt, Error>"
@@ -77,7 +77,7 @@ describe('ABI Conformance: Method Signatures', () => {
     });
 
     it('should validate parameter types for createPrompt', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.createPrompt;
+      const mapping = clientMappings.client_methods.SelloraClient.createPrompt;
       const contractSig = contractSpec.functions.create_prompt;
       
       const paramsMatch = contractSig.match(/\(([^)]+)\)/);
@@ -96,7 +96,7 @@ describe('ABI Conformance: Method Signatures', () => {
     });
 
     it('should validate parameter types for purchasePrompt', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.purchasePrompt;
+      const mapping = clientMappings.client_methods.SelloraClient.purchasePrompt;
       const contractSig = contractSpec.functions.buy_prompt;
       
       const paramsMatch = contractSig.match(/\(([^)]+)\)/);
@@ -118,7 +118,7 @@ describe('ABI Conformance: Method Signatures', () => {
 
   describe('Return type validation', () => {
     it('should validate return types for getPrompt', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.getPrompt;
+      const mapping = clientMappings.client_methods.SelloraClient.getPrompt;
       const contractSig = contractSpec.functions.get_prompt;
       
       // Parse return type: "Result<Prompt, Error>"
@@ -133,7 +133,7 @@ describe('ABI Conformance: Method Signatures', () => {
     });
 
     it('should validate return types for createPrompt', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.createPrompt;
+      const mapping = clientMappings.client_methods.SelloraClient.createPrompt;
       const contractSig = contractSpec.functions.create_prompt;
       
       const returnMatch = contractSig.match(/->\s*(.+)/);
@@ -148,7 +148,7 @@ describe('ABI Conformance: Method Signatures', () => {
     });
 
     it('should validate return types for void methods', () => {
-      const mapping = clientMappings.client_methods.PromptHashClient.setPromptSaleStatus;
+      const mapping = clientMappings.client_methods.SelloraClient.setPromptSaleStatus;
       const contractSig = contractSpec.functions.set_prompt_sale_status;
       
       const returnMatch = contractSig.match(/->\s*(.+)/);

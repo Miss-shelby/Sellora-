@@ -8,7 +8,7 @@ separately in PR #729 (issue #680).
 
 | Issue | Title | Implementation surfaces |
 |-------|-------|------------------------|
-| #676 | Bulk purchase preflight does not surface per-prompt failure reasons in the marketplace UI | `src/lib/errors/bulkPurchaseErrors.ts`, bulk purchase paths in `src/lib/stellar/promptHashClient.ts` / `src/lib/stellar/contractMethods.ts`, buyer purchase UI error rendering |
+| #676 | Bulk purchase preflight does not surface per-prompt failure reasons in the marketplace UI | `src/lib/errors/bulkPurchaseErrors.ts`, bulk purchase paths in `src/lib/stellar/SelloraClient.ts` / `src/lib/stellar/contractMethods.ts`, buyer purchase UI error rendering |
 | #679 | Prompt content integrity recovery runbook is not wired to automated repair tooling | `docs/operations/content-integrity-recovery.md`, unlock/content-integrity error handling in `src/lib/api/errorCodes.ts` and the unlock flow |
 | #682 | Review submission API lacks abuse controls for duplicate reviews and verified purchase checks | `server/src/models/Review.ts`, `server/src/routes/reviewRoutes.ts` |
 

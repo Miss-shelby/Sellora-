@@ -1,4 +1,4 @@
-# Local development stack for Prompt Hash Stellar.
+# Local development stack for Sellora.
 #
 #   docker compose up                 # web + api + mongo (fast, default)
 #   docker compose --profile stellar up   # also run a local Stellar/Soroban network
@@ -37,7 +37,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017/prompt-hash-stellar}
+      MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017/sellora}
       NODE_ENV: development
     volumes:
       - ./server:/app/server

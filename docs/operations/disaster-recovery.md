@@ -6,7 +6,7 @@ _Issues #135 & #607 — Automated Backup, Checksum Validation, Dry-Run Verificat
 
 ## 1. Overview
 
-The PromptHash indexer DB stores off-chain prompt metadata, entitlement receipts, indexer state pointers, and audit logs in MongoDB. To ensure zero data loss and fast recovery during database loss or corruption, PromptHash provides an automated backup and checksum-verified restore service.
+The Sellora indexer DB stores off-chain prompt metadata, entitlement receipts, indexer state pointers, and audit logs in MongoDB. To ensure zero data loss and fast recovery during database loss or corruption, Sellora provides an automated backup and checksum-verified restore service.
 
 ### Recovery Paths & SLA
 

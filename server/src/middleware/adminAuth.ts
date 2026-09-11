@@ -43,7 +43,7 @@ function getActiveAdminSecrets(): string[] {
 }
 
 function getAdminAudience(): string {
-  return process.env.ADMIN_TOKEN_AUDIENCE || "prompt-hash-admin";
+  return process.env.ADMIN_TOKEN_AUDIENCE || "sellora-admin";
 }
 
 function clientIpOf(req: Request): string {

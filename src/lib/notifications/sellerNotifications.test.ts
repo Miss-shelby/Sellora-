@@ -6,7 +6,7 @@ import {
   summariseActivity,
   type SellerNotification,
 } from "./sellerNotifications";
-import type { PromptRecord } from "@/lib/stellar/promptHashClient";
+import type { PromptRecord } from "@/lib/stellar/SelloraClient";
 
 function makePrompt(
   overrides: Partial<PromptRecord> & { id: bigint },

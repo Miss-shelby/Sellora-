@@ -24,7 +24,7 @@ import { formatPriceLabel } from "@/lib/stellar/format";
 import {
   getAllPrompts,
   type PromptRecord,
-} from "@/lib/stellar/promptHashClient";
+} from "@/lib/stellar/SelloraClient";
 import { invalidateAllPromptQueries } from "@/hooks/useContractSync";
 import { buildCreatorReputation } from "@/lib/reputation/creatorReputation";
 import {
@@ -33,7 +33,7 @@ import {
 } from "@/components/reputation/CreatorReputationBadge";
 
 const isMarketplaceConfigured = Boolean(
-  browserStellarConfig.promptHashContractId &&
+  browserStellarConfig.SelloraContractId &&
   browserStellarConfig.simulationAccount &&
   browserStellarConfig.rpcUrl,
 );

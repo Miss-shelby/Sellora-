@@ -1,7 +1,7 @@
 # Implementation Details: Issue #500 - Bulk Activate, Pause, and Retire Actions for Listings
 
 ## Overview
-This document details the production-grade implementation of Issue #500 (`[Creator] Add bulk activate, pause, and retire actions for listings`) for the PromptHash Stellar creator marketplace.
+This document details the production-grade implementation of Issue #500 (`[Creator] Add bulk activate, pause, and retire actions for listings`) for the Sellora creator marketplace.
 
 ---
 
@@ -44,11 +44,11 @@ This document details the production-grade implementation of Issue #500 (`[Creat
 ## File Modifications & Additions
 
 ### Modified Files:
-- [`src/pages/sell/MyPrompts.tsx`](file:///c:/Users/PAB-NETWORK/Documents/Prompt-Hash-Stellar/src/pages/sell/MyPrompts.tsx): Added multi-select controls, checkboxes, bulk action bar, retire confirmation modal, and per-item failure diagnostics summary.
-- [`src/test/integration/dashboard.integration.test.tsx`](file:///c:/Users/PAB-NETWORK/Documents/Prompt-Hash-Stellar/src/test/integration/dashboard.integration.test.tsx): Added integration test coverage for bulk status updates and partial failure reporting.
+- [`src/pages/sell/MyPrompts.tsx`](file:///c:/Users/PAB-NETWORK/Documents/sellora/src/pages/sell/MyPrompts.tsx): Added multi-select controls, checkboxes, bulk action bar, retire confirmation modal, and per-item failure diagnostics summary.
+- [`src/test/integration/dashboard.integration.test.tsx`](file:///c:/Users/PAB-NETWORK/Documents/sellora/src/test/integration/dashboard.integration.test.tsx): Added integration test coverage for bulk status updates and partial failure reporting.
 
 ### Created Files:
-- [`implementation.md`](file:///c:/Users/PAB-NETWORK/Documents/Prompt-Hash-Stellar/implementation.md): Documentation of the design, time/space complexity analysis, and Soroban integration safety properties.
+- [`implementation.md`](file:///c:/Users/PAB-NETWORK/Documents/sellora/implementation.md): Documentation of the design, time/space complexity analysis, and Soroban integration safety properties.
 
 ---
 

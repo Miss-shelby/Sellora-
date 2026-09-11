@@ -1,7 +1,7 @@
 {
-  "name": "prompthash-server",
+  "name": "Sellora-server",
   "version": "1.0.0",
-  "description": "server for the prompthash on stellar",
+  "description": "server for the Sellora on stellar",
   "bin": {
     "contacts": "./build/index.js"
   },
@@ -36,7 +36,7 @@
   "license": "MIT",
   "dependencies": {
     "@ai-sdk/openai": "^3.0.53",
-    "@prompthash/schema": "file:../packages/schema",
+    "@Sellora/schema": "file:../packages/schema",
     "@sentry/node": "^10.63.0",
     "@stellar/stellar-sdk": "^14.6.1",
     "@typescript-eslint/parser": "^8.62.1",
@@ -46,7 +46,7 @@
     "express-async-handler": "^1.2.0",
     "mongoose": "^9.5.0",
     "nodemon": "^3.1.14",
-    "prompt-hash-stellar": "file:..",
+    "sellora": "file:..",
     "redis": "^6.0.1",
     "typescript": "^6.0.3"
   },

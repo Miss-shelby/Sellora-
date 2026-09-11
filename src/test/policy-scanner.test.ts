@@ -27,7 +27,7 @@ vi.mock("../../server/src/models/Prompt", () => ({
   },
 }));
 
-vi.mock("../lib/stellar/promptHashClient", () => ({
+vi.mock("../lib/stellar/SelloraClient", () => ({
   getPrompt: (...args: unknown[]) => mockGetPrompt(...args),
 }));
 

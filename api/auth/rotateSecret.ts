@@ -38,7 +38,7 @@ interface RotationApproval {
 // ── Encryption helpers ──────────────────────────────────────────────
 
 function deriveKey(passphrase: string): Buffer {
-  return scryptSync(passphrase, "prompt-hash-rotation-salt", 32);
+  return scryptSync(passphrase, "sellora-rotation-salt", 32);
 }
 
 function encryptSecret(plaintext: string, passphrase: string): { encrypted: string; iv: string; authTag: string } {
@@ -259,7 +259,7 @@ export default async function handler(req: any, res: any) {
 
   try {
     verifyAdminToken(secrets, token, {
-      audience: process.env.ADMIN_TOKEN_AUDIENCE || "prompt-hash-admin",
+      audience: process.env.ADMIN_TOKEN_AUDIENCE || "sellora-admin",
       requiredScope: ROTATE_SECRET_SCOPE,
     });
   } catch (err) {

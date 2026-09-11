@@ -113,7 +113,7 @@ In `src/lib/stellar/contractMethods.ts`:
 
 **New Wrapper: `validateBulkPurchase`**
 
-In `src/lib/stellar/promptHashClient.ts`:
+In `src/lib/stellar/SelloraClient.ts`:
 - Public API for validation
 - Exported for use in UI components
 
@@ -168,13 +168,13 @@ Success!
 
 ## Contract Changes
 
-**File: `contracts/prompt-hash/src/contract.rs`**
+**File: `contracts/sellora/src/contract.rs`**
 
 - Added `validate_bulk_purchase_items` private helper (validates each ID independently)
-- Added `validate_bulk_purchase` method to `PromptHashTrait` impl
+- Added `validate_bulk_purchase` method to `SelloraTrait` impl
 - Returns `Vec<bool>` per-item validity status
 
-**File: `contracts/prompt-hash/src/types.rs`**
+**File: `contracts/sellora/src/types.rs`**
 
 - Added `validate_bulk_purchase` trait method signature
 
@@ -183,8 +183,8 @@ Success!
 **File: `src/lib/stellar/contractMethods.ts`**
 - Added `contractValidateBulkPurchase` to call contract dry-run
 
-**File: `src/lib/stellar/promptHashClient.ts`**
-- Added `PromptHashClient.validateBulkPurchase` wrapper
+**File: `src/lib/stellar/SelloraClient.ts`**
+- Added `SelloraClient.validateBulkPurchase` wrapper
 - Added exported `validateBulkPurchase` function
 
 **File: `src/lib/errors/bulkPurchaseErrors.ts`** (NEW)
@@ -194,7 +194,7 @@ Success!
 
 ## Tests Added
 
-**File: `contracts/prompt-hash/src/test.rs`**
+**File: `contracts/sellora/src/test.rs`**
 
 8 comprehensive tests covering:
 - Dry-run validation (all-valid case)
@@ -234,8 +234,8 @@ When integrating into purchase flows (e.g., bundle purchases):
 ## References
 
 - **Issue #438:** Bounds bulk purchase size, document atomicity
-- **Contract:** `contracts/prompt-hash/src/contract.rs` lines ~2389-2450
-- **Tests:** `contracts/prompt-hash/src/test.rs` lines ~2869-3080
+- **Contract:** `contracts/sellora/src/contract.rs` lines ~2389-2450
+- **Tests:** `contracts/sellora/src/test.rs` lines ~2869-3080
 - **Error Mapping:** `src/lib/errors/bulkPurchaseErrors.ts`
 
 ## Summary

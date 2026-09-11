@@ -170,7 +170,7 @@ async function runHealthProbes(lastIndexedLedger: number): Promise<ProbeResult[]
     const config: HealthProbeConfig = {
       rpcUrl: process.env.PUBLIC_STELLAR_RPC_URL || STELLAR_RPC_URL,
       networkPassphrase: process.env.PUBLIC_STELLAR_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015",
-      promptHashContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "",
+      SelloraContractId: process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID || "",
       simulationAccount: process.env.PUBLIC_STELLAR_SIMULATION_ACCOUNT || "",
       horizonUrl: HORIZON_URL,
       challengeSecret: process.env.CHALLENGE_TOKEN_SECRET || "",
@@ -179,7 +179,7 @@ async function runHealthProbes(lastIndexedLedger: number): Promise<ProbeResult[]
     };
 
     // Skip probes if required config is missing
-    if (!config.promptHashContractId || !config.simulationAccount || !config.challengeSecret) {
+    if (!config.SelloraContractId || !config.simulationAccount || !config.challengeSecret) {
       return [];
     }
 

@@ -38,7 +38,7 @@ vi.mock("@/lib/stellar/browserConfig", () => ({
     rpcUrl: "https://stellar.test/rpc",
     networkPassphrase: "Test SDF Network ; September 2015",
     allowHttp: false,
-    promptHashContractId: "prompt-hash-contract",
+    SelloraContractId: "sellora-contract",
     nativeAssetContractId: "native-asset-contract",
     simulationAccount: "GTESTSIMULATIONACCOUNT1234567890ABCDEFGH1234567890ABCD",
   },
@@ -51,8 +51,8 @@ vi.mock("@/lib/crypto/promptCrypto", () => ({
   hashPromptPlaintext: vi.fn().mockResolvedValue("a".repeat(64)),
 }));
 
-vi.mock("@/lib/stellar/promptHashClient", () => ({
-  PromptHashClient: {
+vi.mock("@/lib/stellar/SelloraClient", () => ({
+  SelloraClient: {
     createPrompt: (...args: unknown[]) => createPromptMock(...args),
   },
   createPrompt: (...args: unknown[]) => createPromptMock(...args),

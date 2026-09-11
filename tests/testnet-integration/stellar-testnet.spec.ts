@@ -1,5 +1,5 @@
 /**
- * Stellar testnet integration suite for PromptHash.
+ * Stellar testnet integration suite for Sellora.
  *
  * Run separately from unit tests — requires network access and a funded fixture wallet.
  *
@@ -7,7 +7,7 @@
  *   TESTNET_FIXTURE_SECRET   — Secret key of the funded testnet wallet.
  *   TESTNET_RPC_URL          — Soroban RPC endpoint (default: https://soroban-testnet.stellar.org).
  *   TESTNET_NETWORK_PASSPHRASE — Network passphrase (default: Test SDF Network ; September 2015).
- *   TESTNET_PROMPT_HASH_CONTRACT_ID — Deployed PromptHash contract address on testnet.
+ *   TESTNET_PROMPT_HASH_CONTRACT_ID — Deployed Sellora contract address on testnet.
  *   TESTNET_SIMULATION_ACCOUNT — Account for read-only contract simulations.
  *   TESTNET_NATIVE_ASSET_CONTRACT_ID — Native XLM asset contract.
  *
@@ -25,8 +25,8 @@ import {
   nativeToScVal,
 } from "@stellar/stellar-sdk";
 import { Server as SorobanServer } from "@stellar/stellar-sdk/rpc";
-import { PromptHashClient } from "../../src/lib/stellar/promptHashClient";
-import type { PromptHashConfig } from "../../src/lib/stellar/promptHashClient";
+import { SelloraClient } from "../../src/lib/stellar/SelloraClient";
+import type { SelloraConfig } from "../../src/lib/stellar/SelloraClient";
 
 const FIXTURE_SECRET = process.env.TESTNET_FIXTURE_SECRET;
 const RPC_URL =
@@ -41,16 +41,16 @@ const NATIVE_ASSET_CONTRACT_ID =
 // Skip the entire suite when secrets are not provided.
 const hasFixture = Boolean(FIXTURE_SECRET && CONTRACT_ID && SIMULATION_ACCOUNT);
 
-let config: PromptHashConfig;
+let config: SelloraConfig;
 let fixtureKey: Keypair;
 
-describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
+describe.skipIf(!hasFixture)("Sellora testnet integration", () => {
   beforeAll(() => {
     fixtureKey = Keypair.fromSecret(FIXTURE_SECRET!);
     config = {
       rpcUrl: RPC_URL,
       networkPassphrase: NETWORK_PASSPHRASE,
-      promptHashContractId: CONTRACT_ID,
+      SelloraContractId: CONTRACT_ID,
       nativeAssetContractId: NATIVE_ASSET_CONTRACT_ID,
       simulationAccount: SIMULATION_ACCOUNT,
     };
@@ -65,7 +65,7 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
   });
 
   it("can read all prompts from contract", async () => {
-    const prompts = await PromptHashClient.getAllPrompts(config);
+    const prompts = await SelloraClient.getAllPrompts(config);
 
     // Should return an array (even if empty on fresh testnet)
     expect(Array.isArray(prompts)).toBe(true);
@@ -81,11 +81,11 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
 
   it("can check access for a prompt", async () => {
     // Query all prompts to find one to check
-    const prompts = await PromptHashClient.getAllPrompts(config);
+    const prompts = await SelloraClient.getAllPrompts(config);
 
     if (prompts.length > 0) {
       const firstPrompt = prompts[0];
-      const hasAccess = await PromptHashClient.checkAccess(
+      const hasAccess = await SelloraClient.checkAccess(
         config,
         fixtureKey.publicKey(),
         firstPrompt.id,
@@ -100,7 +100,7 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
   });
 
   it("can get prompts by creator (returns empty if not creator)", async () => {
-    const creatorPrompts = await PromptHashClient.getPromptsByCreator(
+    const creatorPrompts = await SelloraClient.getPromptsByCreator(
       config,
       fixtureKey.publicKey(),
     );
@@ -110,7 +110,7 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
   });
 
   it("can get bundles by creator (returns empty if not creator)", async () => {
-    const bundles = await PromptHashClient.getBundlesByCreator(
+    const bundles = await SelloraClient.getBundlesByCreator(
       config,
       fixtureKey.publicKey(),
     );
@@ -120,7 +120,7 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
   });
 
   it("can get access passes by creator (returns empty if not creator)", async () => {
-    const passes = await PromptHashClient.getAccessPassesByCreator(
+    const passes = await SelloraClient.getAccessPassesByCreator(
       config,
       fixtureKey.publicKey(),
     );
@@ -132,7 +132,7 @@ describe.skipIf(!hasFixture)("PromptHash testnet integration", () => {
   it("contract methods are called and receive non-error responses", async () => {
     // This is a smoke test that real contract methods execute without throwing
     try {
-      const prompts = await PromptHashClient.getAllPrompts(config);
+      const prompts = await SelloraClient.getAllPrompts(config);
       expect(prompts).toBeDefined();
     } catch (e) {
       // Some network errors are acceptable in testnet, but contract errors should not occur

@@ -1,11 +1,11 @@
 # Off-Chain Data Retention and Privacy Guide
 
-This document outlines how PromptHash stores, retains, and secures off-chain marketplace and unlock metadata. It clarifies the boundaries between immutable on-chain data and mutable off-chain state.
+This document outlines how Sellora stores, retains, and secures off-chain marketplace and unlock metadata. It clarifies the boundaries between immutable on-chain data and mutable off-chain state.
 
 ## On-Chain vs. Off-Chain Responsibilities
 
 **Permanently On-Chain:**
-- Prompt hashes and content integrity proofs.
+- Selloraes and content integrity proofs.
 - Ownership transfers and licensing rights.
 - Payment transactions (XLM) and ledger history.
 

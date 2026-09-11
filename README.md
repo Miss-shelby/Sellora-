@@ -1,15 +1,15 @@
-# PromptHash Stellar
+# Sellora
 
-[![CI](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/ci.yml/badge.svg)](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/ci.yml)
-[![Frontend CI](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/frontend.yml/badge.svg)](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/frontend.yml)
-[![Contracts CI](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/contracts.yml/badge.svg)](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/contracts.yml)
-[![Backend CI](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/backend.yml/badge.svg)](https://github.com/Obiajulu-gif/Prompt-Hash-Stellar/actions/workflows/backend.yml)
+[![CI](https://github.com/Obiajulu-gif/sellora/actions/workflows/ci.yml/badge.svg)](https://github.com/Obiajulu-gif/sellora/actions/workflows/ci.yml)
+[![Frontend CI](https://github.com/Obiajulu-gif/sellora/actions/workflows/frontend.yml/badge.svg)](https://github.com/Obiajulu-gif/sellora/actions/workflows/frontend.yml)
+[![Contracts CI](https://github.com/Obiajulu-gif/sellora/actions/workflows/contracts.yml/badge.svg)](https://github.com/Obiajulu-gif/sellora/actions/workflows/contracts.yml)
+[![Backend CI](https://github.com/Obiajulu-gif/sellora/actions/workflows/backend.yml/badge.svg)](https://github.com/Obiajulu-gif/sellora/actions/workflows/backend.yml)
 
-PromptHash Stellar is a Soroban-based marketplace for selling reusable AI prompt licenses with XLM payments and wallet-verified unlocks.
+Sellora is a Soroban-based marketplace for selling reusable AI prompt licenses with XLM payments and wallet-verified unlocks.
 
 ## Overview
 
-PromptHash Stellar is an in-development creator marketplace built on Stellar. It lets creators publish encrypted prompt assets, expose only public preview metadata on-chain, and sell access rights to buyers without transferring ownership of the underlying content.
+Sellora is an in-development creator marketplace built on Stellar. It lets creators publish encrypted prompt assets, expose only public preview metadata on-chain, and sell access rights to buyers without transferring ownership of the underlying content.
 
 This repository includes:
 
@@ -32,7 +32,7 @@ This creates a trust and distribution gap for creator economy products on-chain.
 
 ## Solution
 
-PromptHash Stellar turns prompt packs into encrypted, contract-backed digital goods:
+Sellora turns prompt packs into encrypted, contract-backed digital goods:
 
 - creators submit a preview, price, and encrypted prompt payload
 - the Soroban contract stores listing metadata, tracks purchase rights, and enforces XLM fee splits
@@ -42,7 +42,7 @@ PromptHash Stellar turns prompt packs into encrypted, contract-backed digital go
 
 ## Why This Project Matters
 
-PromptHash Stellar addresses a concrete gap between AI workflows and blockchain commerce. It gives creators a way to sell digital knowledge products with transparent payment rails while keeping delivery gated by verifiable wallet-based access. For Stellar, it expands utility beyond transfers into creator payments, programmable commerce, and application-layer access control.
+Sellora addresses a concrete gap between AI workflows and blockchain commerce. It gives creators a way to sell digital knowledge products with transparent payment rails while keeping delivery gated by verifiable wallet-based access. For Stellar, it expands utility beyond transfers into creator payments, programmable commerce, and application-layer access control.
 
 ## Core Features
 
@@ -79,7 +79,7 @@ PromptHash Stellar addresses a concrete gap between AI workflows and blockchain 
 
 ## Stellar Ecosystem Alignment
 
-PromptHash Stellar is strongly aligned with Stellar and Soroban:
+Sellora is strongly aligned with Stellar and Soroban:
 
 - it uses Soroban contracts for stateful commerce rather than treating Stellar as a passive payment rail
 - it settles purchases in XLM, increasing native asset utility
@@ -110,7 +110,7 @@ PromptHash Stellar is strongly aligned with Stellar and Soroban:
 
 ### Strategic ecosystem value
 
-PromptHash Stellar can serve as a reusable reference implementation for:
+Sellora can serve as a reusable reference implementation for:
 
 - creator economy applications on Soroban
 - encrypted digital goods marketplaces
@@ -139,13 +139,13 @@ PromptHash Stellar can serve as a reusable reference implementation for:
 
 ## Technical Architecture
 
-PromptHash Stellar uses a three-part architecture where the Soroban smart contract is the **absolute, single source of truth** for prompt ownership, purchase records, and access rights.
+Sellora uses a three-part architecture where the Soroban smart contract is the **absolute, single source of truth** for prompt ownership, purchase records, and access rights.
 
 > For an end-to-end visual guide with diagrams covering the listing, purchase, and unlock flows, the encryption model, wallet verification, and every environment variable, see [docs/architecture-overview.md](docs/architecture-overview.md).
 
 ### 1. Soroban smart contract (authoritative source of truth)
 
-Located in `contracts/prompt-hash`.
+Located in `contracts/sellora`.
 
 The contract governs **all** stateful operations. Off-chain systems must never override or duplicate these responsibilities:
 
@@ -326,7 +326,7 @@ npm run dev
 6. Run contract tests:
 
 ```bash
-cargo test -p prompt-hash
+cargo test -p sellora
 ```
 
 7. Run frontend checks before opening a PR:
@@ -449,7 +449,7 @@ This repository is licensed under the Apache License 2.0. See `LICENSE`.
 
 ## Maintainer
 
-Maintained by the PromptHash Stellar team for Drip Wave submission and ongoing open-source development.
+Maintained by the Sellora team for Drip Wave submission and ongoing open-source development.
 
 ## Project Structure
 
@@ -550,7 +550,7 @@ npm run lint && npm run typecheck
 
 ## GitHub Preparation
 
-- Recommended repository name: `prompt-hash-stellar`
+- Recommended repository name: `sellora`
 - Suggested short description: `Soroban-based prompt licensing marketplace with XLM payments and wallet-verified unlocks`
 - Suggested topics: `stellar`, `soroban`, `xlm`, `creator-economy`, `ai-prompts`, `marketplace`, `blockchain`, `rust`, `react`, `vercel`
 - Suggested release title for `v0.1.0`: `Prompt licensing marketplace foundation on Stellar`
@@ -559,7 +559,7 @@ npm run lint && npm run typecheck
 
 - `docs: rewrite repository for Drip Wave submission`
 - `docs: add architecture and ecosystem overview`
-- `chore: align package metadata with PromptHash Stellar`
+- `chore: align package metadata with Sellora`
 
 ## Dependency Updates
 
@@ -568,13 +568,13 @@ Dependencies are managed automatically via [Dependabot](https://docs.github.com/
 Dependabot opens pull requests every Monday for:
 
 - **npm** (`/`) — frontend packages (Vite, React, Tailwind, etc.)
-- **Cargo** (`/contracts/prompt-hash`) — Soroban / Rust crates, grouped into a single PR
+- **Cargo** (`/contracts/sellora`) — Soroban / Rust crates, grouped into a single PR
 
 ### Reviewing and merging updates
 
 1. Check the Dependabot PR description for the changelog and any breaking-change notes.
 2. Run `npm ci && npm run build` locally (or let CI run) to confirm the frontend still compiles.
-3. For Cargo updates, run `cargo test` inside `contracts/prompt-hash/` before merging.
+3. For Cargo updates, run `cargo test` inside `contracts/sellora/` before merging.
 4. Merge the PR; Dependabot will rebase any remaining open PRs automatically.
 
 If a Dependabot PR introduces a breaking change, close it and pin the old version in `package.json` or `Cargo.toml` until the issue is resolved upstream.

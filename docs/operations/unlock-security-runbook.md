@@ -24,9 +24,9 @@ Clients should request a fresh challenge whenever the prompt detail view is refr
 Webhook deliveries include:
 
 - `schemaVersion` in the JSON body.
-- `X-PromptHash-Event-Version`.
-- `X-PromptHash-Timestamp`.
-- `X-PromptHash-Event-Id`.
-- `X-PromptHash-Delivery`.
+- `X-Sellora-Event-Version`.
+- `X-Sellora-Timestamp`.
+- `X-Sellora-Event-Id`.
+- `X-Sellora-Delivery`.
 
 The HMAC signature covers timestamp, event id, delivery id, and the exact body. Consumers should reject signatures outside a five-minute replay window and should persist `(eventId, deliveryId, schemaVersion)` as an idempotency key before applying side effects.

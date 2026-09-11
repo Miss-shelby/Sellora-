@@ -79,7 +79,7 @@ async function notify(
 /**
  * Main entry point to start the background indexing process.
  *
- * Polls the PromptHash Soroban contract for new events, mirrors the resulting
+ * Polls the Sellora Soroban contract for new events, mirrors the resulting
  * state into MongoDB, and fans out webhooks for purchases and ownership
  * transfers. Returns early (without starting the loop) when the required RPC /
  * contract configuration is missing, so it is safe to call unconditionally.

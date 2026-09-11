@@ -3,7 +3,7 @@ use super::storage::{InstanceStorage, Storage};
 use super::types::{
     AccessPass, AssetLiability, AssetSolvency, Bundle, CatalogPassPurchase, DataKey, DisputeReason,
     DisputeStatus, Error, IndexDriftReport, IndexRepairSummary, ListingConfig, ListingRevisionRecord,
-    Prompt, PromptHashTrait, PromptSaleStatus, PurchaseDispute, PurchaseEscrow, SettlementStatus,
+    Prompt, SelloraTrait, PromptSaleStatus, PurchaseDispute, PurchaseEscrow, SettlementStatus,
     SignedDiscountAuthorization, Split,
 };
 use soroban_sdk::{contract, contractimpl, token, Address, Bytes, BytesN, Env, IntoVal, String, Val, Vec};
@@ -56,10 +56,10 @@ fn listing_snapshot_hash(env: &Env, prompt: &Prompt) -> BytesN<32> {
 }
 
 #[contract]
-pub struct PromptHashContract;
+pub struct SelloraContract;
 
 #[contractimpl]
-impl PromptHashTrait for PromptHashContract {
+impl SelloraTrait for SelloraContract {
     fn __constructor(
         env: Env,
         admin: Address,
@@ -2288,7 +2288,7 @@ impl PromptHashTrait for PromptHashContract {
 }
 
 #[contractimpl(contracttrait)]
-impl Ownable for PromptHashContract {}
+impl Ownable for SelloraContract {}
 
 /// Single write path for the platform fee (#566). `set_fee_percentage`,
 /// `update_platform_fee`, and `migrate_platform_fee_bound` all delegate here

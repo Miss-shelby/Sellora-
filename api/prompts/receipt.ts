@@ -18,7 +18,7 @@ function getServerConfig(): ReceiptContractConfig {
   const networkPassphrase =
     process.env.PUBLIC_STELLAR_NETWORK_PASSPHRASE ??
     "Test SDF Network ; September 2015";
-  const promptHashContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "";
+  const SelloraContractId = process.env.PUBLIC_PROMPT_HASH_CONTRACT_ID ?? "";
   const nativeAssetContractId =
     process.env.PUBLIC_STELLAR_NATIVE_ASSET_CONTRACT_ID ??
     "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
@@ -26,7 +26,7 @@ function getServerConfig(): ReceiptContractConfig {
   return {
     rpcUrl,
     networkPassphrase,
-    promptHashContractId,
+    SelloraContractId,
     nativeAssetContractId,
     allowHttp: new URL(rpcUrl).hostname === "localhost",
   };
@@ -64,7 +64,7 @@ async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
       txHash = txHash || purchase?.txHash;
 
     const config = getServerConfig();
-    if (!config.promptHashContractId) {
+    if (!config.SelloraContractId) {
       res.status(500).json({ error: "PUBLIC_PROMPT_HASH_CONTRACT_ID is not configured." });
       return;
     }

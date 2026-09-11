@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Zap, PackagePlus, RefreshCw, ShoppingBag, Clock } from "lucide-react";
-import { getRecentPurchases } from "@/lib/stellar/promptHashClient";
+import { getRecentPurchases } from "@/lib/stellar/SelloraClient";
 import { browserStellarConfig } from "@/lib/stellar/browserConfig";
 import { UserAvatar } from "@/components/UserAvatar";
 

@@ -1,6 +1,6 @@
 # Incident Response and Content Moderation
 
-This document outlines the procedures for responding to content policy violations, copyright claims, and security incidents on the Prompt Hash marketplace.
+This document outlines the procedures for responding to content policy violations, copyright claims, and security incidents on the Sellora marketplace.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ This document outlines the procedures for responding to content policy violation
 
 ## Overview
 
-The Prompt Hash marketplace implements a content moderation system that allows authorized administrators to restrict, reinstate, or retire prompts that violate platform policies while preserving the integrity of existing purchase records and buyer access.
+The Sellora marketplace implements a content moderation system that allows authorized administrators to restrict, reinstate, or retire prompts that violate platform policies while preserving the integrity of existing purchase records and buyer access.
 
 ### Key Principles
 
@@ -155,7 +155,7 @@ POST /api/prompts/reports
   "description": "Listed text matches a protected work.",
   "evidence": [
     { "url": "https://source.example/original.pdf", "kind": "pdf" },
-    { "url": "https://prompt-hash.example/p/mirror", "kind": "link" }
+    { "url": "https://sellora.example/p/mirror", "kind": "link" }
   ]
 }
 ```
@@ -532,6 +532,6 @@ const isAdmin = ADMIN_WALLETS.split(',')
 
 ## Contact
 
-For moderation inquiries: [moderation@prompthash.example](mailto:moderation@prompthash.example)
-For security issues: [security@prompthash.example](mailto:security@prompthash.example)
-For legal matters: [legal@prompthash.example](mailto:legal@prompthash.example)
+For moderation inquiries: [moderation@Sellora.example](mailto:moderation@Sellora.example)
+For security issues: [security@Sellora.example](mailto:security@Sellora.example)
+For legal matters: [legal@Sellora.example](mailto:legal@Sellora.example)

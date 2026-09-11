@@ -10,7 +10,7 @@ interface PageMetaOptions {
   type?: string;
 }
 
-const SITE_NAME = "Prompt Hash Stellar";
+const SITE_NAME = "Sellora";
 const DEFAULT_DESCRIPTION =
   "Buy and sell AI prompts securely on the Stellar blockchain. Wallet-verified access, on-chain ownership.";
 const DEFAULT_OG_IMAGE = "/og-image.png";

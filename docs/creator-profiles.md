@@ -1,6 +1,6 @@
 # Creator Profiles and Verification
 
-This document describes the creator profile system, verification process, and security controls for the Prompt Hash marketplace.
+This document describes the creator profile system, verification process, and security controls for the Sellora marketplace.
 
 ## Table of Contents
 
@@ -486,5 +486,5 @@ only at the aggregation boundary and suppressed below the minimum cohort size.
 
 ## Contact
 
-For profile verification inquiries: [verification@prompthash.example](mailto:verification@prompthash.example)
-For security issues: [security@prompthash.example](mailto:security@prompthash.example)
+For profile verification inquiries: [verification@Sellora.example](mailto:verification@Sellora.example)
+For security issues: [security@Sellora.example](mailto:security@Sellora.example)

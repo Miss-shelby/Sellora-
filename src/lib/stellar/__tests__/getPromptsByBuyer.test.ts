@@ -3,7 +3,7 @@ import {
   contractGetPromptsByBuyer,
   contractGetPromptsByCreator,
 } from "../contractMethods";
-import { PromptHashClient, type PromptHashConfig } from "../promptHashClient";
+import { SelloraClient, type SelloraConfig } from "../SelloraClient";
 import * as tx from "../tx";
 import { Address } from "@stellar/stellar-sdk";
 
@@ -15,10 +15,10 @@ vi.mock("../tx", async () => {
   };
 });
 
-const mockConfig: PromptHashConfig = {
+const mockConfig: SelloraConfig = {
   rpcUrl: "https://horizon-testnet.stellar.org",
   networkPassphrase: "Test SDF Network ; September 2015",
-  promptHashContractId: "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
+  SelloraContractId: "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
   nativeAssetContractId: "CBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABSC4",
   simulationAccount: "GDBCL4APVRMZPAS77V2BPHTCTC5T5SYT22X6GTQC3QB5EZKTIFII3LPD",
 };
@@ -61,7 +61,7 @@ describe("contractGetPromptsByBuyer (#592)", () => {
         allowHttp: mockConfig.allowHttp,
         simulationAccount: mockConfig.simulationAccount,
       },
-      mockConfig.promptHashContractId,
+      mockConfig.SelloraContractId,
       "get_prompts_by_buyer",
       expectedArgs,
     );
@@ -91,7 +91,7 @@ describe("contractGetPromptsByBuyer (#592)", () => {
     expect(result).toEqual([]);
     expect(tx.readContract).toHaveBeenCalledWith(
       expect.anything(),
-      mockConfig.promptHashContractId,
+      mockConfig.SelloraContractId,
       "get_prompts_by_buyer",
       expect.anything(),
     );
@@ -126,7 +126,7 @@ describe("contractGetPromptsByBuyer (#592)", () => {
         allowHttp: mockConfig.allowHttp,
         simulationAccount: mockConfig.simulationAccount,
       },
-      mockConfig.promptHashContractId,
+      mockConfig.SelloraContractId,
       "get_prompts_by_creator",
       expectedArgs,
     );
@@ -135,15 +135,15 @@ describe("contractGetPromptsByBuyer (#592)", () => {
     expect(result[0].title).toBe("Creator Prompt");
   });
 
-  it("PromptHashClient.getPromptsByBuyer delegates to contractGetPromptsByBuyer", async () => {
+  it("SelloraClient.getPromptsByBuyer delegates to contractGetPromptsByBuyer", async () => {
     vi.mocked(tx.readContract).mockResolvedValueOnce([]);
 
-    const result = await PromptHashClient.getPromptsByBuyer(mockConfig, mockBuyer);
+    const result = await SelloraClient.getPromptsByBuyer(mockConfig, mockBuyer);
 
     expect(result).toEqual([]);
     expect(tx.readContract).toHaveBeenCalledWith(
       expect.anything(),
-      mockConfig.promptHashContractId,
+      mockConfig.SelloraContractId,
       "get_prompts_by_buyer",
       [tx.scValArg(new Address(mockBuyer).toScVal())],
     );

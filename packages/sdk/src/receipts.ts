@@ -1,7 +1,7 @@
 /**
  * Standalone purchase-receipt verifier — Issue #436.
  *
- * Validates a `PurchaseReceipt` directly against Stellar RPC. No PromptHash
+ * Validates a `PurchaseReceipt` directly against Stellar RPC. No Sellora
  * API or database access is required: every check re-derives the truth from
  * the ledger itself and the receipt's own signature, so a receipt stays
  * verifiable after index rebuilds or API key rotation.

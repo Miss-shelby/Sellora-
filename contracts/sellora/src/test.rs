@@ -2,7 +2,7 @@
 
 extern crate std;
 
-use crate::contract::{PromptHashContract, PromptHashContractClient};
+use crate::contract::{SelloraContract, SelloraContractClient};
 use crate::mock_asset::FungibleTokenContract;
 use crate::types::{DataKey, DisputeReason, Error, ListingConfig, PromptSaleStatus, Split};
 use soroban_sdk::{
@@ -12,25 +12,25 @@ use soroban_sdk::{
 use std::format;
 
 #[derive(Clone, Debug, PartialEq)]
-struct PromptHashContext {
+struct SelloraContext {
     admin: Address,
     fee_wallet: Address,
     xlm: Address,
     contract: Address,
 }
 
-fn setup(env: &Env) -> PromptHashContext {
+fn setup(env: &Env) -> SelloraContext {
     env.mock_all_auths();
 
     let admin = Address::generate(env);
     let fee_wallet = Address::generate(env);
     let xlm = env.register(FungibleTokenContract, (admin.clone(),));
     let contract = env.register(
-        PromptHashContract,
+        SelloraContract,
         (admin.clone(), fee_wallet.clone(), xlm.clone()),
     );
 
-    PromptHashContext {
+    SelloraContext {
         admin,
         fee_wallet,
         xlm,
@@ -45,7 +45,7 @@ fn setup_env() -> (
     Address,
     Address,
     Address,
-    PromptHashContractClient<'static>,
+    SelloraContractClient<'static>,
 ) {
     let env = Env::default();
     env.mock_all_auths();
@@ -59,10 +59,10 @@ fn setup_env() -> (
         .register_stellar_asset_contract_v2(admin.clone())
         .address();
     let contract_id = env.register(
-        PromptHashContract,
+        SelloraContract,
         (admin.clone(), fee_wallet.clone(), token_contract.clone()),
     );
-    let client = PromptHashContractClient::new(&env, &contract_id);
+    let client = SelloraContractClient::new(&env, &contract_id);
 
     (
         env,
@@ -82,7 +82,7 @@ fn hash(env: &Env, byte: u8) -> BytesN<32> {
 /// Convenience helper: creates a prompt with no expiry and no splits.
 fn create_prompt(
     env: &Env,
-    client: &PromptHashContractClient,
+    client: &SelloraContractClient,
     creator: &Address,
     title: &str,
     price_stroops: i128,
@@ -112,7 +112,7 @@ fn create_prompt(
 
 fn create_prompt_with_supply(
     env: &Env,
-    client: &PromptHashContractClient,
+    client: &SelloraContractClient,
     creator: &Address,
     max_supply: u32,
     price: i128,
@@ -155,7 +155,7 @@ fn fund_buyer(
 
 fn create_prompt_with_splits(
     env: &Env,
-    client: &PromptHashContractClient,
+    client: &SelloraContractClient,
     creator: &Address,
     title: &str,
     price_stroops: i128,
@@ -188,7 +188,7 @@ fn create_prompt_with_splits(
 fn test_create_prompt_stores_encrypted_fields() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -225,7 +225,7 @@ fn test_create_prompt_stores_encrypted_fields() {
 fn test_creator_can_pause_reactivate_and_update_price() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -250,7 +250,7 @@ fn test_creator_can_pause_reactivate_and_update_price() {
 fn test_buy_prompt_grants_access_to_multiple_buyers_and_tracks_exact_fees() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -310,7 +310,7 @@ fn test_buy_prompt_grants_access_to_multiple_buyers_and_tracks_exact_fees() {
 fn test_fee_routing_pays_seller_and_platform_wallet_for_exact_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -355,7 +355,7 @@ fn test_fee_routing_pays_seller_and_platform_wallet_for_exact_purchase() {
 fn test_small_price_fee_rounding_keeps_fractional_fee_with_seller() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -389,7 +389,7 @@ fn test_small_price_fee_rounding_keeps_fractional_fee_with_seller() {
 fn test_seller_payout_split_rounding_uses_integer_stroops() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -447,7 +447,7 @@ fn test_seller_payout_split_rounding_uses_integer_stroops() {
 fn test_failed_purchase_does_not_grant_access_or_route_partial_payouts() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -494,7 +494,7 @@ fn test_failed_purchase_does_not_grant_access_or_route_partial_payouts() {
 fn test_admin_can_update_platform_fee_within_bounds() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // admin sets platform fee to 300 BPS (3%)
     client.update_platform_fee(&context.admin, &300u32);
@@ -505,7 +505,7 @@ fn test_admin_can_update_platform_fee_within_bounds() {
 fn test_unauthorized_cannot_update_platform_fee() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let stranger = Address::generate(&env);
     let res = client.try_update_platform_fee(&stranger, &200u32);
@@ -519,7 +519,7 @@ fn test_unauthorized_cannot_update_platform_fee() {
 fn test_admin_cannot_exceed_max_platform_fee() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Try to set above MAX_PLATFORM_FEE (1_000 BPS). Expect FeeExceedsMaximum.
     let res = client.try_update_platform_fee(&context.admin, &2000u32);
@@ -533,7 +533,7 @@ fn test_admin_cannot_exceed_max_platform_fee() {
 fn test_update_platform_fee_emits_event() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Capture event count before
     let before = env.events().all().events().len();
@@ -546,7 +546,7 @@ fn test_update_platform_fee_emits_event() {
 fn test_has_access_is_true_for_creator_and_buyer_but_not_stranger() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -582,7 +582,7 @@ fn test_has_access_is_true_for_creator_and_buyer_but_not_stranger() {
 fn test_get_prompts_by_creator_and_buyer() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -607,7 +607,7 @@ fn test_get_prompts_by_creator_and_buyer() {
 fn test_license_owner_can_transfer_and_creator_receives_royalty() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -654,7 +654,7 @@ fn test_license_owner_can_transfer_and_creator_receives_royalty() {
 fn test_non_owner_cannot_transfer_license() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -696,7 +696,7 @@ fn test_non_owner_cannot_transfer_license() {
 fn test_transfer_license_rejects_zero_price_and_self_transfer() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -743,7 +743,7 @@ fn test_transfer_license_rejects_zero_price_and_self_transfer() {
 fn test_duplicate_purchase_returns_typed_error() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -779,7 +779,7 @@ fn test_duplicate_purchase_returns_typed_error() {
 fn test_creator_cannot_buy_own_prompt() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -808,7 +808,7 @@ fn test_creator_cannot_buy_own_prompt() {
 fn test_inactive_prompt_cannot_be_bought() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -842,7 +842,7 @@ fn test_inactive_prompt_cannot_be_bought() {
 fn test_buy_prompt_with_zero_fee() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     // Set fee to 0
@@ -877,7 +877,7 @@ fn test_buy_prompt_with_zero_fee() {
 fn test_multiple_buyers_until_supply_exhausted() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -933,7 +933,7 @@ fn test_multiple_buyers_until_supply_exhausted() {
 fn test_buy_prompt_with_max_fee() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     // Set fee to the unified ceiling (MAX_PLATFORM_FEE = 1,000 BPS = 10%).
@@ -979,7 +979,7 @@ fn test_buy_prompt_with_max_fee() {
 fn test_set_fee_percentage_cannot_exceed_platform_fee_ceiling() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Before #566, `set_fee_percentage` accepted anything up to MAX_BPS
     // (10,000 = 100%), bypassing `update_platform_fee`'s tighter
@@ -1002,7 +1002,7 @@ fn test_set_fee_percentage_cannot_exceed_platform_fee_ceiling() {
 fn test_set_fee_percentage_and_update_platform_fee_emit_same_event_shape() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     client.set_fee_percentage(&600u32);
     assert_eq!(client.get_fee_percentage(), 600u32);
@@ -1017,7 +1017,7 @@ fn test_set_fee_percentage_and_update_platform_fee_emit_same_event_shape() {
 fn test_migrate_platform_fee_bound_clamps_legacy_value() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Simulate a legacy deployment where `set_fee_percentage` had already
     // stored a value above the now-unified MAX_PLATFORM_FEE ceiling before
@@ -1040,7 +1040,7 @@ fn test_migrate_platform_fee_bound_clamps_legacy_value() {
 fn test_unauthorized_seller_actions_fail() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let stranger = Address::generate(&env);
@@ -1073,7 +1073,7 @@ fn test_unauthorized_seller_actions_fail() {
 fn test_buy_nonexistent_prompt_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let buyer = Address::generate(&env);
 
     let result = client.try_buy_prompt(
@@ -1096,7 +1096,7 @@ fn test_buy_nonexistent_prompt_fails() {
 fn test_massive_price_does_not_overflow() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1138,7 +1138,7 @@ fn test_massive_price_does_not_overflow() {
 fn test_global_pause_blocks_mutations_but_not_reads() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     client.set_pause_status(&true);
@@ -1191,7 +1191,7 @@ fn test_global_pause_blocks_mutations_but_not_reads() {
 fn test_lease_prompt_grants_temporary_access_and_expires() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     env.ledger().with_mut(|ledger| {
@@ -1225,7 +1225,7 @@ fn test_lease_prompt_grants_temporary_access_and_expires() {
 fn test_buy_prompt_with_referrer_splits_payment_correctly() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     // Set referral to 5% (500 BPS)
@@ -1285,7 +1285,7 @@ fn test_buy_prompt_with_referrer_splits_payment_correctly() {
 fn test_referrer_cannot_be_buyer() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     client.set_referral_percentage(&500);
@@ -1322,7 +1322,7 @@ fn test_referrer_cannot_be_buyer() {
 fn test_referrer_cannot_be_creator() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     client.set_referral_percentage(&500);
@@ -1359,7 +1359,7 @@ fn test_referrer_cannot_be_creator() {
 fn test_buy_without_referrer_no_referral_amount_paid() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     client.set_referral_percentage(&500);
@@ -1403,7 +1403,7 @@ fn test_buy_without_referrer_no_referral_amount_paid() {
 fn test_set_referral_percentage_only_owner() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Owner can set referral percentage
     client.set_referral_percentage(&300);
@@ -1422,7 +1422,7 @@ fn test_set_referral_percentage_only_owner() {
 fn test_create_prompt_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     client.set_pause_status(&true);
     assert!(client.is_paused());
@@ -1461,7 +1461,7 @@ fn test_create_prompt_blocked_when_paused() {
 fn test_buy_prompt_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1492,7 +1492,7 @@ fn test_buy_prompt_blocked_when_paused() {
 fn test_update_prompt_price_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -1520,7 +1520,7 @@ fn test_update_prompt_price_blocked_when_paused() {
 fn test_read_only_methods_work_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -1549,7 +1549,7 @@ fn test_read_only_methods_work_when_paused() {
 fn test_unpause_restores_operations() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1582,7 +1582,7 @@ fn test_unpause_restores_operations() {
 fn test_extend_listing_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
 
@@ -1612,7 +1612,7 @@ fn test_extend_listing_blocked_when_paused() {
 fn test_bulk_purchase_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -1641,7 +1641,7 @@ fn test_bulk_purchase_blocked_when_paused() {
 fn test_tip_above_price_succeeds_and_creator_receives_full_tip() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1691,7 +1691,7 @@ fn test_tip_above_price_succeeds_and_creator_receives_full_tip() {
 fn test_payment_below_price_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1725,7 +1725,7 @@ fn test_payment_below_price_fails() {
 fn test_exact_price_payment_succeeds() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1753,7 +1753,7 @@ fn test_exact_price_payment_succeeds() {
 fn test_voucher_applies_discount_on_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1810,7 +1810,7 @@ fn test_voucher_applies_discount_on_purchase() {
 fn test_voucher_is_single_use_second_use_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1863,7 +1863,7 @@ fn test_voucher_is_single_use_second_use_fails() {
 fn test_invalid_voucher_code_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1898,7 +1898,7 @@ fn test_invalid_voucher_code_fails() {
 fn test_only_creator_can_add_voucher() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let stranger = Address::generate(&env);
@@ -1928,7 +1928,7 @@ fn test_only_creator_can_add_voucher() {
 fn test_creator_can_remove_voucher() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -1969,7 +1969,7 @@ fn test_creator_can_remove_voucher() {
 fn test_voucher_with_referrer_combined() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     client.set_referral_percentage(&500); // 5%
@@ -2039,7 +2039,7 @@ fn test_voucher_with_referrer_combined() {
 fn test_buy_prompt_with_non_xlm_asset() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Register a second token (e.g., USDC)
     let usdc = env.register(FungibleTokenContract, (context.admin.clone(),));
@@ -2079,7 +2079,7 @@ fn test_buy_prompt_with_non_xlm_asset() {
 fn test_create_and_buy_different_assets() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     // Register a second token
@@ -2154,7 +2154,7 @@ fn test_create_and_buy_different_assets() {
 fn test_lease_prompt_with_non_xlm_asset() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.ledger().with_mut(|ledger| {
         ledger.timestamp = 1_000;
@@ -2199,7 +2199,7 @@ fn test_lease_prompt_with_non_xlm_asset() {
 fn test_create_prompt_with_expiry_stores_expires_at() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
 
@@ -2235,7 +2235,7 @@ fn test_create_prompt_with_expiry_stores_expires_at() {
 fn test_expired_listing_excluded_from_get_all_prompts() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
 
@@ -2279,7 +2279,7 @@ fn test_expired_listing_excluded_from_get_all_prompts() {
 fn test_buy_expired_listing_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
@@ -2342,7 +2342,7 @@ fn test_buy_expired_listing_fails() {
 fn test_extend_listing_pushes_expiry_and_allows_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
@@ -2394,7 +2394,7 @@ fn test_extend_listing_pushes_expiry_and_allows_purchase() {
 fn test_only_creator_can_extend_listing() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.ledger().with_mut(|l| l.timestamp = 1_000);
 
@@ -2418,7 +2418,7 @@ fn test_only_creator_can_extend_listing() {
 fn test_create_prompt_with_splits_stores_split_data() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -2459,7 +2459,7 @@ fn test_create_prompt_with_splits_stores_split_data() {
 fn test_buy_prompt_with_splits_distributes_correctly() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2529,7 +2529,7 @@ fn test_buy_prompt_with_splits_distributes_correctly() {
 fn test_splits_exceeding_max_bps_minus_fee_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co1 = Address::generate(&env);
@@ -2574,7 +2574,7 @@ fn test_splits_exceeding_max_bps_minus_fee_rejected() {
 fn test_multiple_splits_distribute_all_recipients() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2639,7 +2639,7 @@ fn test_multiple_splits_distribute_all_recipients() {
 fn test_buy_prompts_bulk_purchases_all_and_grants_access() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2682,7 +2682,7 @@ fn test_buy_prompts_bulk_purchases_all_and_grants_access() {
 fn test_buy_prompts_bulk_atomicity_one_failure_reverts_all() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2719,7 +2719,7 @@ fn test_buy_prompts_bulk_atomicity_one_failure_reverts_all() {
 fn test_buy_prompts_bulk_mismatched_lengths_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -2744,7 +2744,7 @@ fn test_buy_prompts_bulk_mismatched_lengths_fails() {
 fn test_buy_prompts_bulk_with_referrer() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     client.set_referral_percentage(&500); // 5%
@@ -2789,7 +2789,7 @@ fn test_buy_prompts_bulk_with_referrer() {
 fn test_buy_prompts_bulk_rejects_batch_over_max_size() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2831,7 +2831,7 @@ fn test_buy_prompts_bulk_allows_exactly_max_size() {
     env.cost_estimate().disable_resource_limits();
     env.cost_estimate().budget().reset_unlimited();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2860,7 +2860,7 @@ fn test_buy_prompts_bulk_allows_exactly_max_size() {
 fn test_buy_prompts_bulk_rejects_duplicate_prompt_ids() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2897,7 +2897,7 @@ fn test_buy_prompts_bulk_rejects_duplicate_prompt_ids() {
 fn test_validate_bulk_purchase_all_valid_returns_all_true() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -2926,7 +2926,7 @@ fn test_validate_bulk_purchase_all_valid_returns_all_true() {
 fn test_validate_bulk_purchase_marks_invalid_items() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -2954,7 +2954,7 @@ fn test_validate_bulk_purchase_marks_invalid_items() {
 fn test_validate_bulk_purchase_detects_insufficient_payment() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -2978,7 +2978,7 @@ fn test_validate_bulk_purchase_detects_insufficient_payment() {
 fn test_validate_bulk_purchase_detects_already_purchased() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3008,7 +3008,7 @@ fn test_validate_bulk_purchase_detects_already_purchased() {
 fn test_validate_bulk_purchase_detects_inactive_prompt() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -3042,7 +3042,7 @@ fn test_validate_bulk_purchase_detects_inactive_prompt() {
 fn test_validate_bulk_purchase_no_auth_required() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -3065,7 +3065,7 @@ fn test_validate_bulk_purchase_no_auth_required() {
 fn test_atomicity_one_failure_mid_batch_reverts_prior_purchases() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3112,7 +3112,7 @@ fn test_atomicity_boundary_exactly_max_size_succeeds() {
     env.cost_estimate().disable_resource_limits();
     env.cost_estimate().budget().reset_unlimited();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3146,7 +3146,7 @@ fn test_atomicity_boundary_exactly_max_size_succeeds() {
 fn test_buy_bundle_grants_access_to_all_prompts() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3191,7 +3191,7 @@ fn test_buy_bundle_grants_access_to_all_prompts() {
 fn test_buy_bundle_price_allocation_no_dust_loss_three_prompts() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3263,7 +3263,7 @@ fn test_buy_bundle_price_allocation_evenly_divisible_unchanged() {
     // affected — behaviour is identical to before the fix.
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3312,7 +3312,7 @@ fn test_access_pass_grants_time_bound_catalog_access() {
         ledger.timestamp = 1_000;
     });
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3346,7 +3346,7 @@ fn test_access_pass_grants_time_bound_catalog_access() {
 fn test_revise_listing_increments_revision_and_snapshots_old_metadata() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(
@@ -3389,7 +3389,7 @@ fn test_revise_listing_increments_revision_and_snapshots_old_metadata() {
 fn test_revise_listing_multiple_times_each_revision_preserved() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(&env, &client, &creator, "V0 Title", 100, &context.xlm);
@@ -3429,7 +3429,7 @@ fn test_revise_listing_multiple_times_each_revision_preserved() {
 fn test_revise_listing_unauthorized_fails() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let other = Address::generate(&env);
@@ -3451,7 +3451,7 @@ fn test_revise_listing_unauthorized_fails() {
 fn test_revise_listing_buyer_retains_access_after_revision() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3482,7 +3482,7 @@ fn test_revise_listing_buyer_retains_access_after_revision() {
 fn test_update_splits_replaces_existing_splits() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -3550,7 +3550,7 @@ fn test_update_splits_replaces_existing_splits() {
 fn test_update_splits_clears_all_splits() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co1 = Address::generate(&env);
@@ -3580,7 +3580,7 @@ fn test_update_splits_clears_all_splits() {
 fn test_update_splits_rejects_unauthorized_caller() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let stranger = Address::generate(&env);
@@ -3601,7 +3601,7 @@ fn test_update_splits_rejects_unauthorized_caller() {
 fn test_update_splits_rejects_invalid_total_bps() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co1 = Address::generate(&env);
@@ -3627,7 +3627,7 @@ fn test_update_splits_rejects_invalid_total_bps() {
 fn test_update_splits_rejects_duplicate_recipients() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co1 = Address::generate(&env);
@@ -3654,7 +3654,7 @@ fn test_update_splits_rejects_duplicate_recipients() {
 fn test_create_prompt_rejects_duplicate_split_recipients() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co1 = Address::generate(&env);
@@ -3702,7 +3702,7 @@ fn test_create_prompt_rejects_duplicate_split_recipients() {
 fn test_update_splits_blocked_when_paused() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(&env, &client, &creator, "Pause Splits", 5_000, &context.xlm);
@@ -3722,7 +3722,7 @@ fn test_update_splits_blocked_when_paused() {
 fn test_create_prompt_tags_and_category_filters() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let mut tags = Vec::new(&env);
@@ -3777,7 +3777,7 @@ fn test_create_prompt_tags_and_category_filters() {
 fn test_buyer_can_open_and_admin_can_resolve_refund_dispute() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -3810,7 +3810,7 @@ fn test_buyer_can_open_and_admin_can_resolve_refund_dispute() {
 fn test_invalid_dispute_requires_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
     let stranger = Address::generate(&env);
     let prompt_id = create_prompt(&env, &client, &creator, "No Purchase", 10_000, &context.xlm);
@@ -3830,7 +3830,7 @@ fn test_invalid_dispute_requires_purchase() {
 fn test_resolved_dispute_cannot_be_resolved_twice() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -3859,7 +3859,7 @@ fn test_resolved_dispute_cannot_be_resolved_twice() {
 fn test_max_supply_enforced_on_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer1 = Address::generate(&env);
@@ -3907,7 +3907,7 @@ fn test_max_supply_enforced_on_purchase() {
 fn test_max_supply_zero_means_unlimited() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let price = 5_000;
@@ -3933,7 +3933,7 @@ fn test_dispute_rejection_does_not_refund() {
 fn test_create_prompt_with_max_supply_stores_correctly() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = client.create_prompt(
@@ -3966,7 +3966,7 @@ fn test_create_prompt_with_max_supply_stores_correctly() {
 fn test_limited_edition_exhausts_after_max_supply_sales() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -4006,7 +4006,7 @@ fn test_limited_edition_exhausts_after_max_supply_sales() {
 fn test_only_owner_can_set_pause_status() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _non_admin = Address::generate(&env); // <-- Renamed from _non_admin
 
     // Tell the environment to expect an authorization block from our non_admin address
@@ -4023,7 +4023,7 @@ fn test_only_owner_can_set_pause_status() {
 fn test_only_owner_can_set_fee_wallet() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _non_admin = Address::generate(&env);
     let new_wallet = Address::generate(&env);
     env.set_auths(&[]);
@@ -4039,7 +4039,7 @@ fn test_only_owner_can_set_fee_wallet() {
 fn test_lease_price_is_40_percent_of_listing() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let prompt_id = client.create_prompt(
@@ -4112,7 +4112,7 @@ fn test_lease_price_is_40_percent_of_listing() {
 fn test_unlimited_supply_allows_many_purchases() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -4142,7 +4142,7 @@ fn test_unlimited_supply_allows_many_purchases() {
 fn test_get_prompts_by_ids_returns_matching_prompts() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let id0 = create_prompt(&env, &client, &creator, "Prompt A", 1_000, &context.xlm);
@@ -4171,7 +4171,7 @@ fn test_get_prompts_by_ids_returns_matching_prompts() {
 fn test_get_prompts_by_ids_skips_nonexistent() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let id0 = create_prompt(&env, &client, &creator, "Exists", 1_000, &context.xlm);
@@ -4190,7 +4190,7 @@ fn test_get_prompts_by_ids_skips_nonexistent() {
 fn test_get_prompts_by_ids_empty_list() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let ids = Vec::new(&env);
@@ -4241,7 +4241,7 @@ fn test_get_prompts_by_ids_empty_list() {
 fn test_non_owner_cannot_set_fee_percentage() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _non_admin = Address::generate(&env);
     env.set_auths(&[]);
     let res = client.try_set_fee_percentage(&300u32);
@@ -4255,7 +4255,7 @@ fn test_non_owner_cannot_set_fee_percentage() {
 fn test_non_owner_cannot_set_referral_percentage() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _non_admin = Address::generate(&env);
     env.set_auths(&[]);
     let res = client.try_set_referral_percentage(&300u32);
@@ -4269,7 +4269,7 @@ fn test_non_owner_cannot_set_referral_percentage() {
 fn test_zero_price_prompt_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let result = client.try_create_prompt(
@@ -4305,7 +4305,7 @@ fn test_zero_price_prompt_rejected() {
 fn test_update_price_to_zero_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4332,7 +4332,7 @@ fn test_update_price_to_zero_rejected() {
 fn test_buyer_index_records_purchases_deterministically() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4379,7 +4379,7 @@ fn test_buyer_index_records_purchases_deterministically() {
 fn test_inactive_prompt_purchase_fails_with_correct_error() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4424,7 +4424,7 @@ fn test_payout_invariant_fee_plus_creator_equals_payment() {
     // Invariant: fee + creator_amount = payment (no referral, no splits)
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4472,7 +4472,7 @@ fn test_payout_invariant_with_referral() {
     // Invariant: fee + referral + creator_amount = payment (with referral)
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4524,7 +4524,7 @@ fn test_payout_invariant_with_splits() {
     // Invariant: fee + splits + creator_amount = payment (with splits, no referral)
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4596,7 +4596,7 @@ fn test_payout_invariant_with_tip() {
     // Invariant: tip = payment - price (when payment > price)
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -4643,7 +4643,7 @@ fn test_payout_invariant_with_tip() {
 fn test_lease_respects_max_supply() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer_one = Address::generate(&env);
@@ -4671,7 +4671,7 @@ fn test_lease_respects_max_supply() {
 fn test_set_max_supply_below_committed_sales_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer_one = Address::generate(&env);
@@ -4711,7 +4711,7 @@ fn test_set_max_supply_below_committed_sales_rejected() {
 fn test_dispute_refund_releases_supply_for_resale() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer_one = Address::generate(&env);
@@ -4765,7 +4765,7 @@ fn test_dispute_refund_releases_supply_for_resale() {
 fn test_transfer_license_does_not_consume_or_free_supply() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let seller = Address::generate(&env);
@@ -4808,7 +4808,7 @@ fn test_transfer_license_does_not_consume_or_free_supply() {
 fn test_bundle_purchase_respects_prompt_max_supply() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let early_buyer = Address::generate(&env);
@@ -4857,7 +4857,7 @@ fn test_bundle_purchase_respects_prompt_max_supply() {
 fn test_access_pass_respects_own_max_supply() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer_one = Address::generate(&env);
@@ -4894,7 +4894,7 @@ fn test_access_pass_renewal_before_expiry_extends_from_current_expiry() {
     let env: Env = Default::default();
     env.ledger().with_mut(|ledger| ledger.timestamp = 1_000);
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -4931,7 +4931,7 @@ fn test_access_pass_renewal_after_expiry_starts_from_now() {
     let env: Env = Default::default();
     env.ledger().with_mut(|ledger| ledger.timestamp = 1_000);
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -4965,7 +4965,7 @@ fn test_access_pass_renewal_after_expiry_starts_from_now() {
 fn test_paused_access_pass_cannot_be_purchased_but_can_be_reactivated() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -4996,7 +4996,7 @@ fn test_paused_access_pass_cannot_be_purchased_but_can_be_reactivated() {
 fn test_retired_access_pass_cannot_be_reactivated() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let pass_id = client.create_access_pass(
@@ -5023,7 +5023,7 @@ fn test_retired_access_pass_cannot_be_reactivated() {
 fn test_retiring_access_pass_does_not_revoke_existing_grant() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5051,7 +5051,7 @@ fn test_retiring_access_pass_does_not_revoke_existing_grant() {
 fn test_update_access_pass_price_applies_to_next_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5087,7 +5087,7 @@ fn test_dispute_cannot_open_after_window_closes() {
     let env: Env = Default::default();
     env.ledger().with_mut(|ledger| ledger.timestamp = 1_000);
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5116,7 +5116,7 @@ fn test_dispute_within_window_still_succeeds() {
     let env: Env = Default::default();
     env.ledger().with_mut(|ledger| ledger.timestamp = 1_000);
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5141,7 +5141,7 @@ fn test_dispute_within_window_still_succeeds() {
 fn test_permissionless_settlement_blocked_before_window_elapses() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5163,7 +5163,7 @@ fn test_permissionless_settlement_blocked_before_window_elapses() {
 fn test_permissionless_settlement_after_window_by_any_caller() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5191,7 +5191,7 @@ fn test_permissionless_settlement_after_window_by_any_caller() {
 fn test_settle_purchase_blocked_while_dispute_open() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5219,7 +5219,7 @@ fn test_settle_purchase_blocked_while_dispute_open() {
 fn test_creator_can_settle_immediately_without_waiting() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5241,7 +5241,7 @@ fn test_creator_can_settle_immediately_without_waiting() {
 fn test_asset_liability_tracks_pending_on_purchase() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5260,7 +5260,7 @@ fn test_asset_liability_tracks_pending_on_purchase() {
 fn test_asset_liability_decrements_on_settle() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5280,7 +5280,7 @@ fn test_asset_liability_decrements_on_settle() {
 fn test_asset_liability_moves_to_disputed_on_dispute_open() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5304,7 +5304,7 @@ fn test_asset_liability_moves_to_disputed_on_dispute_open() {
 fn test_asset_liability_moves_back_to_pending_on_dispute_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5334,7 +5334,7 @@ fn test_asset_liability_moves_back_to_pending_on_dispute_rejected() {
 fn test_asset_liability_clears_on_dispute_refunded() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5359,7 +5359,7 @@ fn test_asset_liability_clears_on_dispute_refunded() {
 fn test_asset_liability_unaffected_by_lease_prompt() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5381,7 +5381,7 @@ fn test_asset_liability_unaffected_by_lease_prompt() {
 fn test_asset_solvency_matches_when_no_drift() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5402,7 +5402,7 @@ fn test_asset_solvency_matches_when_no_drift() {
 fn test_check_asset_solvency_detects_drift_and_pauses() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5435,7 +5435,7 @@ fn test_check_asset_solvency_detects_drift_and_pauses() {
 fn test_migrate_asset_liability_is_idempotent() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -5464,7 +5464,7 @@ fn test_migrate_asset_liability_is_idempotent() {
 fn test_split_validation_sum_exactly_at_max_bps_minus_fee() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -5493,7 +5493,7 @@ fn test_split_validation_sum_exactly_at_max_bps_minus_fee() {
 fn test_split_validation_rejects_split_exceeding_max_bps() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -5532,7 +5532,7 @@ fn test_split_validation_rejects_split_exceeding_max_bps() {
 fn test_split_validation_rejects_zero_bps_split() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -5571,7 +5571,7 @@ fn test_split_validation_rejects_zero_bps_split() {
 fn test_split_validation_rejects_duplicate_recipients() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -5614,7 +5614,7 @@ fn test_split_validation_rejects_duplicate_recipients() {
 fn test_split_validation_rejects_too_many_splits() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
 
@@ -5655,7 +5655,7 @@ fn test_split_validation_rejects_too_many_splits() {
 fn test_split_validation_multiple_splits_sum_within_limits() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let recipient_1 = Address::generate(&env);
@@ -5694,7 +5694,7 @@ fn test_split_validation_multiple_splits_sum_within_limits() {
 fn test_split_validation_boundary_fee_plus_splits_equals_max_bps() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let co_creator = Address::generate(&env);
@@ -5724,7 +5724,7 @@ fn test_split_validation_boundary_fee_plus_splits_equals_max_bps() {
 fn test_renew_critical_keys_batch_resumption_with_cursor() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let _xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
 
@@ -5778,7 +5778,7 @@ fn test_renew_critical_keys_batch_resumption_with_cursor() {
 fn test_renew_critical_keys_processes_each_key_exactly_once() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create exactly MAX_RENEWAL_BATCH_SIZE + 5 prompts
@@ -5828,7 +5828,7 @@ fn test_renew_critical_keys_processes_each_key_exactly_once() {
 fn test_renew_critical_keys_with_invalid_cursor_degrades_gracefully() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create a few prompts
@@ -5861,7 +5861,7 @@ fn test_renew_critical_keys_with_invalid_cursor_degrades_gracefully() {
 fn test_renew_critical_keys_expiry_risk_consistency() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create prompts
@@ -5893,7 +5893,7 @@ fn test_renew_critical_keys_expiry_risk_consistency() {
 fn test_renew_critical_keys_handles_empty_storage() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Attempt renewal with no prompts created
     let (renewed_count, cursor) = client.renew_critical_keys(&None::<u64>);
@@ -5906,7 +5906,7 @@ fn test_renew_critical_keys_handles_empty_storage() {
 fn test_get_all_prompts_paginated_empty_collection() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Query with no prompts created
     let (prompts, next_cursor) = client.get_all_prompts_paginated(&None::<String>, &50);
@@ -5919,7 +5919,7 @@ fn test_get_all_prompts_paginated_empty_collection() {
 fn test_get_prompts_by_category_page_empty_category() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Query a category that has no prompts
     let (prompts, next_cursor) = client.get_prompts_by_category_page(
@@ -5939,7 +5939,7 @@ fn test_get_prompts_by_category_page_empty_category() {
 fn test_get_prompts_by_tag_paginated_empty_tag() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Query a tag that has no prompts
     let (prompts, next_cursor) = client.get_prompts_by_tag_paginated(
@@ -5956,7 +5956,7 @@ fn test_get_prompts_by_tag_paginated_empty_tag() {
 fn test_get_active_prompts_paginated_empty_collection() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Query active prompts with no prompts created
     let (prompts, next_cursor) = client.get_active_prompts_paginated(&None::<String>, &50);
@@ -5976,7 +5976,7 @@ fn test_get_active_prompts_paginated_empty_collection() {
 fn test_pagination_page_size_zero_handled() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create some prompts
@@ -6000,7 +6000,7 @@ fn test_pagination_page_size_zero_handled() {
 fn test_pagination_page_size_larger_than_collection() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create 3 prompts
@@ -6026,7 +6026,7 @@ fn test_pagination_page_size_larger_than_collection() {
 fn test_pagination_cursor_consistency_across_entry_points() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create prompts in a specific category
@@ -6067,7 +6067,7 @@ fn test_pagination_cursor_consistency_across_entry_points() {
 fn test_pagination_with_batch_requests() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     // Create 10 prompts
@@ -6112,7 +6112,7 @@ fn test_pagination_with_batch_requests() {
 
 fn create_prompt_with_category(
     env: &Env,
-    client: &PromptHashContractClient,
+    client: &SelloraContractClient,
     creator: &Address,
     title: &str,
     price: i128,
@@ -6145,7 +6145,7 @@ fn create_prompt_with_category(
 fn test_migrate_platform_fee_bound_non_admin_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     env.as_contract(&context.contract, || {
         crate::storage::InstanceStorage::set_fee_percentage(&env, &5_000u32);
@@ -6163,7 +6163,7 @@ fn test_migrate_platform_fee_bound_non_admin_rejected() {
 fn test_migrate_platform_fee_bound_already_within_bound() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     // Fee is already within the bound by default
     assert_eq!(client.get_fee_percentage(), 500);
@@ -6177,7 +6177,7 @@ fn test_migrate_platform_fee_bound_already_within_bound() {
 fn test_migrate_asset_liability_pending_case() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6212,7 +6212,7 @@ fn test_migrate_asset_liability_pending_case() {
 fn test_migrate_asset_liability_disputed_case() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6250,7 +6250,7 @@ fn test_migrate_asset_liability_disputed_case() {
 fn test_migrate_asset_liability_non_admin_rejected() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6271,7 +6271,7 @@ fn test_migrate_asset_liability_non_admin_rejected() {
 fn test_migrate_asset_liability_with_asset_solvency() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6318,7 +6318,7 @@ fn test_discount_auth_happy_path() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6367,7 +6367,7 @@ fn test_discount_auth_domain_mismatch_network_id() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6401,7 +6401,7 @@ fn test_discount_auth_domain_mismatch_contract_id() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6436,7 +6436,7 @@ fn test_discount_auth_expired_ledger() {
     env.mock_all_auths();
     env.ledger().set_sequence_number(100);
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6470,7 +6470,7 @@ fn test_discount_auth_nonce_replay_rejection() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6528,7 +6528,7 @@ fn test_discount_auth_unauthorized_caller() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let unauthorized_caller = Address::generate(&env);
@@ -6564,7 +6564,7 @@ fn test_discount_auth_revoke_then_redeem_fails() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6616,7 +6616,7 @@ fn test_discount_auth_invalid_discount_percentage() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let buyer = Address::generate(&env);
@@ -6650,7 +6650,7 @@ fn test_discount_auth_max_bps_edge_case() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6703,7 +6703,7 @@ fn test_get_prompts_by_creator_paginated_empty_and_multi_page() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let other_creator = Address::generate(&env);
@@ -6785,7 +6785,7 @@ fn test_get_prompts_by_buyer_paginated_multi_page() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6832,7 +6832,7 @@ fn test_catalog_secondary_index_verification_and_repair() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id = create_prompt(&env, &client, &creator, "Indexed Prompt", 1_000, &context.xlm);
@@ -6890,7 +6890,7 @@ fn test_checked_accounting_invariant_on_double_refund_and_counters() {
     let env: Env = Default::default();
     env.mock_all_auths();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let xlm_client = token::StellarAssetClient::new(&env, &context.xlm);
 
     let creator = Address::generate(&env);
@@ -6924,7 +6924,7 @@ fn test_checked_accounting_invariant_on_double_refund_and_counters() {
 fn test_listing_snapshot_hash_binds_to_current_listing_state() {
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
 
     let creator = Address::generate(&env);
     let prompt_id =
@@ -6950,7 +6950,7 @@ fn test_admin_moderation_delist_restore_and_evidence_audit_trail() {
 
     let env: Env = Default::default();
     let context = setup(&env);
-    let client = PromptHashContractClient::new(&env, &context.contract);
+    let client = SelloraContractClient::new(&env, &context.contract);
     let creator = Address::generate(&env);
 
     let prompt_id = create_prompt(&env, &client, &creator, "Mod Test", 1_000, &context.xlm);

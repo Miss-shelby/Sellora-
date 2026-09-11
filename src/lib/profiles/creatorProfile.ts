@@ -133,8 +133,8 @@ function validateUrl(url: string, fieldName: string): string | null {
   return null;
 }
 
-const PROFILE_STORAGE_PREFIX = "prompt-hash:profile:";
-const PROFILE_INDEX_KEY = "prompt-hash:profiles:index";
+const PROFILE_STORAGE_PREFIX = "sellora:profile:";
+const PROFILE_INDEX_KEY = "sellora:profiles:index";
 const PINATA_PIN_JSON_URL = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
 const mockProfiles: Record<string, CreatorProfileInput> = {
@@ -289,7 +289,7 @@ async function pinCreatorProfileToIpfs(
         name: `creator-profile-${profile.address.slice(0, 8)}`,
       },
       pinataContent: {
-        schema: "prompt-hash.creator-profile.v1",
+        schema: "sellora.creator-profile.v1",
         sep: {
           profileMetadata: "SEP-1 stellar.toml account metadata",
           webAuth: "SEP-10 wallet authentication compatible",

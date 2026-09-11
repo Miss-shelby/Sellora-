@@ -1,5 +1,5 @@
 /**
- * Typed Soroban contract method wrappers for PromptHash.
+ * Typed Soroban contract method wrappers for Sellora.
  * Converts UI types → XDR arguments → contract invocations.
  * Real transaction building, simulation, signing, and submission.
  */
@@ -22,11 +22,11 @@ import {
   readContract,
 } from "./tx";
 import type {
-  PromptHashConfig,
+  SelloraConfig,
   PromptRecord,
   BundleRecord,
   AccessPassRecord,
-} from "./promptHashClient";
+} from "./SelloraClient";
 import { normalizeContentHash } from "../crypto/promptCrypto";
 
 // ============================================================================
@@ -34,7 +34,7 @@ import { normalizeContentHash } from "../crypto/promptCrypto";
 // ============================================================================
 
 export async function contractCheckAccess(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   userAddress: string,
   promptId: bigint,
 ): Promise<boolean> {
@@ -50,14 +50,14 @@ export async function contractCheckAccess(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "has_access",
     args,
   );
 }
 
 export async function contractGetPrompt(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   promptId: bigint,
 ): Promise<PromptRecord> {
   const args = [scValArg(promptId, "u64")];
@@ -69,7 +69,7 @@ export async function contractGetPrompt(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_prompt",
     args,
   );
@@ -78,7 +78,7 @@ export async function contractGetPrompt(
 }
 
 export async function contractGetAllPrompts(
-  config: PromptHashConfig,
+  config: SelloraConfig,
 ): Promise<PromptRecord[]> {
   const result = await readContract<Record<string, any>[]>(
     {
@@ -87,7 +87,7 @@ export async function contractGetAllPrompts(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_all_prompts",
     [],
   );
@@ -108,7 +108,7 @@ export async function contractGetAllPrompts(
  * falls back to a bare string when the SDK cannot represent options.
  */
 export async function contractGetAllPromptsPaginated(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   cursor?: string | null,
   limit = 50,
 ): Promise<{ prompts: PromptRecord[]; nextCursor: string | null }> {
@@ -123,7 +123,7 @@ export async function contractGetAllPromptsPaginated(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_all_prompts_paginated",
     args,
   );
@@ -168,7 +168,7 @@ function encodeOptionString(value: string | null): xdr.ScVal {
 
 
 export async function contractGetPromptsByCreator(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   creatorAddress: string,
 ): Promise<PromptRecord[]> {
   const args = [scValArg(new Address(creatorAddress).toScVal())];
@@ -180,7 +180,7 @@ export async function contractGetPromptsByCreator(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_prompts_by_creator",
     args,
   );
@@ -192,7 +192,7 @@ export async function contractGetPromptsByCreator(
  * Paginated query for creator prompts (#651).
  */
 export async function contractGetPromptsByCreatorPaginated(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   creatorAddress: string,
   cursor?: string | null,
   limit = 50,
@@ -212,7 +212,7 @@ export async function contractGetPromptsByCreatorPaginated(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_prompts_by_creator_paginated",
     args,
   );
@@ -225,7 +225,7 @@ export async function contractGetPromptsByCreatorPaginated(
 }
 
 export async function contractGetPromptsByBuyer(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   buyerAddress: string,
 ): Promise<PromptRecord[]> {
   const args = [scValArg(new Address(buyerAddress).toScVal())];
@@ -237,7 +237,7 @@ export async function contractGetPromptsByBuyer(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_prompts_by_buyer",
     args,
   );
@@ -249,7 +249,7 @@ export async function contractGetPromptsByBuyer(
  * Paginated query for buyer entitlements (#651).
  */
 export async function contractGetPromptsByBuyerPaginated(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   buyerAddress: string,
   cursor?: string | null,
   limit = 50,
@@ -269,7 +269,7 @@ export async function contractGetPromptsByBuyerPaginated(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_prompts_by_buyer_paginated",
     args,
   );
@@ -285,7 +285,7 @@ export async function contractGetPromptsByBuyerPaginated(
  * Verify secondary index consistency across catalog (#652).
  */
 export async function contractVerifyCatalogIndexes(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   startId = 0,
   batchSize = 50,
 ): Promise<{
@@ -309,7 +309,7 @@ export async function contractVerifyCatalogIndexes(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "verify_catalog_indexes",
     args,
   );
@@ -329,7 +329,7 @@ export async function contractVerifyCatalogIndexes(
 }
 
 export async function contractGetBundlesByCreator(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   creatorAddress: string,
 ): Promise<BundleRecord[]> {
   const args = [scValArg(new Address(creatorAddress).toScVal())];
@@ -341,7 +341,7 @@ export async function contractGetBundlesByCreator(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_bundles_by_creator",
     args,
   );
@@ -350,7 +350,7 @@ export async function contractGetBundlesByCreator(
 }
 
 export async function contractGetAccessPassesByCreator(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   creatorAddress: string,
 ): Promise<AccessPassRecord[]> {
   const args = [scValArg(new Address(creatorAddress).toScVal())];
@@ -362,7 +362,7 @@ export async function contractGetAccessPassesByCreator(
       allowHttp: config.allowHttp,
       simulationAccount: config.simulationAccount,
     },
-    config.promptHashContractId,
+    config.SelloraContractId,
     "get_access_passes_by_creator",
     args,
   );
@@ -375,7 +375,7 @@ export async function contractGetAccessPassesByCreator(
 // ============================================================================
 
 export async function contractCreatePrompt(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   userAddress: string,
   data: {
@@ -418,7 +418,7 @@ export async function contractCreatePrompt(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     userAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "create_prompt",
     args,
   );
@@ -438,7 +438,7 @@ export async function contractCreatePrompt(
 }
 
 export async function contractPurchasePrompt(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   buyerAddress: string,
   promptId: bigint,
@@ -451,7 +451,7 @@ export async function contractPurchasePrompt(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     buyerAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "buy_prompt",
     args,
   );
@@ -470,7 +470,7 @@ export async function contractPurchasePrompt(
 }
 
 export async function contractPurchaseBundle(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   buyerAddress: string,
   bundleId: bigint,
@@ -483,7 +483,7 @@ export async function contractPurchaseBundle(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     buyerAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "buy_bundle",
     args,
   );
@@ -502,7 +502,7 @@ export async function contractPurchaseBundle(
 }
 
 export async function contractPurchaseAccessPass(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   buyerAddress: string,
   passId: bigint,
@@ -515,7 +515,7 @@ export async function contractPurchaseAccessPass(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     buyerAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "buy_access_pass",
     args,
   );
@@ -534,7 +534,7 @@ export async function contractPurchaseAccessPass(
 }
 
 export async function contractCreateBundle(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   creatorAddress: string,
   data: {
@@ -559,7 +559,7 @@ export async function contractCreateBundle(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     creatorAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "create_bundle",
     args,
   );
@@ -579,7 +579,7 @@ export async function contractCreateBundle(
 }
 
 export async function contractCreateAccessPass(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   creatorAddress: string,
   data: {
@@ -598,7 +598,7 @@ export async function contractCreateAccessPass(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     creatorAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "create_access_pass",
     args,
   );
@@ -618,7 +618,7 @@ export async function contractCreateAccessPass(
 }
 
 export async function contractSetPromptSaleStatus(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   creatorAddress: string,
   promptId: bigint,
@@ -633,7 +633,7 @@ export async function contractSetPromptSaleStatus(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     creatorAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "set_prompt_sale_status",
     args,
   );
@@ -652,7 +652,7 @@ export async function contractSetPromptSaleStatus(
 }
 
 export async function contractUpdatePromptPrice(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   creatorAddress: string,
   promptId: bigint,
@@ -667,7 +667,7 @@ export async function contractUpdatePromptPrice(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     creatorAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "update_prompt_price",
     args,
   );
@@ -686,7 +686,7 @@ export async function contractUpdatePromptPrice(
 }
 
 export async function contractAdminSetPromptSaleStatus(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   signer: WalletTransactionSigner,
   adminAddress: string,
   promptId: bigint,
@@ -701,7 +701,7 @@ export async function contractAdminSetPromptSaleStatus(
   const prepared = await prepareContractCall(
     config as StellarNetworkConfig,
     adminAddress,
-    config.promptHashContractId,
+    config.SelloraContractId,
     "admin_set_prompt_sale_status",
     args,
   );
@@ -784,7 +784,7 @@ function decodeAccessPassRecord(
  * Issue #438: Per-item error surfacing for bulk purchases.
  */
 export async function contractValidateBulkPurchase(
-  config: PromptHashConfig,
+  config: SelloraConfig,
   buyerAddress: string,
   promptIds: bigint[],
   paymentAmounts: bigint[],
@@ -807,7 +807,7 @@ export async function contractValidateBulkPurchase(
 
     const result = await readContract(
       config as StellarNetworkConfig,
-      config.promptHashContractId,
+      config.SelloraContractId,
       "validate_bulk_purchase",
       args,
     );

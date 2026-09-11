@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { replayQuarantinedEvents } from "../server/src/services/indexer";
 
 async function main() {
-  const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/prompt-hash";
+  const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/sellora";
   await mongoose.connect(mongoUri);
 
   console.log("Starting replay of quarantined events...");
